@@ -1,0 +1,52 @@
+<nav class="navbar">
+  <ul class="navbar__list navbar--left">
+    <li class="navbar__item">
+      <a class="nav">Home</a>
+    </li>
+    <li class="navbar__item">
+      <a>Shop</a>
+    </li>
+    <li class="navbar__item">
+      <a>Contact</a>
+    </li>
+    <li class="navbar__item">
+      <a>About</a>
+    </li>
+  </ul>
+  <ul class="navbar__list navbar--middle">
+    <li class="navbar__item">
+      <img class="navbar__image" src="{{ imgLogoUrl }}" alt="" />
+    </li>
+  </ul>
+  <ul class="navbar__list navbar--right">
+    <li class="navbar__item navbar__search">
+      <fa-icon
+        style="position: relative"
+        (click)="toggleSearchBar()"
+        [@open_close_icon]="isOpen ? 'open' : 'closed'"
+        class="navbar__icon"
+        [icon]="faSearch"
+      ></fa-icon>
+      <div
+        class="navbar__input-container"
+        [@open_close_input]="isOpen ? 'open' : 'closed'"
+      >
+        <input
+          #focus
+          placeholder="Search . . ."
+          class="navbar__input"
+          type="text"
+          (keyup.enter)="search()"
+        />
+        <fa-icon
+          (click)="clearSearchBar()"
+          [icon]="faX"
+          class="navbar__icon navbar__icon--small"
+        ></fa-icon>
+      </div>
+    </li>
+    <li class="navbar__item">
+      <fa-icon class="navbar__icon" [icon]="faCart"></fa-icon>
+    </li>
+  </ul>
+</nav>

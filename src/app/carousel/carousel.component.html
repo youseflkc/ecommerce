@@ -1,0 +1,43 @@
+<div class="carousel">
+  <ng-container *ngFor="let slide of slides; let i = index">
+    <img
+      *ngIf="i === current_slide"
+      [src]="slide.src"
+      class="carousel__slide"
+      [@slide_animation]
+      alt=""
+    />
+  </ng-container>
+  <ng-container *ngFor="let slide of slides; let i = index">
+    <div [@info_animation] *ngIf="i === current_slide" class="slideshow__info">
+      <header [@info_scroll_animation] class="slideshow__header">
+        <h3> {{ slide.header }}</h3>
+        <h2>{{ slide.price }}</h2>
+        <p>
+          {{ slide.info }}
+        </p>
+        <div class="slideshow__btn-container">
+          <button class="slideshow__btn">Shop Now</button>
+        </div>
+      </header>
+    </div>
+  </ng-container>
+
+  <div class="carousel__btn--container">
+    <mat-progress-bar
+      mode="determinate"
+      color="secondary"
+      [value]="i === current_slide ? progress_bar_value : ''"
+      *ngFor="let slide of slides; let i = index"
+      class="carousel__btn"
+      (click)="goToSlide(i)"
+      [ngClass]="i === current_slide ? 'carousel__btn--selected' : ''"
+    >
+      <!-- <mat-progress-bar
+        *ngIf="i === current_slide"
+        mode="determinate"
+        [value]="progress_bar_value"
+      ></mat-progress-bar> -->
+    </mat-progress-bar>
+  </div>
+</div>

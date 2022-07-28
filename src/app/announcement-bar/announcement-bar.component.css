@@ -1,0 +1,12 @@
+.announcement-bar {
+  height: 2rem;
+  background-color: #0f547a;
+  color: white;
+  margin: 0;
+  line-height: 1.65;
+  text-align: center;
+  padding-top: 0.3rem;
+}
+.announcement-bar p {
+  text-transform: uppercase;
+}
