@@ -1,0 +1,20 @@
+.featured-products--container {
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+h3 {
+  text-align: center;
+  color: var(--color-secondary);
+}
+
+.featured-products--btn-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 3rem;
+}
+
+.featured-products--btn-container > .btn {
+  width: 20%;
+}

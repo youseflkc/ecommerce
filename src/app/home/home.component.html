@@ -1,5 +1,18 @@
-<app-slideshow></app-slideshow>
-<div class="home__icon">
-  <fa-icon class="home__icon--under" [icon]="faArrow"></fa-icon>
-  <fa-icon class="home__icon--over" [icon]="faArrowSolid"></fa-icon>
-</div>
+<section>
+  <app-slideshow></app-slideshow>
+  <div class="page-down--container">
+    <fa-icon
+      (click)="scrollPage(featured_products)"
+      class="page-down-icon"
+      [icon]="faArrowSolid"
+    ></fa-icon>
+  </div>
+</section>
+
+<section class="block" #featured_products>
+  <app-featured-products></app-featured-products>
+</section>
+
+<section class="block">
+  <app-join-now></app-join-now>
+</section>

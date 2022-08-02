@@ -1,53 +1,22 @@
-.home__icon {
-  overflow: hidden;
-  height: 3.4rem;
-  display: inline;
-  position: absolute;
-  left: 50%;
-  padding: 0;
-  margin: 0%;
-  bottom: 25px;
+.page-down--container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.home__icon--under {
+.page-down-icon {
   font-size: 3.4rem;
+  bottom: 10%;
   color: var(--color-secondary);
-  position: absolute;
-  padding: 0;
-  margin: 0%;
-  z-index: 1;
-  /* animation: icon_flash 2s infinite; */
-  transition: all 0.1s;
-  opacity: 0;
+  transform: translateY(-25px);
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
-.home__icon--over {
-  color: var(--color-secondary);
-  position: absolute;
-  padding: 0;
-  margin: 0%;
-  font-size: 3.7rem;
-  z-index: 2;
-  transition: all 0.5s;
-  opacity: 1;
+.page-down-icon:hover {
+  transform: translateY(-25px) rotate(1turn);
 }
 
-.home__icon:hover .home__icon--over {
-  transform: translateY(50%);
-}
-
-.home__icon:hover .home__icon--under {
-  opacity: 1;
-}
-
-@keyframes icon_flash {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+.block {
+  padding: 2rem 0;
 }

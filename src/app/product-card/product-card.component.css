@@ -1,0 +1,61 @@
+.product-card {
+}
+
+.product-card__image-container {
+  margin: 1rem 3rem;
+  padding: 2rem 4rem;
+  background-color: var(--color-product-bg-2);
+  position: relative;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .product-card__image-container {
+    margin: 1rem 1.4rem;
+    padding: 2rem;
+  }
+}
+
+.product-card__image {
+  width: 100%;
+}
+
+.product-card__image-container:hover {
+  background-color: var(--color-font);
+  background-image: url("/assets/images/headphones-red.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+}
+
+.product-card__image-container:hover .product-card__image {
+  opacity: 0;
+}
+
+.product-card__info {
+  color: var(--color-secondary);
+  text-align: center;
+}
+
+.product-card__info a:hover {
+  cursor: pointer;
+  transition: all 0.3s;
+  color: var(--color-primary);
+}
+
+.product-card__info > p {
+  color: var(--color-primary);
+}
+
+.product-card--highlight .product-card__image-container::before {
+  display: inline-block;
+  content: "New";
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 0 0.5rem;
+  font-weight: 600;
+  color: #ef7317;
+  background-color: var(--color-font);
+}

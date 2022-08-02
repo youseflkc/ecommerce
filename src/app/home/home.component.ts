@@ -180,4 +180,8 @@ export class HomeComponent implements OnInit {
       console.log('error');
     }
   }
+
+  scrollPage(element: HTMLElement) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
 }

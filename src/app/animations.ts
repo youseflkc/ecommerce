@@ -5,6 +5,7 @@ import {
   transition,
   animate,
 } from '@angular/animations';
+import { AbsoluteSourceSpan } from '@angular/compiler';
 
 export let open_close_input = trigger('open_close_input', [
   state(
@@ -21,21 +22,23 @@ export let open_close_input = trigger('open_close_input', [
       opacity: 0,
     })
   ),
-  transition('open <=> closed', [animate('0.1s')]),
+  transition('open <=> closed', [animate('0.2s')]),
 ]);
 
 export let open_close_icon = trigger('open_close_icon', [
   state(
     'open',
     style({
-      right: '0%',
+      position: 'absolute',
+      left: '5px',
     })
   ),
   state(
     'closed',
     style({
-      right: '-95%',
+      position: 'absolute',
+      right: '5px',
     })
   ),
-  transition('open <=> closed', [animate('0.1s')]),
+  transition('open <=> closed', [animate('0.2s')]),
 ]);

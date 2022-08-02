@@ -14,6 +14,9 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AnnouncementBarComponent } from './announcement-bar/announcement-bar.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { JoinNowComponent } from './join-now/join-now.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     SlideshowComponent,
     CarouselComponent,
     AnnouncementBarComponent,
+    FeaturedProductsComponent,
+    ProductCardComponent,
+    JoinNowComponent,
   ],
   imports: [
     BrowserModule,

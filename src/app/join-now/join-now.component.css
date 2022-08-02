@@ -1,0 +1,33 @@
+.join-now {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: var(--color-font);
+}
+
+.join-now--container {
+  margin: 4rem;
+  text-align: center;
+  color: var(--color-secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.join-now--container > p {
+  color: var(--color-primary);
+  margin: 2rem 0;
+  font-size: 1.2rem;
+}
+
+.join-now--img-container {
+  background-color: var(--color-product-bg-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.join-now--img {
+  width: 100%;
+  object-fit: cover;
+}

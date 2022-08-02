@@ -11,13 +11,13 @@
   <ng-container *ngFor="let slide of slides; let i = index">
     <div [@info_animation] *ngIf="i === current_slide" class="slideshow__info">
       <header [@info_scroll_animation] class="slideshow__header">
-        <h3> {{ slide.header }}</h3>
+        <h3>{{ slide.header }}</h3>
         <h2>{{ slide.price }}</h2>
         <p>
           {{ slide.info }}
         </p>
         <div class="slideshow__btn-container">
-          <button class="slideshow__btn">Shop Now</button>
+          <button class="btn btn--primary">Shop Now</button>
         </div>
       </header>
     </div>
@@ -33,11 +33,6 @@
       (click)="goToSlide(i)"
       [ngClass]="i === current_slide ? 'carousel__btn--selected' : ''"
     >
-      <!-- <mat-progress-bar
-        *ngIf="i === current_slide"
-        mode="determinate"
-        [value]="progress_bar_value"
-      ></mat-progress-bar> -->
     </mat-progress-bar>
   </div>
 </div>
