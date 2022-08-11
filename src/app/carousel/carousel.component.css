@@ -65,13 +65,18 @@
   margin-left: 3rem;
   width: 30%;
   border-radius: 0rem;
-  color: var(--color-secondary);
+  color: var(--color-primary);
   display: flex;
   flex-direction: column;
   background-color: #a4a4a43d;
   align-items: center;
   text-align: center;
   border: 1px solid var(--color-secondary);
+}
+
+.slideshow__header h3,
+h2 {
+  color: var(--color-secondary);
 }
 
 .slideshow__header h2::before {

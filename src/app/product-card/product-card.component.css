@@ -23,7 +23,6 @@
 
 .product-card__image-container:hover {
   background-color: var(--color-font);
-  background-image: url("/assets/images/headphones-red.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-origin: content-box;

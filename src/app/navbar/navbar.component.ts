@@ -1,5 +1,11 @@
 import { open_close_icon, open_close_input } from './../animations';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   faCartShopping,
   faSearch,
@@ -14,6 +20,18 @@ import {
 })
 export class NavbarComponent implements OnInit {
   @ViewChild('focus', { static: false }) input: ElementRef;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    let element = document.querySelector('.navbar') as HTMLElement;
+    if (window.scrollY > 36) {
+      element.classList.add('navbar--clear');
+      element.classList.remove('navbar--normal');
+    } else {
+      element.classList.remove('navbar--clear');
+      element.classList.add('navbar--normal');
+    }
+  }
 
   faCart = faCartShopping;
   faSearch = faSearch;
@@ -33,6 +51,8 @@ export class NavbarComponent implements OnInit {
       this.search();
     } else {
       this.isOpen = !this.isOpen;
+
+      //focuses the search textbox when the search bar is expanded
       setTimeout(
         () =>
           this.isOpen
@@ -44,7 +64,6 @@ export class NavbarComponent implements OnInit {
   }
 
   clearSearchBar() {
-    console.log(this.input.nativeElement.value);
     if (this.input.nativeElement.value) {
       this.input.nativeElement.value = '';
     } else {

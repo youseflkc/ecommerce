@@ -4,7 +4,7 @@
   background-color: var(--color-font);
 }
 
-.join-now--container {
+.join-now__container {
   margin: 4rem;
   text-align: center;
   color: var(--color-secondary);
@@ -14,20 +14,24 @@
   align-items: center;
 }
 
-.join-now--container > p {
+.join-now__container > p {
   color: var(--color-primary);
   margin: 2rem 0;
   font-size: 1.2rem;
 }
 
-.join-now--img-container {
+.join-now__container > .btn {
+  width: 50%;
+}
+
+.join-now__img-container {
   background-color: var(--color-product-bg-1);
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.join-now--img {
+.join-now__img {
   width: 100%;
   object-fit: cover;
 }

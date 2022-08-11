@@ -1,3 +1,4 @@
+import { Collection } from './../models/collection';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

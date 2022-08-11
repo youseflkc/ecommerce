@@ -1,11 +1,10 @@
 import {
-  state,
-  style,
-  transition,
-  trigger,
-  animate,
-  group,
-} from '@angular/animations';
+  btn_animation,
+  info_animation,
+  slide_animation,
+  info_scroll_animation,
+} from './../animations';
+
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -13,62 +12,10 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css'],
   animations: [
-    trigger('slide_animation', [
-      transition(':enter', [
-        style({
-          opacity: 0,
-          transform: 'scale(1.5) translate(-15%,-10%)',
-        }),
-        group([
-          animate('1s 0.9s', style({ opacity: 1 })),
-          animate(
-            '14.3s 0s cubic-bezier(.13,.92,.25,.77)',
-            style({
-              transform: 'scale(1) translate(0,0)',
-            })
-          ),
-        ]),
-      ]),
-      transition(':leave', [
-        animate('0.2s 0.3s', style({opacity: 0,}))
-      ])
-    ]),
-    trigger('btn_animation', [
-      state(
-        'empty_bar',
-        style({
-          transform: 'translateX(-100%)',
-        })
-      ),
-      transition('* => empty_bar', [style({ width: '100%' }), animate('15s')]),
-    ]),
-    trigger('info_animation', [
-      transition(':enter', [
-        style({
-          transform: 'translateY(100%)',
-          opacity: 0,
-        }),
-        animate('1.5s 0.8s cubic-bezier(.13,.92,.25,.77)'),
-      ]),
-      transition(':leave', [
-        animate(
-          '0.6s cubic-bezier(.13,.92,.25,.77)',
-          style({
-            transform: 'translateY(100%)',
-            opacity: '0',
-          })
-        ),
-      ]),
-    ]),
-    trigger('info_scroll_animation', [
-      transition(':enter', [
-        style({
-          transform: 'translateY(100%)',
-          opacity: 0,
-        }),
-        animate('1.5s 2s cubic-bezier(.13,.92,.25,.77)'),
-      ]),
-    ]),
+    slide_animation,
+    btn_animation,
+    info_animation,
+    info_scroll_animation,
   ],
 })
 export class CarouselComponent implements OnInit {

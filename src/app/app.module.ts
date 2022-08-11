@@ -17,6 +17,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { JoinNowComponent } from './join-now/join-now.component';
+import { TestimonialsComponent } from './testimonials/testimonials.component';
+import { FooterComponent } from './footer/footer.component';
+import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { JoinNowComponent } from './join-now/join-now.component';
     FeaturedProductsComponent,
     ProductCardComponent,
     JoinNowComponent,
+    TestimonialsComponent,
+    FooterComponent,
+    ShopComponent,
   ],
   imports: [
     BrowserModule,

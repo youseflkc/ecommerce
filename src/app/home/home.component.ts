@@ -146,15 +146,14 @@ export class HomeComponent implements OnInit {
       console.log(error);
     }
 
-    try {
-      if (this.next_url != '') {
-        let res = await this.productService.getNext(this.next_url);
-        this.products = this.products.concat(res.results);
-        this.next_url = res.next;
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   if (this.next_url != '') {
+    //     this.products = this.products.concat(res.results);
+    //     this.next_url = res.next;
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   async getFilteredProducts({

@@ -1,0 +1,36 @@
+.footer {
+  padding: 5rem 4rem;
+  background: var(--color-secondary);
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  color: var(--color-font);
+}
+
+.footer__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  list-style: none;
+  padding: 0;
+}
+
+.footer__item {
+}
+
+.footer__sublist {
+  list-style: none;
+  padding: 0;
+}
+
+.footer__sublist__item {
+  padding: 1rem 0;
+}
+
+.footer__sublist__item a {
+  text-decoration: none;
+  color: var(--color-font);
+  transition: all 0.2s;
+}
+
+.footer__sublist__item a:hover {
+  color: white;
+}

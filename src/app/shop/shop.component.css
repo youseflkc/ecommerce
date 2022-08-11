@@ -1,0 +1,150 @@
+.header {
+  margin: 8rem 4rem 4rem;
+  color: var(--color-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collections-list {
+  list-style: none;
+  font-size: 1.8rem;
+  padding: 1rem;
+  display: flex;
+}
+
+.collections-list__item {
+  padding: 0rem 1rem;
+}
+
+.collections-list__item > a {
+  text-decoration: none;
+  color: var(--color-secondary);
+}
+
+.collections-list__item > a:hover {
+  color: var(--color-primary);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 4rem 0 5rem;
+}
+
+.toolbar {
+  background-color: var(--color-font);
+  justify-content: center;
+  position: relative;
+  z-index: 99;
+}
+
+.toolbar__btn-container {
+  padding: 1.5rem 0;
+  background: var(--color-font);
+  position: relative;
+  z-index: 1;
+}
+
+.toolbar__btn {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  padding: 0 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.toolbar__icon {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  transform: rotate(-90deg);
+  transition: all 0.5s;
+}
+
+.toolbar__icon--down {
+  transform: rotate(0);
+}
+
+.toolbar__btn:hover {
+  color: var(--color-primary);
+}
+
+.toolbar__btn:hover .toolbar__icon {
+  right: 5px;
+  color: var(--color-primary);
+}
+
+.toolbar__btn:hover .toolbar__icon--down {
+  top: 5px;
+  right: 10px;
+}
+
+.filter {
+  padding: 0.5rem 3rem;
+}
+
+.filter__label {
+  color: var(--color-primary);
+  margin: 0 0.5rem;
+  align-self: center;
+}
+
+.filter__input {
+  border: none;
+  border-radius: 1rem;
+  font-size: 1rem;
+  width: 4rem;
+  outline: none;
+  color: var(--color-secondary);
+  padding: 0.5rem;
+  margin-right: 1rem;
+}
+
+.filter__btn {
+  font-size: 1rem;
+  padding: 0.3rem 1rem;
+  width: auto;
+  height: auto;
+  margin: 0 2rem;
+}
+
+.expandable {
+  position: absolute;
+  border-top: 1px solid var(--color-product-bg-1);
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: max-content;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  background-color: var(--color-font);
+  transition: all 0.5s;
+}
+
+.expandable--expanded {
+  top: 100%;
+  transition: all 0.5s;
+}
+
+.sort {
+  padding: 0rem 2rem;
+}
+
+.sort button {
+  font-size: 1rem;
+  color: var(--color-primary);
+  background-color: var(--color-font);
+  cursor: pointer;
+  border: none;
+  margin: 1rem;
+  transition: all 0.3s;
+}
+
+.sort button:hover {
+  color: var(--color-secondary);
+}

@@ -1,0 +1,79 @@
+.testimonial {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  margin: 2rem 4rem;
+}
+
+.testimonial__nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.testimonial__nav > img {
+  width: 10%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.testimonial__content {
+  overflow: hidden;
+  position: relative;
+  height: 15rem;
+}
+
+.testimonial__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 3rem;
+  color: var(--color-secondary);
+  position: absolute;
+  width: 100%;
+}
+
+.testimonial__body > h5 {
+  padding: 1rem 0rem;
+  color: var(--color-primary);
+}
+
+.testimonial__body > .btn {
+  width: 20%;
+}
+
+.testimonial__body__links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+}
+
+.link-arrow {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.link-arrow::after {
+  content: "\2192";
+  font-size: 2rem;
+  position: relative;
+  left: 5px;
+  transition: all 0.2s;
+}
+
+.link-arrow:hover::after {
+  left: 10px;
+}
+
+.img {
+  opacity: 0.3;
+  transition: all 0.2s;
+}
+
+.img--highlight {
+  opacity: 1;
+  transition: all 0.2s;
+}

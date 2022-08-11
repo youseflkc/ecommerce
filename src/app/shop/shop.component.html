@@ -1,0 +1,54 @@
+<header class="header">
+  <h4>Collections</h4>
+  <ul class="collections-list">
+    <li class="collections-list__item"><a href="">All Products</a></li>
+    <li *ngFor="let collection of collections" class="collections-list__item">
+      <a href="">{{ collection.title }}</a>
+    </li>
+  </ul>
+</header>
+
+<section class="toolbar">
+  <div class="toolbar__btn-container">
+    <button (click)="toggleSort()" class="toolbar__btn">
+      Sort
+      <fa-icon
+        [icon]="faAngleDown"
+        class="toolbar__icon"
+        [ngClass]="sortExpanded ? 'toolbar__icon--down' : ''"
+      ></fa-icon>
+    </button>
+    <button (click)="toggleFilter()" class="toolbar__btn">
+      Filter
+      <fa-icon
+        [icon]="faAngleDown"
+        class="toolbar__icon"
+        [ngClass]="filterExpanded ? 'toolbar__icon--down' : ''"
+      ></fa-icon>
+    </button>
+  </div>
+  <div
+    class="filter expandable"
+    [ngClass]="filterExpanded ? 'expandable--expanded' : ''"
+  >
+    <label class="filter__label" for="min-price">Min-Price</label
+    ><input class="filter__input" id="min-price" #focus type="number" />
+    <label class="filter__label" for="max-price">Max-Price</label
+    ><input class="filter__input" id="max-price" type="number" />
+    <button class="btn btn--primary filter__btn">Filter</button>
+  </div>
+  <div
+    class="sort expandable"
+    [ngClass]="sortExpanded ? 'expandable--expanded' : ''"
+  >
+    <button>Price <fa-icon [icon]="faAngleDown"></fa-icon></button>
+    <button>Name <fa-icon [icon]="faAngleDown"></fa-icon></button>
+    <button>Date <fa-icon [icon]="faAngleDown"></fa-icon></button>
+  </div>
+</section>
+
+<section class="products">
+  <ng-container *ngFor="let product of products">
+
+  </ng-container>
+</section>
