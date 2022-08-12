@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CollectionService {
-  private base_url = environment.base_url + '/collections/';
+  private base_url = environment.base_url + '/collecions/';
   constructor(private http: HttpClient) {}
 
   async getAll() {

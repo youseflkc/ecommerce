@@ -1,7 +1,11 @@
 import { Product } from './../models/product';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpStatusCode,
+} from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable({
@@ -18,13 +22,9 @@ export class ProductService {
    * @returns promise array of first 10 products - call getNext() to return next 10 products
    */
   async getAll(): Promise<any> {
-    try {
-      let res: any = await firstValueFrom(this.http.get(this.base_url));
-      this.next_url = res.next;
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    let res: any = await firstValueFrom(this.http.get(this.base_url));
+    this.next_url = res.next;
+    return res;
   }
 
   /**
@@ -42,19 +42,15 @@ export class ProductService {
     unit_price__lt?,
     ordering?
   ) {
-    try {
-      return await firstValueFrom(
-        this.http.get(
-          this.base_url +
-            ('?collection_id=' + (collection_id || '')) +
-            ('&unit_price__gt=' + (unit_price__gt || '')) +
-            ('&unit_price__lt=' + (unit_price__lt || '')) +
-            ('&ordering=' + (ordering || ''))
-        )
-      );
-    } catch (error) {
-      throw error;
-    }
+    return await firstValueFrom(
+      this.http.get(
+        this.base_url +
+          ('?collection_id=' + (collection_id || '')) +
+          ('&unit_price__gt=' + (unit_price__gt || '')) +
+          ('&unit_price__lt=' + (unit_price__lt || '')) +
+          ('&ordering=' + (ordering || ''))
+      )
+    );
   }
 
   /**
@@ -62,23 +58,15 @@ export class ProductService {
    * @returns promise of array with next 10 products after calling getAll() first.
    */
   async getNext(): Promise<any> {
-    try {
-      return await firstValueFrom(this.http.get(this.next_url));
-    } catch (error) {
-      throw error;
-    }
+    return await firstValueFrom(this.http.get(this.next_url));
   }
 
   /**
-   * 
+   *
    * @param id id of product to retrieve
    * @returns promise of the product with specified id
    */
   async getProduct(id: number) {
-    try {
-      return await firstValueFrom(this.http.get(this.base_url + id));
-    } catch (error) {
-      throw error;
-    }
+    return await firstValueFrom(this.http.get(this.base_url + id));
   }
 }
