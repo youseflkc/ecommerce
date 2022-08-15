@@ -1,0 +1,12 @@
+<div
+  class="dialog-box"
+  [@dialog_animation]
+  [ngClass]="startAnimation ? 'dialog-box--hide' : ''"
+>
+  <button (click)="close()" class="dialog-box__btn">
+    <fa-icon [icon]="faX"></fa-icon>
+  </button>
+  <h5>{{ data.header }}</h5>
+  <p class="dialog-box__body">Details: {{ data.message }}</p>
+  <p class="dialog-box__body">Code: {{ data.status }}</p>
+</div>

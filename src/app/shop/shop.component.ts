@@ -28,13 +28,13 @@ export class ShopComponent implements OnInit {
   async ngOnInit() {
     this.collections = await this.collectionService.getAll();
 
-    try {
-      let res: any = await this.productService.getAll();
-      this.products = res.results;
-      this.products_count = res.count;
-    } catch (error: any) {
-      console.log(error.statusText);
-    }
+    let res: any = await this.productService.getAll();
+
+    //store first 10 products from database  
+    this.products = res.results;
+
+    //total products in database.
+    this.products_count = res.count;
   }
 
   toggleSort() {

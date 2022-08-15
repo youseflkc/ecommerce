@@ -5,6 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
+  HttpStatusCode,
 } from '@angular/common/http';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 
@@ -19,7 +20,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       retry(1),
       catchError((error: HttpErrorResponse) => {
-        console.log('error!!!!');
         return throwError(() => new Error('error'));
       })
     );

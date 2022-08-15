@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       this.collections = res;
     } catch (error: any) {
       console.log(error.statusText);
-    }
+    } 
   }
 
   async getMoreProducts() {

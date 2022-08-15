@@ -1,3 +1,7 @@
+import { DialogRef } from './dialog-ref';
+import { DIALOG_CONFIG } from './dialog-config';
+import { GlobalErrorHandler } from './error-handling/global-error-handler';
+import { ErrorHandler } from '@angular/core';
 import { ServerErrorInterceptor } from './error-handling/server-error.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -21,6 +25,8 @@ import { JoinNowComponent } from './join-now/join-now.component';
 import { TestimonialsComponent } from './testimonials/testimonials.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShopComponent } from './shop/shop.component';
+import { DialogMessageComponent } from './dialog-message/dialog-message.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -38,6 +44,7 @@ import { ShopComponent } from './shop/shop.component';
     TestimonialsComponent,
     FooterComponent,
     ShopComponent,
+    DialogMessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,13 +53,17 @@ import { ShopComponent } from './shop/shop.component';
     HttpClientModule,
     FontAwesomeModule,
     MatProgressBarModule,
+    OverlayModule,
   ],
   providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ServerErrorInterceptor,
       multi: true,
     },
+    { provide: DIALOG_CONFIG, useValue: DIALOG_CONFIG },
+    { provide: DialogRef, useValue: { close: (dialogResult: any) => {} } },
   ],
   bootstrap: [AppComponent],
 })
