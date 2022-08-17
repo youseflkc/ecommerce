@@ -7,13 +7,13 @@ import { InjectionToken } from '@angular/core';
 export interface IDialogConfig {
   header: string;
   message: string;
-  status: number;
+  status?: number;
 }
 
 export const dialogConfig: IDialogConfig = {
   header: '',
   message: '',
-  status: 0,
+  status: undefined,
 };
 
 export const DIALOG_CONFIG = new InjectionToken<IDialogConfig>('dialogConfig');

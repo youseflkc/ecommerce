@@ -32,7 +32,6 @@ export class DialogMessageComponent implements OnInit {
   // }
 
   close() {
-    this.startAnimation = true;
-    // setTimeout(() => this.dialogRef.close(), 1000);
+    setTimeout(() => this.dialogRef.close(), 10);
   }
 }

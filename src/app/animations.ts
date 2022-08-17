@@ -171,15 +171,8 @@ export let dialog_animation = trigger('dialog_animation', [
       transform: 'translateX(100%)',
     }),
     animate(
-      '0.4s 0.2s cubic-bezier(0,.69,.25,1.02)',
+      '0.4s 1s cubic-bezier(0,.69,.25,1.02)',
       style({ transform: 'translateX(0)' })
-    ),
-  ]),
-
-  transition(':leave', [
-    animate(
-      '0.4s 0s cubic-bezier(.75,.05,1,.42)',
-      style({ transform: 'translateX(100%)' })
     ),
   ]),
 ]);

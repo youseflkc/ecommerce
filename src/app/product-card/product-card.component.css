@@ -5,6 +5,9 @@
   margin: 1rem 3rem;
   padding: 2rem 4rem;
   background-color: var(--color-product-bg-2);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-origin: content-box;
   position: relative;
   transition: all 0.2s;
   cursor: pointer;
@@ -23,9 +26,6 @@
 
 .product-card__image-container:hover {
   background-color: var(--color-font);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-origin: content-box;
 }
 
 .product-card__image-container:hover .product-card__image {

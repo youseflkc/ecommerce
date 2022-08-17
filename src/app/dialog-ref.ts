@@ -14,7 +14,11 @@ export class DialogRef {
    * Closes the overlay. You can optionally provide a result.
    */
   public close(result?: any) {
-    this.overlayRef.dispose();
+    //animates element out of view before disposing it
+    this.overlayRef.overlayElement.style.transform = 'translateX(100%)';
+
+    //waits 400ms for animation to finish before disposing
+    setTimeout(() => this.overlayRef.dispose(), 400);
     this.afterClosedSubject.next(result);
     this.afterClosedSubject.complete();
   }

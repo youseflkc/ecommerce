@@ -30,6 +30,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 4rem 0 5rem;
+  row-gap: 1rem;
 }
 
 .toolbar {

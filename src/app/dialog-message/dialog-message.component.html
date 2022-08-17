@@ -1,8 +1,4 @@
-<div
-  class="dialog-box"
-  [@dialog_animation]
-  [ngClass]="startAnimation ? 'dialog-box--hide' : ''"
->
+<div class="dialog-box" [@dialog_animation]>
   <button (click)="close()" class="dialog-box__btn">
     <fa-icon [icon]="faX"></fa-icon>
   </button>

@@ -1,3 +1,5 @@
+import { throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ProductService } from './../services/product.service';
 import { Collection } from './../models/collection';
 import { CollectionService } from './../services/collection.service';
@@ -22,15 +24,17 @@ export class ShopComponent implements OnInit {
 
   constructor(
     private collectionService: CollectionService,
+    private http: HttpClient,
     private productService: ProductService
   ) {}
 
   async ngOnInit() {
     this.collections = await this.collectionService.getAll();
 
+    // this.http.get('url').subscribe();
     let res: any = await this.productService.getAll();
 
-    //store first 10 products from database  
+    //store first 10 products from database
     this.products = res.results;
 
     //total products in database.

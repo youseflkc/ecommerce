@@ -27,6 +27,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ShopComponent } from './shop/shop.component';
 import { DialogMessageComponent } from './dialog-message/dialog-message.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     FooterComponent,
     ShopComponent,
     DialogMessageComponent,
+    LoadingDialogComponent,
   ],
   imports: [
     BrowserModule,

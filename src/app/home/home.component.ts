@@ -55,12 +55,12 @@ export class HomeComponent implements OnInit {
       console.log(error.statusText);
     }
 
-    try {
-      let res: any = await this.collectionService.getAll();
-      this.collections = res;
-    } catch (error: any) {
-      console.log(error.statusText);
-    } 
+    // try {
+    //   let res: any = await this.collectionService.getAll();
+    //   this.collections = res;
+    // } catch (error: any) {
+    //   console.log(error.statusText);
+    // } 
   }
 
   async getMoreProducts() {

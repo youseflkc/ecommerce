@@ -1,9 +1,19 @@
 <div class="product-card product-card--highlight">
   <div
-    [style.backround-image]="product.images[1]"
+    [style.background-image]="
+      'url(' +
+      (product.images[1] || '/assets/images/default-placeholder-image.png') +
+      ')'
+    "
     class="product-card__image-container"
   >
-    <img class="product-card__image" [src]="product.images[0]" alt="" />
+    <img
+      class="product-card__image"
+      [src]="
+        product.images[0] || '/assets/images/default-placeholder-image.png'
+      "
+      alt=""
+    />
   </div>
   <div class="product-card__info">
     <h5>
