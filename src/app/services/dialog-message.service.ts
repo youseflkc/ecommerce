@@ -24,7 +24,7 @@ export class DialogMessageService {
     const overlayRef = this.overlay.create({
       positionStrategy,
       hasBackdrop: false,
-      panelClass: 'overlay-panel',
+      panelClass: 'error-panel',
 
     });
 

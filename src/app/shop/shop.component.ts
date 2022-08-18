@@ -34,6 +34,8 @@ export class ShopComponent implements OnInit {
     // this.http.get('url').subscribe();
     let res: any = await this.productService.getAll();
 
+    // this.http.get('url');
+
     //store first 10 products from database
     this.products = res.results;
 

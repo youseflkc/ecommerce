@@ -13,5 +13,6 @@ export class GlobalErrorHandler implements ErrorHandler {
       header: 'A client error has occured. Please try again later.',
       message: error?.message,
     });
+    console.error(error);
   }
 }

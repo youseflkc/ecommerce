@@ -19,6 +19,7 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AnnouncementBarComponent } from './announcement-bar/announcement-bar.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { JoinNowComponent } from './join-now/join-now.component';
@@ -55,6 +56,7 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
     HttpClientModule,
     FontAwesomeModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule,
     OverlayModule,
   ],
   providers: [
