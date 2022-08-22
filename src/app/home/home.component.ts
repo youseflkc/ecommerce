@@ -24,9 +24,6 @@ import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
   animations: [],
 })
 export class HomeComponent implements OnInit {
-  UNIT_PRICE_ASC = 'unit_price';
-  UNIT_PRICE_DES = '-unit_price';
-
   products: Product[] = [];
   next_url: string = '';
   collections: Collection[] = [];
@@ -154,30 +151,6 @@ export class HomeComponent implements OnInit {
     // } catch (error) {
     //   console.log(error);
     // }
-  }
-
-  async getFilteredProducts({
-    collection_id,
-    unit_price__gt,
-    unit_price__lt,
-    ordering,
-  }: {
-    collection_id?: number;
-    unit_price__lt?: number;
-    unit_price__gt?: number;
-    ordering?: string;
-  }) {
-    try {
-      let res: any = await this.productService.getFilteredProducts(
-        collection_id,
-        unit_price__gt,
-        unit_price__lt,
-        ordering
-      );
-      this.products = res.results;
-    } catch (error) {
-      console.log('error');
-    }
   }
 
   scrollPage(element: HTMLElement) {

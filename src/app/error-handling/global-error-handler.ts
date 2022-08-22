@@ -9,10 +9,12 @@ export class GlobalErrorHandler implements ErrorHandler {
   constructor(private dialogService: DialogMessageService) {}
 
   handleError(error: any): void {
-    this.dialogService.open(DialogMessageComponent, {
-      header: 'A client error has occured. Please try again later.',
-      message: error?.message,
-    });
-    console.error(error);
+    if (!(error instanceof HttpErrorResponse)) {
+      this.dialogService.open(DialogMessageComponent, {
+        header: 'A client error has occured. Please try again later.',
+        message: error?.message,
+      });
+      console.error(error);
+    }
   }
 }

@@ -1,9 +1,19 @@
-<header class="header">
+<header #header class="header">
   <h4>Collections</h4>
   <ul class="collections-list">
-    <li class="collections-list__item"><a href="">All Products</a></li>
+    <li class="collections-list__item">
+      <a
+        (click)="filterByCollection(0)"
+        [ngClass]="collections_selected[0] ? 'selected' : ''"
+        >All Products</a
+      >
+    </li>
     <li *ngFor="let collection of collections" class="collections-list__item">
-      <a href="">{{ collection.title }}</a>
+      <a
+        (click)="filterByCollection(collection.id)"
+        [ngClass]="collections_selected[collection.id] ? 'selected' : ''"
+        >{{ collection.title }}</a
+      >
     </li>
   </ul>
 </header>
@@ -15,7 +25,7 @@
       <fa-icon
         [icon]="faAngleDown"
         class="toolbar__icon"
-        [ngClass]="sortExpanded ? 'toolbar__icon--down' : ''"
+        [ngClass]="sort_expanded ? 'toolbar__icon--down' : ''"
       ></fa-icon>
     </button>
     <button (click)="toggleFilter()" class="toolbar__btn">
@@ -23,32 +33,153 @@
       <fa-icon
         [icon]="faAngleDown"
         class="toolbar__icon"
-        [ngClass]="filterExpanded ? 'toolbar__icon--down' : ''"
+        [ngClass]="filter_expanded ? 'toolbar__icon--down' : ''"
       ></fa-icon>
     </button>
   </div>
   <div
     class="filter expandable"
-    [ngClass]="filterExpanded ? 'expandable--expanded' : ''"
+    [ngClass]="filter_expanded ? 'expandable--expanded' : ''"
+    (keyup.enter)="filterProducts(unit_price_min.value, unit_price_max.value)"
   >
     <label class="filter__label" for="min-price">Min-Price</label
-    ><input class="filter__input" id="min-price" #focus type="number" />
+    ><input
+      #unit_price_min
+      class="filter__input animate__animated"
+      id="min-price"
+      #focus
+      type="number"
+    />
     <label class="filter__label" for="max-price">Max-Price</label
-    ><input class="filter__input" id="max-price" type="number" />
-    <button class="btn btn--primary filter__btn">Filter</button>
+    ><input
+      #unit_price_max
+      class="filter__input animate__animated"
+      id="max-price"
+      type="number"
+    />
+    <button
+      (click)="filterProducts(unit_price_min.value, unit_price_max.value)"
+      class="btn btn--primary filter__btn"
+    >
+      Filter
+    </button>
+    <button
+      (click)="clearFilter()"
+      class="filter__clear"
+      [disabled]="
+        product_filtering.unit_price_max === '' &&
+        product_filtering.unit_price_min === ''
+      "
+      [ngClass]="
+        product_filtering.unit_price_max === '' &&
+        product_filtering.unit_price_min === ''
+          ? 'filter__clear--disabled'
+          : ''
+      "
+    >
+      <fa-icon class="filter__icon-clear" [icon]="faX"></fa-icon> Clear
+    </button>
+    <p class="filter__error">Max-price must be greater than min-price!</p>
   </div>
   <div
     class="sort expandable"
-    [ngClass]="sortExpanded ? 'expandable--expanded' : ''"
+    [ngClass]="sort_expanded ? 'expandable--expanded' : ''"
   >
-    <button>Price <fa-icon [icon]="faAngleDown"></fa-icon></button>
-    <button>Name <fa-icon [icon]="faAngleDown"></fa-icon></button>
-    <button>Date <fa-icon [icon]="faAngleDown"></fa-icon></button>
+    <button
+      class="sort__btn"
+      [disabled]="sort_items_selected[Ordering.UNIT_PRICE_ASC]"
+      [ngClass]="
+        sort_items_selected[Ordering.UNIT_PRICE_ASC]
+          ? 'sort__btn--highlight'
+          : ''
+      "
+      (click)="sortProducts(Ordering.UNIT_PRICE_ASC)"
+    >
+      Price: Low to High
+    </button>
+    <button
+      [disabled]="sort_items_selected[Ordering.UNIT_PRICE_DES]"
+      [ngClass]="
+        sort_items_selected[Ordering.UNIT_PRICE_DES]
+          ? 'sort__btn--highlight'
+          : ''
+      "
+      class="sort__btn"
+      (click)="sortProducts(Ordering.UNIT_PRICE_DES)"
+    >
+      Price: High to Low
+    </button>
+    <button
+      [disabled]="sort_items_selected[Ordering.TITLE_ASC]"
+      [ngClass]="
+        sort_items_selected[Ordering.TITLE_ASC] ? 'sort__btn--highlight' : ''
+      "
+      class="sort__btn"
+      (click)="sortProducts(Ordering.TITLE_ASC)"
+    >
+      Alphabetically: A - Z
+    </button>
+    <button
+      [disabled]="sort_items_selected[Ordering.TITLE_DES]"
+      [ngClass]="
+        sort_items_selected[Ordering.TITLE_DES] ? 'sort__btn--highlight' : ''
+      "
+      class="sort__btn"
+      (click)="sortProducts(Ordering.TITLE_DES)"
+    >
+      Alphabetically: Z - A
+    </button>
+    <button
+      [disabled]="sort_items_selected[Ordering.LAST_UPDATE_ASC]"
+      [ngClass]="
+        sort_items_selected[Ordering.LAST_UPDATE_ASC]
+          ? 'sort__btn--highlight'
+          : ''
+      "
+      class="sort__btn"
+      (click)="sortProducts(Ordering.LAST_UPDATE_ASC)"
+    >
+      Date Added: Old to New
+    </button>
+    <button
+      [disabled]="sort_items_selected[Ordering.LAST_UPDATE_DES]"
+      [ngClass]="
+        sort_items_selected[Ordering.LAST_UPDATE_DES]
+          ? 'sort__btn--highlight'
+          : ''
+      "
+      class="sort__btn"
+      (click)="sortProducts(Ordering.LAST_UPDATE_DES)"
+    >
+      Date Added: New to Old
+    </button>
   </div>
 </section>
+<div class="page-down-container">
+  <fa-icon
+    (click)="scrollPage(header)"
+    class="page-down-icon"
+    [icon]="faArrowSolid"
+  ></fa-icon>
+</div>
 
-<section class="products">
-  <ng-container *ngFor="let product of products">
-    <app-product-card [product]="product"></app-product-card>
-  </ng-container>
+<section>
+  <div class="products" *ngIf="products.length > 0">
+    <div class="products__container">
+      <ng-container *ngFor="let product of products">
+        <app-product-card [product]="product"></app-product-card>
+      </ng-container>
+    </div>
+    <button
+      [ngClass]="products.length === products_count ? 'btn--disabled' : ''"
+      [disabled]="products.length === products_count ? true : false"
+      (click)="loadMoreProducts()"
+      class="btn btn--primary products__btn"
+    >
+      Load More
+    </button>
+  </div>
+  <h4 class="no-products-header" *ngIf="products.length === 0">
+    No Products to Show
+  </h4>
 </section>

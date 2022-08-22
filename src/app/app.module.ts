@@ -29,6 +29,8 @@ import { ShopComponent } from './shop/shop.component';
 import { DialogMessageComponent } from './dialog-message/dialog-message.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -53,9 +55,11 @@ import { LoadingDialogComponent } from './loading-dialog/loading-dialog.componen
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
     FontAwesomeModule,
     MatProgressBarModule,
+    InfiniteScrollModule,
     MatProgressSpinnerModule,
     OverlayModule,
   ],

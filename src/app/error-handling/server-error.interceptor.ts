@@ -11,7 +11,20 @@ import {
   HttpErrorResponse,
   HttpStatusCode,
 } from '@angular/common/http';
-import { catchError, Observable, retry, finalize, throwError } from 'rxjs';
+import {
+  catchError,
+  Observable,
+  retry,
+  finalize,
+  throwError,
+  retryWhen,
+  mergeMap,
+  of,
+  delay,
+} from 'rxjs';
+
+const maxAttempts = 2; //maximum number of times to retry request when there is a server error
+const delayMs = 3000; //number of ms to wait between retrying request attempts.
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
@@ -26,7 +39,19 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     this.loadingService.open(LoadingDialogComponent);
     return next.handle(request).pipe(
-      retry(1),
+      retryWhen((error) => {
+        return error.pipe(
+          mergeMap((error: HttpErrorResponse, index) => {
+            if (
+              index < maxAttempts &&
+              error.status.toString().startsWith('5')
+            ) {
+              return of(error).pipe(delay(delayMs));
+            }
+            throw error;
+          })
+        );
+      }),
       finalize(() => this.loadingService.close()),
       catchError((error: HttpErrorResponse) => {
         this.handleError(error);
