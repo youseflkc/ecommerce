@@ -1,11 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
 :root {
   --color-primary: #097a66;
   --color-secondary: #0f547a;
   --color-danger: #c42b34e6;
-  --color-font: #fff0e5;
+  --color-font-primary: #fff0e5;
+  --color-font-secondary: #354b5e;
   --color-product-bg-1: #f5aaaa57;
   --color-product-bg-2: #e0e0e073;
   --color-product-bg-3: #cbe1fb73;
@@ -18,6 +16,10 @@
 body {
   margin: 0;
   font-family: "Urbanist";
+}
+
+p {
+  letter-spacing: 1px;
 }
 
 h1,
@@ -68,10 +70,11 @@ body {
   z-index: 1;
 }
 
-.btn--primary {
-  background-color: transparent;
-  border: 1px solid var(--color-secondary);
-  color: var(--color-font);
+@media screen and (max-width: 768px) {
+  .btn {
+    width: 100%;
+    font-size: 1rem;
+  }
 }
 
 .btn::before {
@@ -90,6 +93,16 @@ body {
   transition: all 0.3s;
 }
 
+.btn:hover::before {
+  transform-origin: right center;
+  width: 0%;
+}
+
+.btn--primary {
+  background-color: transparent;
+  border: 1px solid var(--color-secondary);
+  color: var(--color-font-primary);
+}
 .btn--primary::before {
   background-color: var(--color-secondary);
 }
@@ -99,9 +112,49 @@ body {
   background-color: transparent;
 }
 
-.btn:hover::before {
-  transform-origin: right center;
-  width: 0%;
+.btn--secondary {
+  background-color: transparent;
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.btn--secondary::before {
+  background-color: white;
+}
+
+.btn--secondary:hover {
+  color: var(--color-font-primary);
+  background-color: var(--color-secondary);
+}
+
+.link-arrow {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.link-arrow--after::after {
+  content: "\2192";
+  font-size: 2rem;
+  position: relative;
+  left: 5px;
+  transition: all 0.2s;
+}
+
+.link-arrow--after:hover::after {
+  left: 10px;
+}
+
+.link-arrow--before::before {
+  content: "\2190";
+  font-size: 2rem;
+  position: relative;
+  left: 2px;
+  transition: all 0.2s;
+}
+
+.link-arrow--before:hover::before {
+  left: -3px;
 }
 
 .error-panel {

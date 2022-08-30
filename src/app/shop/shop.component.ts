@@ -1,4 +1,4 @@
-import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
+import { throwError } from 'rxjs';
 import { Collection } from './../models/collection';
 import { ProductService, ProductResponse } from './../services/product.service';
 import { CollectionService } from './../services/collection.service';
@@ -55,9 +55,6 @@ export class ShopComponent implements OnInit {
   };
   products_are_filtered = false;
 
-  max_price_input = document.getElementById('max-price') as HTMLInputElement;
-  min_price_input = document.getElementById('min-price') as HTMLInputElement;
-
   // icon used in the toolbar
   faAngleDown = faAngleDown;
   faX = faX;
@@ -72,6 +69,12 @@ export class ShopComponent implements OnInit {
 
   //when a collection is selected, it sets the selected value to true so it can be highlighted
   collections_selected = {};
+
+  selected_collection_id: number = 0;
+
+  //initializes filter input text boxes
+  max_price_input = new Object() as HTMLInputElement;
+  min_price_input = new Object() as HTMLInputElement;
 
   //products retrieved from the server
   products: Product[] = [];
@@ -92,8 +95,16 @@ export class ShopComponent implements OnInit {
     });
 
     //the selected collection for 'all products' set to true initially
+
     this.collections_selected[0] = true;
     this.getProducts();
+
+    this.max_price_input = document.getElementById(
+      'max-price'
+    ) as HTMLInputElement;
+    this.min_price_input = document.getElementById(
+      'min-price'
+    ) as HTMLInputElement;
   }
 
   /**
@@ -101,21 +112,25 @@ export class ShopComponent implements OnInit {
    */
   async getProducts() {
     // this.http.get('url').subscribe();
-    let res: ProductResponse = await this.product_service.getAll();
-
+    try {
+      let res: ProductResponse = await this.product_service.getAll();
+      this.products = res.results;
+      //total products in database.
+      this.products_count = res.count;
+    } catch (error) {
+      this.products = [];
+    }
     //store first 12 products from database
-    this.products = res.results;
-
-    //total products in database.
-    this.products_count = res.count;
   }
 
   /**
    * retrieves next 12 products from the server and adds them to the product list
    */
   async loadMoreProducts() {
-    let res: ProductResponse = await this.product_service.getNext();
-    this.products = [...this.products, ...res.results];
+    try {
+      let res: ProductResponse = await this.product_service.getNext();
+      this.products = [...this.products, ...res.results];
+    } catch (error) {}
   }
 
   /**
@@ -123,6 +138,8 @@ export class ShopComponent implements OnInit {
    * @param collection_id id for the collection to filter by
    */
   async filterByCollection(collection_id: number) {
+    this.selected_collection_id = collection_id;
+
     //sets the selected value for the new collection and resets the rest
     Object.keys(this.collections_selected).forEach((id) => {
       if (id !== collection_id.toString()) {
@@ -133,19 +150,21 @@ export class ShopComponent implements OnInit {
     });
 
     //fetches the filtered products from the server
-    let res = await this.product_service.getFilteredOrSortedProducts({
-      collection_id: collection_id === 0 ? '' : collection_id.toString(),
-      ordering: this.product_ordering,
-      unit_price__gt: this.products_are_filtered
-        ? this.product_filtering.unit_price_min
-        : '',
-      unit_price__lt: this.products_are_filtered
-        ? this.product_filtering.unit_price_max
-        : '',
-    });
+    try {
+      let res = await this.product_service.getFilteredOrSortedProducts({
+        collection_id: collection_id === 0 ? '' : collection_id.toString(),
+        ordering: this.product_ordering,
+        unit_price__gt: this.products_are_filtered
+          ? this.product_filtering.unit_price_min
+          : '',
+        unit_price__lt: this.products_are_filtered
+          ? this.product_filtering.unit_price_max
+          : '',
+      });
 
-    this.products = res.results;
-    this.products_count = res.count;
+      this.products = res.results;
+      this.products_count = res.count;
+    } catch (error) {}
   }
 
   /**
@@ -154,40 +173,33 @@ export class ShopComponent implements OnInit {
    * @param unit_price_max maximum product price to filter
    */
   async filterProducts(unit_price_min: string, unit_price_max: string) {
+    if (Number(unit_price_min) < 0 || Number(unit_price_max) < 0) {
+      this.showInvalidDataAlert('Values cannot be negative!');
+      return;
+    }
+
     //if min and max fields are empty, do not run filter query
     if (unit_price_min === '' && unit_price_max === '') {
-      this.products_are_filtered = false;
+      this.showInvalidDataAlert('Both fields cannot be empty!');
       return;
     }
 
     if (Number(unit_price_min) >= Number(unit_price_max)) {
-      this.products_are_filtered = false;
-      document.getElementById('max-price')?.classList.toggle('animate__shakeX');
-      document.getElementById('min-price')?.classList.toggle('animate__shakeX');
-      let element = document.querySelector('.filter__error') as HTMLElement;
-      element.style.opacity = '1';
-      setTimeout(() => {
-        document
-          .getElementById('max-price')
-          ?.classList.toggle('animate__shakeX');
-        document
-          .getElementById('min-price')
-          ?.classList.toggle('animate__shakeX');
-      }, 1000);
-
-      setTimeout(() => {
-        element.style.opacity = '0';
-      }, 5000);
+      this.showInvalidDataAlert('Max-price must be greater than min-price!');
       return;
     }
 
-    let res: ProductResponse =
-      await this.product_service.getFilteredOrSortedProducts({
-        unit_price__gt: unit_price_min,
-        unit_price__lt: unit_price_max,
-        ordering: this.product_ordering,
-      });
+    let res: any = await this.product_service.getFilteredOrSortedProducts({
+      collection_id:
+        this.selected_collection_id === 0
+          ? ''
+          : this.selected_collection_id.toString(),
+      unit_price__gt: unit_price_min,
+      unit_price__lt: unit_price_max,
+      ordering: this.product_ordering,
+    });
 
+    this.product_filtering = { unit_price_max, unit_price_min };
     this.products_are_filtered = true;
     this.products = res.results;
     this.products_count = res.count;
@@ -198,28 +210,35 @@ export class ShopComponent implements OnInit {
    * @param ordering the field to sort the products by
    */
   async sortProducts(ordering: string) {
-    let res: ProductResponse =
-      await this.product_service.getFilteredOrSortedProducts({
-        ordering: ordering,
-        unit_price__gt: this.products_are_filtered
-          ? this.product_filtering.unit_price_min
-          : '',
-        unit_price__lt: this.products_are_filtered
-          ? this.product_filtering.unit_price_max
-          : '',
+    try {
+      let res: ProductResponse =
+        await this.product_service.getFilteredOrSortedProducts({
+          collection_id:
+            this.selected_collection_id === 0
+              ? ''
+              : this.selected_collection_id.toString(),
+          ordering: ordering,
+          unit_price__gt: this.products_are_filtered
+            ? this.product_filtering.unit_price_min
+            : '',
+          unit_price__lt: this.products_are_filtered
+            ? this.product_filtering.unit_price_max
+            : '',
+        });
+
+      //sets the selected field to be highlighted
+      Object.keys(this.sort_items_selected).forEach((key) => {
+        if (key === ordering) {
+          this.sort_items_selected[key] = true;
+        } else {
+          this.sort_items_selected[key] = false;
+        }
       });
 
-    //sets the selected field to be highlighted
-    Object.keys(this.sort_items_selected).forEach((key) => {
-      if (key === ordering) {
-        this.sort_items_selected[key] = true;
-      } else {
-        this.sort_items_selected[key] = false;
-      }
-    });
-
-    this.product_ordering = ordering;
-    this.products = res.results;
+      this.product_ordering = ordering;
+      this.products = res.results;
+      this.products_count = res.count;
+    } catch (error) {}
   }
 
   /**
@@ -253,7 +272,6 @@ export class ShopComponent implements OnInit {
    * clears the filters currently applied and refetches all the products.
    */
   clearFilter() {
-    // this.product_filtering = { unit_price_max: '', unit_price_min: '' };
     this.max_price_input.value = '';
     this.min_price_input.value = '';
 
@@ -261,6 +279,8 @@ export class ShopComponent implements OnInit {
     if (!this.products_are_filtered) {
       return;
     }
+
+    this.product_filtering = { unit_price_max: '', unit_price_min: '' };
     this.products_are_filtered = false;
     this.sortProducts(this.product_ordering);
 
@@ -269,6 +289,22 @@ export class ShopComponent implements OnInit {
   }
 
   scrollPage(element: HTMLElement) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  showInvalidDataAlert(message: string) {
+    document.getElementById('max-price')?.classList.toggle('animate__shakeX');
+    document.getElementById('min-price')?.classList.toggle('animate__shakeX');
+    let element = document.querySelector('.filter__error') as HTMLElement;
+    element.style.opacity = '1';
+    element.textContent = message;
+    setTimeout(() => {
+      document.getElementById('max-price')?.classList.toggle('animate__shakeX');
+      document.getElementById('min-price')?.classList.toggle('animate__shakeX');
+    }, 1000);
+
+    setTimeout(() => {
+      element.style.opacity = '0';
+    }, 5000);
   }
 }

@@ -66,13 +66,9 @@
     <button
       (click)="clearFilter()"
       class="filter__clear"
-      [disabled]="
-        product_filtering.unit_price_max === '' &&
-        product_filtering.unit_price_min === ''
-      "
+      [disabled]="max_price_input.value == '' && min_price_input.value == ''"
       [ngClass]="
-        product_filtering.unit_price_max === '' &&
-        product_filtering.unit_price_min === ''
+        max_price_input.value === '' && min_price_input.value === ''
           ? 'filter__clear--disabled'
           : ''
       "
@@ -167,7 +163,9 @@
   <div class="products" *ngIf="products.length > 0">
     <div class="products__container">
       <ng-container *ngFor="let product of products">
-        <app-product-card [product]="product"></app-product-card>
+        <app-product-card
+          [product]="product"
+        ></app-product-card>
       </ng-container>
     </div>
     <button

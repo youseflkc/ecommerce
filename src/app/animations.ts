@@ -176,3 +176,12 @@ export let dialog_animation = trigger('dialog_animation', [
     ),
   ]),
 ]);
+
+export const slideInAnimation = trigger('slideInAnimation', [
+  transition(':enter', [
+    style({
+      display: 'none',
+    }),
+    animate('5s'),
+  ]),
+]);

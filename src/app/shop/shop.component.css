@@ -22,6 +22,7 @@
   padding: 1rem;
   display: flex;
   align-items: center;
+  margin-top: 1rem;
   border-top: 1px solid var(--color-secondary);
 }
 
@@ -91,11 +92,11 @@
 
 .btn--disabled:hover {
   background-color: #8e8e8e;
-  color: var(--color-font);
+  color: var(--color-font-primary);
 }
 
 .toolbar {
-  background-color: var(--color-font);
+  background-color: var(--color-font-primary);
   justify-content: center;
   position: relative;
   z-index: 99;
@@ -103,7 +104,7 @@
 
 .toolbar__btn-container {
   padding: 1.5rem 0;
-  background: var(--color-font);
+  background: var(--color-font-primary);
   position: relative;
   z-index: 1;
 }
@@ -196,7 +197,7 @@
   width: max-content;
   width: -moz-available;
   width: -webkit-fill-available;
-  background-color: var(--color-font);
+  background-color: var(--color-font-primary);
   transition: all 0.5s;
 }
 
@@ -212,7 +213,7 @@
 .sort__btn {
   font-size: 1rem;
   color: var(--color-primary);
-  background-color: var(--color-font);
+  background-color: var(--color-font-primary);
   cursor: pointer;
   border: none;
   margin: 1rem 0.5rem;
@@ -268,6 +269,7 @@
   justify-content: center;
   position: fixed;
   top: 5rem;
+  z-index: 1000;
 }
 
 .page-down-icon {

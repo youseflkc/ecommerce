@@ -6,7 +6,7 @@ import {
   HttpClientModule,
   HttpStatusCode,
 } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, throwError } from 'rxjs';
 
 export interface ProductResponse {
   count: number;
@@ -33,7 +33,11 @@ export class ProductService {
    * 'results': array of products
    */
   async getAll(): Promise<ProductResponse> {
-    let res: any = await firstValueFrom(this.http.get(this.base_url));
+    let res: any = await firstValueFrom(this.http.get(this.base_url)).catch(
+      (error) => {
+        throwError(() => error);
+      }
+    );
     this.next_url = res.next;
     return res;
   }
@@ -61,22 +65,39 @@ export class ProductService {
     let res: any = await firstValueFrom(
       this.http.get(
         this.base_url +
-          ('?collection_id=' + collection_id) +
-          ('&unit_price__gt=' + unit_price__gt) +
-          ('&unit_price__lt=' + unit_price__lt) +
-          ('&ordering=' + ordering)
+          '?collection_id=' +
+          (collection_id || '') +
+          '&unit_price__gt=' +
+          (unit_price__gt || '') +
+          '&unit_price__lt=' +
+          (unit_price__lt || '') +
+          '&ordering=' +
+          (ordering || '')
       )
-    );
+    ).catch((error) => {
+      throwError(() => error);
+      return [];
+    });
+    this.next_url = res.next;
+    return res;
+  }
+
+  async searchProduct(search_key: string) {
+    let res: any = await firstValueFrom(
+      this.http.get(this.base_url + '?search=' + search_key)
+    ).catch((error) => throwError(() => error));
     this.next_url = res.next;
     return res;
   }
 
   /**
    *
-   * @returns promise of array with next 10 products after calling getAll() first.
+   * @returns promise of array with next 12 products after calling getAll() first.
    */
   async getNext(): Promise<ProductResponse> {
-    let res: any = await firstValueFrom(this.http.get(this.next_url));
+    let res: any = await firstValueFrom(this.http.get(this.next_url)).catch(
+      (error) => throwError(() => error)
+    );
     this.next_url = res.next;
     return res;
   }
@@ -87,6 +108,8 @@ export class ProductService {
    * @returns promise of the product with specified id
    */
   async getProduct(id: number) {
-    return await firstValueFrom(this.http.get(this.base_url + id));
+    return await firstValueFrom(this.http.get(this.base_url + id)).catch(
+      (error) => throwError(() => error)
+    );
   }
 }

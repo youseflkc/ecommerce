@@ -1,0 +1,109 @@
+.product {
+  display: grid;
+  margin: 4rem 4rem 3rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.product__image {
+  height: 30vw;
+  object-fit: contain;
+}
+
+.product__image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4rem;
+  border-right: 1px solid var(--color-secondary);
+}
+
+.product__details {
+  text-align: center;
+  padding: 0 4rem;
+}
+
+.product__details__header {
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+.product__details__title {
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+.product__details__price {
+  color: var(--color-primary);
+}
+
+.product__details__price::before {
+  content: "$";
+  padding-right: 0.2rem;
+  font-size: 0.7rem;
+  vertical-align: top;
+}
+
+.product__details__body {
+  text-align: left;
+  color: var(--color-font-secondary);
+  margin-bottom: 1rem;
+}
+
+.product__details__quantity {
+  font-size: 1.2rem;
+  padding: 0.5rem 0;
+}
+
+.quantity {
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  text-align: center;
+  outline: none;
+  margin: 0 1rem;
+  color: var(--color-font-secondary);
+  width: 40%;
+}
+
+/* chrome: removes up/down arrows on side of input */
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* firefox: removes up/down arrows on side of input */
+.quantity[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.quantity-icon {
+  cursor: pointer;
+  color: var(--color-font-secondary);
+}
+
+.quantity-icon:hover {
+  color: #3677ae;
+}
+
+.link-arrow--return {
+  display: block;
+  margin-top: 4rem;
+  margin-left: 1rem;
+}
+
+.recommended-products {
+  margin: 1rem 1rem 6rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--color-secondary);
+}
+
+.recommended-products-header {
+  margin-top: 3rem;
+  text-align: center;
+  color: var(--color-secondary);
+  padding-top: 1rem;
+}

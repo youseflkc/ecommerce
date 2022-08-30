@@ -2,15 +2,17 @@
   <app-slideshow></app-slideshow>
   <div class="page-down--container">
     <fa-icon
-      (click)="scrollPage(featured_products)"
+      (click)="scrollPage(featured_products_section)"
       class="page-down-icon"
       [icon]="faArrowSolid"
     ></fa-icon>
   </div>
 </section>
 
-<section class="block" #featured_products>
-  <app-featured-products></app-featured-products>
+<section class="block" #featured_products_section>
+  <app-featured-products
+    [products]="featured_products"
+  ></app-featured-products>
 </section>
 
 <section class="block">

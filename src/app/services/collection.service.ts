@@ -14,6 +14,7 @@ export class CollectionService {
   async getAll() {
     return await firstValueFrom(this.http.get(this.base_url)).catch((error) => {
       throwError(() => error);
+      return [];
     });
   }
 
@@ -21,6 +22,7 @@ export class CollectionService {
     return await firstValueFrom(this.http.get(this.base_url + id)).catch(
       (error) => {
         throwError(() => error);
+        return null;
       }
     );
   }

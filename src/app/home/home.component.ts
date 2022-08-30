@@ -1,10 +1,3 @@
-import {
-  trigger,
-  animate,
-  transition,
-  style,
-  keyframes,
-} from '@angular/animations';
 import { OrderService } from './../services/order.service';
 import { Cart } from './../models/cart';
 import { CartService } from './../services/cart.service';
@@ -26,38 +19,33 @@ import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
 export class HomeComponent implements OnInit {
   products: Product[] = [];
   next_url: string = '';
-  collections: Collection[] = [];
+  collections: any = [];
+  featured_products: Product[] = [];
   products_count = 0;
 
   faArrowSolid = fasArrowAltCircleDown;
   faArrow = faArrowAltCircleDown;
 
   constructor(
-    private productService: ProductService,
-    private collectionService: CollectionService,
+    private product_service: ProductService,
+    private collection_service: CollectionService,
     private cartService: CartService,
     private authService: AuthenticationService,
     private orderService: OrderService
   ) {}
 
   async ngOnInit() {
-    let cart = await this.cartService.getCart();
-
-    try {
-      let res: any = await this.productService.getAll();
-      this.products = res.results;
-      this.products_count = res.count;
-      this.next_url = res.next;
-    } catch (error: any) {
-      console.log(error.statusText);
+    this.collections = await this.collection_service.getAll();
+    for (let collection of this.collections) {
+      if (collection.featured_product) {
+        try {
+          let featured_product: any = await this.product_service.getProduct(
+            collection.featured_product
+          );
+          this.featured_products.push(featured_product);
+        } catch (error) {}
+      }
     }
-
-    // try {
-    //   let res: any = await this.collectionService.getAll();
-    //   this.collections = res;
-    // } catch (error: any) {
-    //   console.log(error.statusText);
-    // } 
   }
 
   async getMoreProducts() {
@@ -154,6 +142,6 @@ export class HomeComponent implements OnInit {
   }
 
   scrollPage(element: HTMLElement) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }

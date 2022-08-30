@@ -1,1 +1,61 @@
-<p>product works!</p>
+<a routerLink="/shop" class="link-arrow link-arrow--before link-arrow--return"
+  >Return</a
+>
+<div class="product">
+  <div class="product__image-container">
+    <img
+      class="product__image"
+      *ngIf="product.images.length < 1"
+      [src]="default_image.image"
+      alt=""
+    />
+    <ng-container *ngFor="let image of product.images">
+      <img class="product__image" [src]="image.image" alt="" />
+    </ng-container>
+  </div>
+  <div id="details" class="product__details">
+    <header class="product__details__header">
+      <h3 class="product__details__title">{{ product.title }}</h3>
+      <h5 class="product__details__price">{{ product.unit_price }}</h5>
+    </header>
+    <p class="product__details__body">
+      {{ product.description }}
+    </p>
+    <p class="product__details__body">
+      {{ product.description }}
+    </p>
+    <div class="product__details__quantity">
+      <fa-icon
+        (click)="subtractQuantity()"
+        class="quantity-icon"
+        [icon]="faMinus"
+      ></fa-icon>
+      <input
+        (focusout)="resetQuantity()"
+        id="quantity"
+        class="quantity"
+        value="1"
+        type="number"
+        min="0"
+      />
+      <fa-icon
+        (click)="addQuantity()"
+        class="quantity-icon"
+        [icon]="faPlus"
+      ></fa-icon>
+    </div>
+    <button class="btn btn--primary">Buy Now</button>
+    <button class="btn btn--secondary">Add to Cart</button>
+  </div>
+</div>
+<h4 class="recommended-products-header">Products You Might Like</h4>
+<div class="recommended-products">
+  <ng-container *ngFor="let product of recommended_products; let i = index">
+    <app-product-card
+      data-aos="fade-up"
+      data-aos-delay="300"
+      *ngIf="i < 4"
+      [product]="product"
+    ></app-product-card>
+  </ng-container>
+</div>

@@ -7,10 +7,10 @@
       <a routerLink="/shop">Shop</a>
     </li>
     <li class="navbar__item">
-      <a>Contact</a>
+      <a routerLink="/contact">Contact</a>
     </li>
     <li class="navbar__item">
-      <a>About</a>
+      <a routerLink="/about">About</a>
     </li>
   </ul>
   <ul class="navbar__list navbar--middle">
@@ -35,14 +35,26 @@
           #focus
           placeholder="Search . . ."
           class="navbar__input"
+          [(ngModel)]="search_input"
+          [ngbTypeahead]="search"
+          id="search_input"
           type="text"
-          (keyup.enter)="search()"
         />
         <fa-icon
           (click)="clearSearchBar()"
           [icon]="faX"
           class="navbar__icon navbar__icon--small"
         ></fa-icon>
+        <div class="search-results">
+          <li
+            routerLink="/shop/product/{{ product.id }}"
+            (click)="clearSearchBar()"
+            class="search-results__item"
+            *ngFor="let product of searched_products"
+          >
+            {{ product.title }}
+          </li>
+        </div>
       </div>
     </li>
     <li class="navbar__item">

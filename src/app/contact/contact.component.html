@@ -1,0 +1,27 @@
+<div class="contact">
+  <h3 class="contact__header">Contact</h3>
+  <h4>
+    Need help? Call or send us an email and we'll get back to you shortly.
+  </h4>
+  <div class="contact__info">
+    <h5 class="contact__item">
+      <fa-icon [icon]="faPhone"></fa-icon> Phone: 1(800) 000-0000
+    </h5>
+    <h5 class="contact__item">
+      <fa-icon [icon]="faEmail"></fa-icon> Email: abc@store.com
+    </h5>
+    <h5 class="contact__item">
+      <fa-icon [icon]="faAddress"></fa-icon> Mailing Address: 123 ABC St.
+      Toronto, ON
+    </h5>
+  </div>
+  <form class="contact__message" action="">
+    <div class="contact__message__info">
+        <input id="name" class="contact__message__input" type="text" placeholder="Name">
+        <input id="email" class="contact__message__input" type="text" placeholder="Email">
+        <input id="phone" class="contact__message__input" type="text" placeholder="Phone Number">
+    </div>
+    <textarea id="message" class="contact__message__textarea" rows="15" cols="100"></textarea>
+    <button (click)="sendMessage()" class="btn btn--primary">Send Message</button>
+  </form>
+</div>

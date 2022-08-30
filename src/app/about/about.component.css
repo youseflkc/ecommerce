@@ -1,0 +1,16 @@
+.about {
+  margin: 8rem 4rem;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about__header {
+    color: var(--color-secondary);
+}
+
+.about__body {
+    margin: 0 8rem;
+    color: var(--color-font-secondary);
+}

@@ -2,10 +2,14 @@
   <h3>Featured Products</h3>
 </header>
 <div class="featured-products--container">
-  <app-product-card></app-product-card>
-  <app-product-card></app-product-card>
-  <app-product-card></app-product-card>
+  <ng-container *ngFor="let product of products">
+    <app-product-card
+      [product]="product"
+      [highlight]="true"
+      [featured]="true"
+    ></app-product-card>
+  </ng-container>
 </div>
 <div class="featured-products--btn-container">
-  <button class="btn btn--primary">See More</button>
+  <button routerLink="/shop" class="btn btn--primary">See More</button>
 </div>

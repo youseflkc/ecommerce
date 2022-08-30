@@ -4,6 +4,12 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+@media screen and (max-width: 768px) {
+  .featured-products--container {
+    grid-template-columns: 1fr;
+  }
+}
+
 h3 {
   text-align: center;
   color: var(--color-secondary);
@@ -17,4 +23,10 @@ h3 {
 
 .featured-products--btn-container > .btn {
   width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+  .featured-products--btn-container > .btn {
+    width: 50%;
+  }
 }

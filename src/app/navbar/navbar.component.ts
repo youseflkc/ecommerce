@@ -1,3 +1,6 @@
+import { Product } from './../models/product';
+import { async } from '@angular/core/testing';
+import { ProductService } from './../services/product.service';
 import { open_close_icon, open_close_input } from './../animations';
 import {
   Component,
@@ -11,6 +14,17 @@ import {
   faSearch,
   faX,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  fromEvent,
+  OperatorFunction,
+  of,
+  Observable,
+} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -36,19 +50,37 @@ export class NavbarComponent implements OnInit {
   faCart = faCartShopping;
   faSearch = faSearch;
   faX = faX;
-  imgLogoUrl =
-    'https://cdn-icons.flaticon.com/png/512/3362/premium/3362720.png?token=exp=1656601954~hmac=a77a913302ca02d992d002bd580ac15c';
-
+  imgLogoUrl = '';
   isOpen = false;
-  constructor() {}
+
+  search_input: string = '';
+  searched_products: Product[] = [];
+
+  constructor(private product_service: ProductService) {}
 
   ngOnInit(): void {}
 
-  search() {}
+  search: OperatorFunction<string, readonly string[]> = (
+    text$: Observable<string>
+  ) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap((term: string) => {
+        if (term.length > 1) {
+          this.product_service.searchProduct(term).then((res) => {
+            this.searched_products = res.results;
+          });
+        }
+        return [];
+      })
+    );
+
+  formatter = (result: Product) => result.title;
 
   toggleSearchBar() {
     if (this.input.nativeElement.value) {
-      this.search();
+      // this.search();
     } else {
       this.isOpen = !this.isOpen;
 
@@ -66,8 +98,10 @@ export class NavbarComponent implements OnInit {
   clearSearchBar() {
     if (this.input.nativeElement.value) {
       this.input.nativeElement.value = '';
+      this.input.nativeElement.focus();
     } else {
       this.toggleSearchBar();
     }
+    this.searched_products = [];
   }
 }

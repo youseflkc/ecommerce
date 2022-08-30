@@ -1,24 +1,28 @@
 <div class="testimonial">
   <div class="testimonial__nav">
     <img
+      class="testimonial__nav__img"
       (click)="setSelected_body('shipping')"
       [ngClass]="selected_body === 'shipping' ? 'img--highlight' : 'img'"
       src="/assets/images/shipping-logo.png"
       alt=""
     />
     <img
+      class="testimonial__nav__img"
       (click)="setSelected_body('satisfaction')"
       [ngClass]="selected_body === 'satisfaction' ? 'img--highlight' : 'img'"
       src="/assets/images/satisfaction.png"
       alt=""
     />
     <img
+      class="testimonial__nav__img"
       (click)="setSelected_body('rewards')"
       [ngClass]="selected_body === 'rewards' ? 'img--highlight' : 'img'"
       src="/assets/images/rewards-card1.png"
       alt=""
     />
     <img
+      class="testimonial__nav__img"
       (click)="setSelected_body('socialmedia')"
       [ngClass]="selected_body === 'socialmedia' ? 'img--highlight' : 'img'"
       src="/assets/images/socialmedia.png"
@@ -33,7 +37,7 @@
     >
       <h4>Free Shipping Right to Your Door!</h4>
       <h5>Limited time only. Order now!</h5>
-      <button class="btn btn--primary">Shop Now</button>
+      <button routerLink="shop" class="btn btn--primary">Shop Now</button>
     </div>
     <div
       [@testimonial_animation]
@@ -61,16 +65,28 @@
       <h4>Follow Us On Social Media.</h4>
       <h5>Stay up to date on all the latest deals and offers.</h5>
       <div class="testimonial__body__links">
-        <a class="link-arrow" target="_blank" href="https://twitter.com/"
+        <a
+          class="link-arrow link-arrow--after"
+          target="_blank"
+          href="https://twitter.com/"
           >Twitter</a
         >
-        <a class="link-arrow" target="_blank" href="https://facebook.com/"
+        <a
+          class="link-arrow link-arrow--after"
+          target="_blank"
+          href="https://facebook.com/"
           >Facebook</a
         >
-        <a class="link-arrow" target="_blank" href="https://instagram.com/"
+        <a
+          class="link-arrow link-arrow--after"
+          target="_blank"
+          href="https://instagram.com/"
           >Instagram</a
         >
-        <a class="link-arrow" target="_blank" href="https://youtube.com/"
+        <a
+          class="link-arrow link-arrow--after"
+          target="_blank"
+          href="https://youtube.com/"
           >Youtube</a
         >
       </div>

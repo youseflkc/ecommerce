@@ -1,24 +1,35 @@
-<div class="product-card product-card--highlight">
+<div
+  class="product-card"
+  [ngClass]="highlight ? 'product-card--highlight' : ''"
+>
   <div
-    [style.background-image]="
-      'url(' +
-      (product.images[1] || '/assets/images/default-placeholder-image.png') +
-      ')'
-    "
+    [id]="product.id"
+    routerLink="/shop/product/{{ product.id }}"
+    (mouseover)="mouseOver()"
+    (mouseout)="mouseOut()"
     class="product-card__image-container"
+    [style.background-color]="color || default_color"
   >
     <img
+      [id]="product.id + '_image'"
       class="product-card__image"
+      [ngClass]="featured ? 'product-card__image--featured' : ''"
       [src]="
-        product.images[0] || '/assets/images/default-placeholder-image.png'
+        product.images.length > 0
+          ? product.images[1].image
+          : '/assets/images/default-placeholder-image.png'
       "
-      alt=""
+      alt="product image"
     />
   </div>
   <div class="product-card__info">
     <h5>
-      <a>{{ product.title }}</a>
+      <a
+        class="product-card__info__link"
+        routerLink="/shop/product/{{ product.id }}"
+        >{{ product.title }}</a
+      >
     </h5>
-    <p>{{ product.unit_price }}</p>
+    <p class="product-card__info__price">{{ product.unit_price }}</p>
   </div>
 </div>

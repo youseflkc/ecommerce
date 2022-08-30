@@ -3,7 +3,7 @@
   background: var(--color-secondary);
   display: grid;
   grid-template-columns: 1fr 4fr;
-  color: var(--color-font);
+  color: var(--color-font-primary);
 }
 
 .footer__list {
@@ -27,7 +27,7 @@
 
 .footer__sublist__item a {
   text-decoration: none;
-  color: var(--color-font);
+  color: var(--color-font-primary);
   transition: all 0.2s;
 }
 

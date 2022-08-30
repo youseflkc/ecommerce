@@ -31,6 +31,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ import { FormsModule } from '@angular/forms';
     ShopComponent,
     DialogMessageComponent,
     LoadingDialogComponent,
+    ContactComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +67,7 @@ import { FormsModule } from '@angular/forms';
     InfiniteScrollModule,
     MatProgressSpinnerModule,
     OverlayModule,
+    NgbModule,
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },

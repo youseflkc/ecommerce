@@ -20,6 +20,13 @@
   background-color: #fff0e5;
 }
 
+@media screen and (max-width: 768px) {
+  .carousel__slide {
+    width: 100%;
+    height: 80%;
+  }
+}
+
 .carousel__btn--container {
   position: absolute;
   bottom: 20px;
@@ -71,12 +78,39 @@
   background-color: #a4a4a43d;
   align-items: center;
   text-align: center;
-  border: 1px solid var(--color-secondary);
+}
+
+@media screen and (max-width: 768px) {
+  .slideshow__info {
+    bottom: 3%;
+  }
+
+  .slideshow__header {
+    margin: 1rem;
+    padding: 1.5rem 2rem;
+    width: auto;
+  }
+
+  .slideshow__header > p {
+    display: none;
+  }
+
+  .slideshow__header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .slideshow__header h2 {
+    font-size: 1.4rem;
+  }
 }
 
 .slideshow__header h3,
 h2 {
   color: var(--color-secondary);
+}
+
+@media screen and (max-width: 768px) {
 }
 
 .slideshow__header h2::before {
