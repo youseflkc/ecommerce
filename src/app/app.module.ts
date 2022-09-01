@@ -19,6 +19,7 @@ import { SlideshowComponent } from './slideshow/slideshow.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AnnouncementBarComponent } from './announcement-bar/announcement-bar.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { ProductCardComponent } from './product-card/product-card.component';
@@ -66,6 +67,7 @@ import { AboutComponent } from './about/about.component';
     MatProgressBarModule,
     InfiniteScrollModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
     OverlayModule,
     NgbModule,
   ],

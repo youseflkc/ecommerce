@@ -6,11 +6,29 @@
   align-items: center;
 }
 
+@media screen and (max-width: 768px) {
+  .about {
+    margin: 8rem 2rem;
+  }
+}
+
 .about__header {
-    color: var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 .about__body {
-    margin: 0 8rem;
-    color: var(--color-font-secondary);
+  margin: 0 8rem;
+  color: var(--color-font-secondary);
+}
+
+@media screen and (max-width: 1024px) {
+  .about__body {
+    margin: 0 3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about__body {
+    margin: 0%;
+  }
 }

@@ -4,6 +4,12 @@
   color: var(--color-secondary);
 }
 
+@media screen and (max-width: 768px) {
+  .contact {
+    margin: 8rem 2rem;
+  }
+}
+
 .contact__info {
   margin: 4rem 0;
   display: flex;
@@ -11,16 +17,64 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 768px) {
+  .contact__info {
+    flex-direction: column;
+    margin: 2rem 0;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contact__item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact__item__header {
+    margin: 0 2rem;
+  }
+}
+
 .contact__item {
-  margin: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 1.5rem;
+}
+
+.contact__item__header {
+  margin: 0.5rem 0.5rem;
 }
 
 .contact__header {
   margin: 1rem 0;
 }
 
+@media screen and (max-width: 768px) {
+  .contact__header {
+    font-size: 2rem;
+  }
+  .contact > h4 {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contact__header {
+    font-size: 2rem;
+  }
+  .contact > h4 {
+    font-size: 1.2rem;
+  }
+}
+
 .contact__message {
   margin: 3rem 0;
+}
+
+@media screen and (max-width: 768px) {
+  .contact__message {
+    margin: 0;
+  }
 }
 
 .contact__message__info {
@@ -37,6 +91,12 @@
   outline: none;
 }
 
+@media screen and (max-width: 768px) {
+  .contact__message__info {
+    margin-bottom: 1rem;
+  }
+}
+
 .contact__message__textarea {
   border-radius: 0.5rem;
   border: 1px solid var(--color-secondary);
@@ -48,5 +108,15 @@
 @media screen and (max-width: 1024px) {
   .contact__message__textarea {
     width: 60%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact__message__textarea {
+    width: 70%;
+  }
+
+  .contact__message > .btn {
+    width: 80%;
   }
 }

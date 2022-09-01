@@ -1,5 +1,4 @@
 import { Product } from './../models/product';
-import { async } from '@angular/core/testing';
 import { ProductService } from './../services/product.service';
 import { open_close_icon, open_close_input } from './../animations';
 import {
@@ -7,9 +6,11 @@ import {
   ElementRef,
   HostListener,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import {
+  faBars,
   faCartShopping,
   faSearch,
   faX,
@@ -17,14 +18,12 @@ import {
 import {
   debounceTime,
   distinctUntilChanged,
-  filter,
-  map,
   switchMap,
-  fromEvent,
   OperatorFunction,
   of,
   Observable,
 } from 'rxjs';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -34,6 +33,7 @@ import {
 })
 export class NavbarComponent implements OnInit {
   @ViewChild('focus', { static: false }) input: ElementRef;
+  @Output() openNavEvent = new EventEmitter();
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
@@ -50,6 +50,7 @@ export class NavbarComponent implements OnInit {
   faCart = faCartShopping;
   faSearch = faSearch;
   faX = faX;
+  faBars = faBars;
   imgLogoUrl = '';
   isOpen = false;
 
@@ -82,6 +83,27 @@ export class NavbarComponent implements OnInit {
     if (this.input.nativeElement.value) {
       // this.search();
     } else {
+      let sidenav_icon_element = document.getElementById(
+        'sidenav-icon'
+      ) as HTMLElement;
+      let navbar_middle_element = document.getElementById(
+        'navbar-middle'
+      ) as HTMLElement;
+      let navbar_element = document.getElementById('navbar') as HTMLElement;
+      let cart_icon_element = document.getElementById(
+        'cart-icon'
+      ) as HTMLElement;
+      if (!this.isOpen && window.matchMedia('(max-width: 768px)').matches) {
+        sidenav_icon_element.classList.add('sidenav-icon--hidden');
+        navbar_middle_element.classList.add('navbar__list--hidden');
+        cart_icon_element.classList.add('navbar__item--hidden');
+        navbar_element.style.gridTemplateColumns = '1fr';
+      } else {
+        sidenav_icon_element.classList.remove('sidenav-icon--hidden');
+        navbar_middle_element.classList.remove('navbar__list--hidden');
+        cart_icon_element.classList.remove('navbar__item--hidden');
+        navbar_element.style.gridTemplateColumns = '1fr 1fr 1fr';
+      }
       this.isOpen = !this.isOpen;
 
       //focuses the search textbox when the search bar is expanded
@@ -102,6 +124,11 @@ export class NavbarComponent implements OnInit {
     } else {
       this.toggleSearchBar();
     }
+    this.search_input = '';
     this.searched_products = [];
+  }
+
+  openNav() {
+    this.openNavEvent.emit();
   }
 }

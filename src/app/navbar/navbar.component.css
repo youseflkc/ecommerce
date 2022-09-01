@@ -18,8 +18,7 @@
 
 @media screen and (max-width: 768px) {
   .navbar {
-    display: flex;
-    flex-direction: row;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
@@ -40,12 +39,23 @@
   border: none;
 }
 
+@media screen and (max-width: 1024px) {
+  .navbar--clear {
+    background-color: white;
+    height: 4rem;
+  }
+  .navbar--clear:hover {
+    border-bottom: 1px solid var(--color-secondary);
+  }
+}
+
 .navbar__list {
   display: flex;
   align-items: center;
   padding: 1rem;
-  overflow: hidden;
   margin: 0;
+  transition: all 0.4s;
+  position: relative;
 }
 
 @media screen and (max-width: 1024px) {
@@ -56,18 +66,7 @@
 
 @media screen and (max-width: 768px) {
   .navbar--left {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    padding: 0%;
-    max-width: 0%;
-    overflow: hidden;
-    width: 100%;
-    background-color: var(--color-product-bg-1);
-  }
-
-  .navbar--left .navbar__item {
-    padding: 2rem;
+    display: none;
   }
 }
 
@@ -77,6 +76,12 @@
   color: var(--color-secondary);
   font-weight: bolder;
   cursor: pointer;
+  transform: translateX(0);
+  transition: all 0.4s;
+}
+
+.navbar__item--hidden {
+  transform: translateX(100%);
 }
 
 @media screen and (max-width: 1024px) {
@@ -144,11 +149,34 @@
   box-shadow: #69615b;
 }
 
+@media screen and (max-width: 768px) {
+  .navbar__input-container {
+    position: absolute;
+  }
+
+  .navbar__input {
+    width: 78vw;
+    margin-left: 1rem;
+  }
+}
+
+.navbar__list--hidden {
+  transform: translateX(-200%);
+  position: absolute;
+}
+
 .search-results {
   width: 100%;
   background-color: white;
   position: absolute;
   top: 44px;
+  overflow: scroll;
+}
+
+@media screen and (max-width: 1024px) {
+  .search-results {
+    max-height: 75vh;
+  }
 }
 
 .search-results__item {
@@ -158,4 +186,34 @@
 
 .search-results__item:hover {
   background-color: var(--color-font-primary);
+}
+
+.search-results__item--empty {
+  padding: 1rem 2rem;
+  cursor: auto;
+}
+
+.search-results__empty:hover {
+  background-color: white;
+}
+
+.sidenav-icon {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .sidenav-icon {
+    display: flex;
+    color: var(--color-secondary);
+    font-size: 1.4rem;
+    align-items: center;
+    margin-left: 1rem;
+    position: relative;
+    transform: translateX(0);
+  }
+
+  .sidenav-icon--hidden {
+    position: absolute;
+    transform: translateX(-200%);
+  }
 }

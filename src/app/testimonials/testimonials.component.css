@@ -4,6 +4,12 @@
   margin: 2rem 4rem;
 }
 
+@media screen and (max-width: 768px) {
+  .testimonial {
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
 .testimonial__nav {
   display: flex;
   flex-direction: row;
@@ -35,6 +41,12 @@
   height: 15rem;
 }
 
+@media screen and (max-width: 768px) {
+  .testimonial__content {
+    height: 100%;
+  }
+}
+
 .testimonial__body {
   display: flex;
   flex-direction: column;
@@ -53,6 +65,12 @@
 
 .testimonial__body > .btn {
   width: 20%;
+}
+
+@media screen and (max-width: 768px) {
+  .testimonial__body > .btn {
+    width: 100%;
+  }
 }
 
 .testimonial__body__links {

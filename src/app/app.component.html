@@ -1,6 +1,36 @@
-<app-announcement-bar
-  text="Free Shipping for a Limited Time Only"
-></app-announcement-bar>
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    disableClose="true"
+    fixedInViewport="true"
+    class="sidenav"
+    #sidenav
+    mode="over"
+    [opened]="nav_open"
+  >
+    <div class="sidenav__close">
+      <fa-icon (click)="closeNav()" [icon]="faX"></fa-icon>
+    </div>
+    <ul class="sidenav__list">
+      <li class="sidenav__item">
+        <a routerLink="">Home</a>
+      </li>
+      <li class="sidenav__item">
+        <a routerLink="/shop">Shop</a>
+      </li>
+      <li class="sidenav__item">
+        <a routerLink="/contact">Contact</a>
+      </li>
+      <li class="sidenav__item">
+        <a routerLink="/about">About</a>
+      </li>
+    </ul>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-announcement-bar
+      text="Free Shipping for a Limited Time Only"
+    ></app-announcement-bar>
+    <app-navbar (openNavEvent)="openNav()"></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

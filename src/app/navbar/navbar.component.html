@@ -1,4 +1,7 @@
-<nav class="navbar navbar--normal" (scroll)="onWindowScroll()">
+<nav id="navbar" class="navbar navbar--normal" (scroll)="onWindowScroll()">
+  <div id="sidenav-icon" class="sidenav-icon">
+    <fa-icon (click)="openNav()" [icon]="faBars"></fa-icon>
+  </div>
   <ul class="navbar__list navbar--left">
     <li class="navbar__item">
       <a routerLink="">Home</a>
@@ -13,10 +16,8 @@
       <a routerLink="/about">About</a>
     </li>
   </ul>
-  <ul class="navbar__list navbar--middle">
-    <li class="navbar__item">
-      <!-- <img class="navbar__image" src="{{ imgLogoUrl }}" alt="" /> -->
-    </li>
+  <ul id="navbar-middle" class="navbar__list navbar--middle">
+    <li class="navbar__item"></li>
   </ul>
   <ul class="navbar__list navbar--right">
     <li class="navbar__item navbar__search">
@@ -47,6 +48,12 @@
         ></fa-icon>
         <div class="search-results">
           <li
+            class="search-results__item--empty"
+            *ngIf="searched_products.length < 1 && search_input.length > 1"
+          >
+            No products found
+          </li>
+          <li
             routerLink="/shop/product/{{ product.id }}"
             (click)="clearSearchBar()"
             class="search-results__item"
@@ -57,7 +64,7 @@
         </div>
       </div>
     </li>
-    <li class="navbar__item">
+    <li id="cart-icon" class="navbar__item">
       <fa-icon class="navbar__icon" [icon]="faCart"></fa-icon>
     </li>
   </ul>
