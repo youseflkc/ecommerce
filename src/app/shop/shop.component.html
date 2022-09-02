@@ -18,6 +18,130 @@
   </ul>
 </header>
 
+<section class="toolbar--mobile">
+  <div>
+    <button class="filter__btn--mobile" (click)="toggleFilter()">Sort/Filter</button>
+  </div>
+  <div
+    [ngClass]="filter_expanded ? 'expandable--expanded' : ''"
+    class="sort-filter expandable"
+  >
+    <button class="filter__close" (click)="toggleFilter()">
+      <fa-icon [icon]="faX"></fa-icon>
+    </button>
+    <div class="filter--mobile">
+      <h5>Filter</h5>
+      <label class="filter__label" for="min-price"
+        >Min-Price
+        <input
+          #unit_price_min
+          class="filter__input animate__animated"
+          id="min-price"
+          #focus
+          type="number"
+      /></label>
+      <label class="filter__label" for="max-price"
+        >Max-Price
+        <input
+          #unit_price_max
+          class="filter__input animate__animated"
+          id="max-price"
+          type="number"
+      /></label>
+      <button
+        (click)="filterProducts(unit_price_min.value, unit_price_max.value)"
+        class="btn btn--primary filter__btn"
+      >
+        Filter
+      </button>
+      <button
+        (click)="clearFilter()"
+        class="filter__clear"
+        [disabled]="max_price_input.value == '' && min_price_input.value == ''"
+        [ngClass]="
+          max_price_input.value === '' && min_price_input.value === ''
+            ? 'filter__clear--disabled'
+            : ''
+        "
+      >
+        <fa-icon class="filter__icon-clear" [icon]="faX"></fa-icon> Clear
+      </button>
+      <p class="filter__error">Max-price must be greater than min-price!</p>
+    </div>
+    <div class="sort--mobile">
+      <h5>Sort</h5>
+      <button
+        class="sort__btn"
+        [disabled]="sort_items_selected[Ordering.UNIT_PRICE_ASC]"
+        [ngClass]="
+          sort_items_selected[Ordering.UNIT_PRICE_ASC]
+            ? 'sort__btn--highlight'
+            : ''
+        "
+        (click)="sortProducts(Ordering.UNIT_PRICE_ASC)"
+      >
+        Price: Low to High
+      </button>
+      <button
+        [disabled]="sort_items_selected[Ordering.UNIT_PRICE_DES]"
+        [ngClass]="
+          sort_items_selected[Ordering.UNIT_PRICE_DES]
+            ? 'sort__btn--highlight'
+            : ''
+        "
+        class="sort__btn"
+        (click)="sortProducts(Ordering.UNIT_PRICE_DES)"
+      >
+        Price: High to Low
+      </button>
+      <button
+        [disabled]="sort_items_selected[Ordering.TITLE_ASC]"
+        [ngClass]="
+          sort_items_selected[Ordering.TITLE_ASC] ? 'sort__btn--highlight' : ''
+        "
+        class="sort__btn"
+        (click)="sortProducts(Ordering.TITLE_ASC)"
+      >
+        Alphabetically: A - Z
+      </button>
+      <button
+        [disabled]="sort_items_selected[Ordering.TITLE_DES]"
+        [ngClass]="
+          sort_items_selected[Ordering.TITLE_DES] ? 'sort__btn--highlight' : ''
+        "
+        class="sort__btn"
+        (click)="sortProducts(Ordering.TITLE_DES)"
+      >
+        Alphabetically: Z - A
+      </button>
+      <button
+        [disabled]="sort_items_selected[Ordering.LAST_UPDATE_ASC]"
+        [ngClass]="
+          sort_items_selected[Ordering.LAST_UPDATE_ASC]
+            ? 'sort__btn--highlight'
+            : ''
+        "
+        class="sort__btn"
+        (click)="sortProducts(Ordering.LAST_UPDATE_ASC)"
+      >
+        Date Added: Old to New
+      </button>
+      <button
+        [disabled]="sort_items_selected[Ordering.LAST_UPDATE_DES]"
+        [ngClass]="
+          sort_items_selected[Ordering.LAST_UPDATE_DES]
+            ? 'sort__btn--highlight'
+            : ''
+        "
+        class="sort__btn"
+        (click)="sortProducts(Ordering.LAST_UPDATE_DES)"
+      >
+        Date Added: New to Old
+      </button>
+    </div>
+  </div>
+</section>
+
 <section class="toolbar">
   <div class="toolbar__btn-container">
     <button (click)="toggleSort()" class="toolbar__btn">
@@ -163,9 +287,7 @@
   <div class="products" *ngIf="products.length > 0">
     <div class="products__container">
       <ng-container *ngFor="let product of products">
-        <app-product-card
-          [product]="product"
-        ></app-product-card>
+        <app-product-card [product]="product"></app-product-card>
       </ng-container>
     </div>
     <button

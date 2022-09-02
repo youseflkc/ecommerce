@@ -28,10 +28,13 @@ export class AppComponent {
 
   openNav() {
     this.nav_open = true;
-    console.log('emeve');
   }
 
   closeNav() {
+    this.nav_open = false;
+  }
+
+  ngOnDestroy() {
     this.nav_open = false;
   }
 }

@@ -8,6 +8,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-origin: content-box;
+  background-position: center;
   position: relative;
   transition: all 0.2s;
   text-align: center;
@@ -28,7 +29,7 @@
 }
 @media screen and (max-width: 768px) {
   .product-card__image {
-    height: 100%;
+    height: 10vh;
   }
 }
 

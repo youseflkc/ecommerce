@@ -33,7 +33,7 @@ export class CarouselComponent implements OnInit {
         this.progress_bar_value--;
       } else {
         this.progress_bar_value = 100;
-        this.nextSlide();
+        // this.nextSlide();
       }
     }, 150);
   }

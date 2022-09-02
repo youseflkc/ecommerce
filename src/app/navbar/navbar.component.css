@@ -179,6 +179,14 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .search-results {
+    width: 100vw;
+    top: 5vh;
+    left: -2vw;
+  }
+}
+
 .search-results__item {
   padding: 1rem 2rem;
   cursor: pointer;

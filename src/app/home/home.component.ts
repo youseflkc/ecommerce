@@ -142,6 +142,10 @@ export class HomeComponent implements OnInit {
   }
 
   scrollPage(element: HTMLElement) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 }
