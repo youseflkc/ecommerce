@@ -24,6 +24,7 @@ import {
   Observable,
 } from 'rxjs';
 import { EventEmitter } from '@angular/core';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 
 @Component({
   selector: 'app-navbar',
@@ -51,8 +52,10 @@ export class NavbarComponent implements OnInit {
   faSearch = faSearch;
   faX = faX;
   faBars = faBars;
-  imgLogoUrl = '';
-  isOpen = false;
+  img_logo_url = '';
+
+  is_open = false;
+  show_cart: boolean = false;
 
   search_input: string = '';
   searched_products: Product[] = [];
@@ -93,7 +96,7 @@ export class NavbarComponent implements OnInit {
       let cart_icon_element = document.getElementById(
         'cart-icon'
       ) as HTMLElement;
-      if (!this.isOpen && window.matchMedia('(max-width: 768px)').matches) {
+      if (!this.is_open && window.matchMedia('(max-width: 768px)').matches) {
         sidenav_icon_element.classList.add('sidenav-icon--hidden');
         navbar_middle_element.classList.add('navbar__list--hidden');
         cart_icon_element.classList.add('navbar__item--hidden');
@@ -104,12 +107,12 @@ export class NavbarComponent implements OnInit {
         cart_icon_element.classList.remove('navbar__item--hidden');
         navbar_element.style.gridTemplateColumns = '1fr 1fr 1fr';
       }
-      this.isOpen = !this.isOpen;
+      this.is_open = !this.is_open;
 
       //focuses the search textbox when the search bar is expanded
       setTimeout(
         () =>
-          this.isOpen
+          this.is_open
             ? this.input.nativeElement.focus()
             : this.input.nativeElement.blur(),
         300
@@ -130,5 +133,9 @@ export class NavbarComponent implements OnInit {
 
   openNav() {
     this.openNavEvent.emit();
+  }
+
+  toggleCart() {
+    this.show_cart = !this.show_cart;
   }
 }

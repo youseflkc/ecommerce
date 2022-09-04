@@ -1,0 +1,16 @@
+.cart {
+  width: 60%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0%;
+  top: 71px;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--color-secondary);
+}
+
+.cart__header {
+  color: var(--color-font-primary);
+}

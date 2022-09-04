@@ -1,0 +1,30 @@
+<div class="cart">
+  <h4 class="cart__header">Cart</h4>
+  <div *ngFor="let product of products" class="cart__item">
+    <img src="" alt="" />
+    <h4>{{ product.title }}</h4>
+    <p>{{ product.unit_price }}</p>
+    <div class="cart__item__quantity">
+      <fa-icon
+        (click)="subtractQuantity()"
+        class="quantity-icon"
+        [icon]="faMinus"
+      ></fa-icon>
+      <input
+        (focusout)="resetQuantity()"
+        id="quantity"
+        class="quantity"
+        value="1"
+        type="number"
+        min="0"
+      />
+      <fa-icon
+        (click)="addQuantity()"
+        class="quantity-icon"
+        [icon]="faPlus"
+      ></fa-icon>
+      <button>Remove</button>
+    </div>
+  </div>
+  <button class="btn btn--secondary">Checkout</button>
+</div>

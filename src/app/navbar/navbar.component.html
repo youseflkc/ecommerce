@@ -24,13 +24,13 @@
       <fa-icon
         style="position: relative"
         (click)="toggleSearchBar()"
-        [@open_close_icon]="isOpen ? 'open' : 'closed'"
+        [@open_close_icon]="is_open ? 'open' : 'closed'"
         class="navbar__icon"
         [icon]="faSearch"
       ></fa-icon>
       <div
         class="navbar__input-container"
-        [@open_close_input]="isOpen ? 'open' : 'closed'"
+        [@open_close_input]="is_open ? 'open' : 'closed'"
       >
         <input
           #focus
@@ -65,7 +65,8 @@
       </div>
     </li>
     <li id="cart-icon" class="navbar__item">
-      <fa-icon class="navbar__icon" [icon]="faCart"></fa-icon>
+      <fa-icon (click)="toggleCart()" class="navbar__icon" [icon]="faCart"></fa-icon>
     </li>
+    <app-shopping-cart *ngIf="show_cart"></app-shopping-cart>
   </ul>
 </nav>

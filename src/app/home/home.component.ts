@@ -29,12 +29,14 @@ export class HomeComponent implements OnInit {
   constructor(
     private product_service: ProductService,
     private collection_service: CollectionService,
-    private cartService: CartService,
+    private cart_service: CartService,
     private authService: AuthenticationService,
     private orderService: OrderService
   ) {}
 
   async ngOnInit() {
+    this.cart_service.getCart()
+
     this.collections = await this.collection_service.getAll();
     for (let collection of this.collections) {
       if (collection.featured_product) {

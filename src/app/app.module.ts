@@ -35,6 +35,7 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { AboutComponent } from './about/about.component';
     LoadingDialogComponent,
     ContactComponent,
     AboutComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,

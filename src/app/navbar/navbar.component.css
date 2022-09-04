@@ -170,7 +170,7 @@
   background-color: white;
   position: absolute;
   top: 44px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 @media screen and (max-width: 1024px) {
