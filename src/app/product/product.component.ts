@@ -1,3 +1,4 @@
+import { CartService } from './../services/cart.service';
 import { ProductService } from './../services/product.service';
 import { default_product, default_image } from './../models/product';
 import {
@@ -30,7 +31,8 @@ export class ProductComponent implements OnInit {
   param: string | null = '';
   constructor(
     private route: ActivatedRoute,
-    private product_service: ProductService
+    private product_service: ProductService,
+    private cart_service: CartService
   ) {}
 
   async ngOnInit() {
@@ -64,7 +66,13 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  initProductPage() {}
+  addToCart() {
+    this.cart_service.getCart();
+    this.cart_service.addItem(
+      Number(this.param),
+      Number(this.quantity_input.value)
+    );
+  }
 
   addQuantity() {
     this.quantity_input.value = (

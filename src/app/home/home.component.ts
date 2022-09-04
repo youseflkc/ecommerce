@@ -35,8 +35,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.cart_service.getCart()
-
     this.collections = await this.collection_service.getAll();
     for (let collection of this.collections) {
       if (collection.featured_product) {

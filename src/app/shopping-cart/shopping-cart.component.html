@@ -1,30 +1,36 @@
 <div class="cart">
   <h4 class="cart__header">Cart</h4>
   <div *ngFor="let product of products" class="cart__item">
-    <img src="" alt="" />
-    <h4>{{ product.title }}</h4>
-    <p>{{ product.unit_price }}</p>
-    <div class="cart__item__quantity">
-      <fa-icon
-        (click)="subtractQuantity()"
-        class="quantity-icon"
-        [icon]="faMinus"
-      ></fa-icon>
-      <input
-        (focusout)="resetQuantity()"
-        id="quantity"
-        class="quantity"
-        value="1"
-        type="number"
-        min="0"
-      />
-      <fa-icon
-        (click)="addQuantity()"
-        class="quantity-icon"
-        [icon]="faPlus"
-      ></fa-icon>
-      <button>Remove</button>
+    <img class="cart__item__image" [src]="product.images[0].image" alt="" />
+    <div class="cart__item__details">
+      <h5>{{ product.title }}</h5>
+      <p class="cart__item__price">{{ product.unit_price }}</p>
+      <div class="cart__item__quantity">
+        <fa-icon
+          (click)="subtractQuantity()"
+          class="quantity-icon"
+          [icon]="faMinus"
+        ></fa-icon>
+        <input
+          (focusout)="resetQuantity()"
+          id="quantity"
+          class="quantity"
+          value="1"
+          type="number"
+          min="0"
+        />
+        <fa-icon
+          (click)="addQuantity()"
+          class="quantity-icon"
+          [icon]="faPlus"
+        ></fa-icon>
+        <button class="cart__item__remove">Remove</button>
+      </div>
     </div>
+  </div>
+  <div class="cart__subtotal-container">
+    <p class="cart__subtotal-label">Subtotal:</p>
+    <p class="cart__subtotal">{{ cart.total_price }}</p>
   </div>
   <button class="btn btn--secondary">Checkout</button>
 </div>
