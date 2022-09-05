@@ -177,11 +177,23 @@ export let dialog_animation = trigger('dialog_animation', [
   ]),
 ]);
 
-export const slideInAnimation = trigger('slideInAnimation', [
+export let slideInAnimation = trigger('slideInAnimation', [
   transition(':enter', [
     style({
       display: 'none',
     }),
     animate('5s'),
+  ]),
+]);
+
+export let cart_animation = trigger('cart_animation', [
+  transition(':enter', [
+    style({
+      transform: 'translateY(-100%)',
+    }),
+    animate(
+      '0.4s 0s cubic-bezier(0,.69,.25,1.02)',
+      style({ transform: 'translateY(0)' })
+    ),
   ]),
 ]);

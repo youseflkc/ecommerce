@@ -115,26 +115,11 @@
   }
 }
 
-.btn--disabled {
-  border: none;
-  background-color: #8e8e8e;
-  cursor: default;
-}
-
-.btn--disabled::before {
-  content: none;
-}
-
-.btn--disabled:hover {
-  background-color: #8e8e8e;
-  color: var(--color-font-primary);
-}
-
 .toolbar {
   background-color: var(--color-font-primary);
   justify-content: center;
   position: relative;
-  z-index: 99;
+  z-index: 9;
 }
 
 .toolbar--mobile {

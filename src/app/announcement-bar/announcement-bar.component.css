@@ -6,6 +6,8 @@
   line-height: 1.65;
   text-align: center;
   padding-top: 0.3rem;
+  position: sticky;
+  z-index: 1000;
 }
 .announcement-bar p {
   text-transform: uppercase;

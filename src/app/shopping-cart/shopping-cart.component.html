@@ -1,10 +1,18 @@
-<div class="cart">
+<div [@cart_animation] class="cart">
   <h4 class="cart__header">Cart</h4>
-  <div *ngFor="let product of products" class="cart__item">
-    <img class="cart__item__image" [src]="product.images[0].image" alt="" />
+  <div *ngFor="let item of cart.items" class="cart__item">
+    <img
+      class="cart__item__image"
+      [src]="
+        item.product.images.length > 0
+          ? item.product.images[0].image
+          : '/assets/images/default-placeholder-image.png'
+      "
+      alt=""
+    />
     <div class="cart__item__details">
-      <h5>{{ product.title }}</h5>
-      <p class="cart__item__price">{{ product.unit_price }}</p>
+      <h5>{{ item.product.title }}</h5>
+      <p class="cart__item__price">{{ item.product.unit_price }}</p>
       <div class="cart__item__quantity">
         <fa-icon
           (click)="subtractQuantity()"
@@ -13,24 +21,34 @@
         ></fa-icon>
         <input
           (focusout)="resetQuantity()"
-          id="quantity"
+          id="quantity_input"
           class="quantity"
-          value="1"
+          [value]="item.quantity"
           type="number"
           min="0"
         />
         <fa-icon
-          (click)="addQuantity()"
+          (click)="addQuantity(item.id)"
           class="quantity-icon"
           [icon]="faPlus"
         ></fa-icon>
-        <button class="cart__item__remove">Remove</button>
+        <button (click)="removeItem(item.id)" class="cart__item__remove">
+          Remove
+        </button>
       </div>
     </div>
   </div>
-  <div class="cart__subtotal-container">
+  <h5 *ngIf="cart.items.length < 1">Your cart is empty.</h5>
+  <div *ngIf="cart.items.length > 0" class="cart__subtotal-container">
     <p class="cart__subtotal-label">Subtotal:</p>
-    <p class="cart__subtotal">{{ cart.total_price }}</p>
+    <p class="cart__subtotal">
+      {{ cart.total_price }}
+    </p>
   </div>
-  <button class="btn btn--secondary">Checkout</button>
+  <button
+    [class]="cart.items.length < 1 ? 'btn--disabled' : ''"
+    class="btn btn--secondary"
+  >
+    Checkout
+  </button>
 </div>

@@ -225,3 +225,9 @@
     transform: translateX(-200%);
   }
 }
+
+.shopping-cart {
+  position: absolute;
+  transition: all 0.5s;
+  z-index: 10;
+}

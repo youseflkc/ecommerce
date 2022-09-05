@@ -65,8 +65,18 @@
       </div>
     </li>
     <li id="cart-icon" class="navbar__item">
-      <fa-icon (click)="toggleCart()" class="navbar__icon" [icon]="faCart"></fa-icon>
+      <fa-icon
+        (click)="toggleCart()"
+        class="navbar__icon"
+        [icon]="faCart"
+      ></fa-icon>
     </li>
-    <app-shopping-cart *ngIf="show_cart"></app-shopping-cart>
   </ul>
 </nav>
+<app-shopping-cart
+  [style.top]="cart_top"
+  class="shopping-cart"
+  (closeCartEvent)="closeCart()"
+  id="app-shopping-cart"
+  *ngIf="show_cart"
+></app-shopping-cart>

@@ -1,3 +1,4 @@
+import { ShoppingCartComponent } from './../shopping-cart/shopping-cart.component';
 import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
 import { open_close_icon, open_close_input } from './../animations';
@@ -24,7 +25,6 @@ import {
   Observable,
 } from 'rxjs';
 import { EventEmitter } from '@angular/core';
-import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
 
 @Component({
   selector: 'app-navbar',
@@ -33,18 +33,24 @@ import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
   animations: [open_close_input, open_close_icon],
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild(ShoppingCartComponent) cart;
   @ViewChild('focus', { static: false }) input: ElementRef;
   @Output() openNavEvent = new EventEmitter();
 
+  cart_top = '6rem';
+
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
-    let element = document.querySelector('.navbar') as HTMLElement;
+    let nav_element = document.querySelector('.navbar') as HTMLElement;
+    let cart_element = document.querySelector('.cart') as HTMLElement;
     if (window.scrollY > 36) {
-      element.classList.add('navbar--clear');
-      element.classList.remove('navbar--normal');
+      nav_element.classList.add('navbar--clear');
+      nav_element.classList.remove('navbar--normal');
+      this.cart_top = '3rem';
     } else {
-      element.classList.remove('navbar--clear');
-      element.classList.add('navbar--normal');
+      nav_element.classList.remove('navbar--clear');
+      nav_element.classList.add('navbar--normal');
+      this.cart_top = '6rem';
     }
   }
 
@@ -136,6 +142,22 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleCart() {
+    if (this.show_cart) {
+      let cart_element = document.querySelector('.cart') as HTMLElement;
+      cart_element.style.transform = 'translateY(-100%)';
+      setTimeout(() => {
+        this.show_cart = !this.show_cart;
+      }, 400);
+      return;
+    }
     this.show_cart = !this.show_cart;
+  }
+
+  closeCart() {
+    let cart_element = document.querySelector('.cart') as HTMLElement;
+    cart_element.style.transform = 'translateY(-100%)';
+    setTimeout(() => {
+      this.show_cart = this.show_cart = false;
+    }, 400);
   }
 }
