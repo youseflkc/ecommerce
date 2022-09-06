@@ -8,7 +8,7 @@ import {
   OnInit,
   Renderer2,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import AOS from 'aos';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,25 +32,13 @@ export class ProductComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private product_service: ProductService,
-    private cart_service: CartService
+    private cart_service: CartService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
     AOS.init();
-    this.param = this.route.snapshot.paramMap.get('id');
-    this.product = await this.product_service.getProduct(Number(this.param));
-
-    let res = await this.product_service.getFilteredOrSortedProducts({
-      collection_id: this.product.collection.toString(),
-    });
-
-    this.recommended_products = res.results;
-
-    this.quantity_input = document.getElementById(
-      'quantity'
-    ) as HTMLInputElement;
-
-    this.route.params.subscribe(async (params) => {
+    try {
       this.param = this.route.snapshot.paramMap.get('id');
       this.product = await this.product_service.getProduct(Number(this.param));
 
@@ -59,10 +47,33 @@ export class ProductComponent implements OnInit {
       });
 
       this.recommended_products = res.results;
+    } catch (error) {
+      this.router.navigate(['**']);
+    }
 
-      this.quantity_input = document.getElementById(
-        'quantity'
-      ) as HTMLInputElement;
+    this.quantity_input = document.getElementById(
+      'quantity'
+    ) as HTMLInputElement;
+
+    this.route.params.subscribe(async (params) => {
+      try {
+        this.param = this.route.snapshot.paramMap.get('id');
+        this.product = await this.product_service.getProduct(
+          Number(this.param)
+        );
+
+        let res = await this.product_service.getFilteredOrSortedProducts({
+          collection_id: this.product.collection.toString(),
+        });
+
+        this.recommended_products = res.results;
+
+        this.quantity_input = document.getElementById(
+          'quantity'
+        ) as HTMLInputElement;
+      } catch (error) {
+        this.router.navigate(['**']);
+      }
     });
   }
 

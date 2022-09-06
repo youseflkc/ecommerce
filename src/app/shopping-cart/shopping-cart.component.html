@@ -1,43 +1,46 @@
-<div [@cart_animation] class="cart">
+<div class="cart">
   <h4 class="cart__header">Cart</h4>
-  <div *ngFor="let item of cart.items" class="cart__item">
-    <img
-      class="cart__item__image"
-      [src]="
-        item.product.images.length > 0
-          ? item.product.images[0].image
-          : '/assets/images/default-placeholder-image.png'
-      "
-      alt=""
-    />
-    <div class="cart__item__details">
-      <h5>{{ item.product.title }}</h5>
-      <p class="cart__item__price">{{ item.product.unit_price }}</p>
-      <div class="cart__item__quantity">
-        <fa-icon
-          (click)="subtractQuantity()"
-          class="quantity-icon"
-          [icon]="faMinus"
-        ></fa-icon>
-        <input
-          (focusout)="resetQuantity()"
-          id="quantity_input"
-          class="quantity"
-          [value]="item.quantity"
-          type="number"
-          min="0"
-        />
-        <fa-icon
-          (click)="addQuantity(item.id)"
-          class="quantity-icon"
-          [icon]="faPlus"
-        ></fa-icon>
-        <button (click)="removeItem(item.id)" class="cart__item__remove">
-          Remove
-        </button>
+  <div class="cart__items">
+    <div *ngFor="let item of cart.items" class="cart__item">
+      <img
+        class="cart__item__image"
+        [src]="
+          item.product.images.length > 0
+            ? item.product.images[0].image
+            : '/assets/images/default-placeholder-image.png'
+        "
+        alt=""
+      />
+      <div class="cart__item__details">
+        <h5>{{ item.product.title }}</h5>
+        <p class="cart__item__price">{{ item.product.unit_price }}</p>
+        <div class="cart__item__quantity">
+          <fa-icon
+            (click)="subtractQuantity(item.id)"
+            class="quantity-icon"
+            [icon]="faMinus"
+          ></fa-icon>
+          <input
+            (focusout)="resetQuantity(item.id)"
+            id="quantity_input_{{ item.id }}"
+            class="quantity"
+            [value]="item.quantity"
+            type="number"
+            min="0"
+          />
+          <fa-icon
+            (click)="addQuantity(item.id)"
+            class="quantity-icon"
+            [icon]="faPlus"
+          ></fa-icon>
+          <button (click)="removeItem(item.id)" class="cart__item__remove">
+            Remove
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
   <h5 *ngIf="cart.items.length < 1">Your cart is empty.</h5>
   <div *ngIf="cart.items.length > 0" class="cart__subtotal-container">
     <p class="cart__subtotal-label">Subtotal:</p>

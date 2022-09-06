@@ -1,16 +1,13 @@
 import { cart_animation } from './../animations';
-import { SimpleProduct } from './../models/simple-product';
 import { ProductService } from './../services/product.service';
 import { Cart } from './../models/cart';
 import { CartService } from './../services/cart.service';
-import { faPlus, faMinus, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Product } from './../models/product';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import {
   Component,
   HostListener,
   OnInit,
   Output,
-  ViewChild,
   EventEmitter,
   ElementRef,
 } from '@angular/core';
@@ -22,38 +19,24 @@ import {
   animations: [cart_animation],
 })
 export class ShoppingCartComponent implements OnInit {
-  @Output() closeCartEvent = new EventEmitter();
-
-  clicked: boolean = false;
-
-  @HostListener('document:click', ['$event'])
-  onClick(event) {
-    if (this.clicked && !this.e_ref.nativeElement.contains(event.target)) {
-      this.closeCartEvent.emit();
-      console.log('click outside');
-    }
-    this.clicked = true;
-  }
-
   faPlus = faPlus;
   faMinus = faMinus;
 
   cart: Cart = { id: '', items: [], total_price: 0 };
   quantity_input = new Object() as HTMLInputElement;
 
-  constructor(
-    private cart_service: CartService,
-    private product_service: ProductService,
-    private e_ref: ElementRef
-  ) {}
+  constructor(private cart_service: CartService) {}
 
   async ngOnInit() {
     this.cart = await this.cart_service.getCart();
+    this.cart_service.cart_updated_event.subscribe(async (res) => {
+      this.cart = await this.cart_service.getCart();
+    });
   }
 
   async removeItem(item_id) {
     this.cart.items = this.cart.items.filter((item) => item.id != item_id);
-    return await this.cart_service.removeItem(item_id);
+    await this.cart_service.removeItem(item_id);
   }
 
   /**
@@ -61,17 +44,14 @@ export class ShoppingCartComponent implements OnInit {
    */
   async addQuantity(item_id: number) {
     this.quantity_input = document.getElementById(
-      'quantity_input'
+      'quantity_input_' + item_id
     ) as HTMLInputElement;
 
-    this.quantity_input.value = (
-      Number(this.quantity_input.value) + 1
-    ).toString();
+    let new_quantity = Number(this.quantity_input.value) + 1;
 
-    await this.cart_service.updateItem(
-      item_id,
-      Number(this.quantity_input.value)
-    );
+    this.quantity_input.value = new_quantity.toString();
+
+    await this.cart_service.updateItem(item_id, new_quantity);
     this.cart = await this.cart_service.getCart();
   }
 
@@ -80,31 +60,33 @@ export class ShoppingCartComponent implements OnInit {
    */
   async subtractQuantity(item_id: number) {
     this.quantity_input = document.getElementById(
-      'quantity_input'
+      'quantity_input_' + item_id
     ) as HTMLInputElement;
 
     let new_quantity = Number(this.quantity_input.value) - 1;
     if (new_quantity >= 1) {
       this.quantity_input.value = new_quantity.toString();
+      await this.cart_service.updateItem(item_id, new_quantity);
+      this.cart = await this.cart_service.getCart();
     }
-
-    await this.cart_service.updateItem(
-      item_id,
-      Number(this.quantity_input.value)
-    );
-    this.cart = await this.cart_service.getCart();
   }
 
   /**
-   * resets quantity to 1 if value less than 1 is entered by user
+   * resets quantity to 1 if value less than 1 is entered by user.
+   * updates the quantity to the server with the new amount entered
    */
-  resetQuantity() {
+  async resetQuantity(item_id) {
     this.quantity_input = document.getElementById(
-      'quantity_input'
+      'quantity_input_' + item_id
     ) as HTMLInputElement;
 
-    if (Number(this.quantity_input.value) < 1) {
+    let quantity = Number(this.quantity_input.value);
+
+    if (quantity < 1) {
       this.quantity_input.value = '1';
     }
+
+    await this.cart_service.updateItem(item_id, quantity);
+    this.cart = await this.cart_service.getCart();
   }
 }

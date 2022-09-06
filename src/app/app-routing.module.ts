@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

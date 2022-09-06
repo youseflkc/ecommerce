@@ -1,8 +1,12 @@
+import { NavigationStart, Router } from '@angular/router';
+import { Cart } from './../models/cart';
+import { CartService } from './../services/cart.service';
 import { ShoppingCartComponent } from './../shopping-cart/shopping-cart.component';
 import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
 import { open_close_icon, open_close_input } from './../animations';
 import {
+  asNativeElements,
   Component,
   ElementRef,
   HostListener,
@@ -33,24 +37,55 @@ import { EventEmitter } from '@angular/core';
   animations: [open_close_input, open_close_icon],
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild(ShoppingCartComponent) cart;
-  @ViewChild('focus', { static: false }) input: ElementRef;
+  @ViewChild('focus', { static: false }) input_element: ElementRef =
+    new ElementRef(asNativeElements);
   @Output() openNavEvent = new EventEmitter();
 
-  cart_top = '6rem';
+  clicked: boolean = false;
 
+  /**
+   * if the user clicks outside the cart while it is open, then the cart will close.
+   * @param event element that was clicked
+   */
+  @HostListener('document:click', ['$event'])
+  onClick(event) {
+    //ignores clicks in the cart or in the navbar
+    let cart_element = document.querySelector('.cart') as HTMLElement;
+    let nav_element = document.querySelector('.navbar') as HTMLElement;
+    if (
+      !event.target.classList.contains('cart__item__remove') &&
+      this.show_cart &&
+      !cart_element.contains(event.target) &&
+      !nav_element.contains(event.target)
+    ) {
+      this.toggleCart();
+    }
+  }
+
+  cart_top = window.matchMedia('(max-width: 768px)').matches ? '5rem' : '6rem';
+
+  /**
+   * reduces navbar size when you scroll down and makes navbar clear
+   */
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     let nav_element = document.querySelector('.navbar') as HTMLElement;
-    let cart_element = document.querySelector('.cart') as HTMLElement;
     if (window.scrollY > 36) {
       nav_element.classList.add('navbar--clear');
       nav_element.classList.remove('navbar--normal');
-      this.cart_top = '3rem';
+      if (window.matchMedia('(max-width:768px)').matches) {
+        this.cart_top = '4rem';
+      } else {
+        this.cart_top = '3rem';
+      }
     } else {
       nav_element.classList.remove('navbar--clear');
       nav_element.classList.add('navbar--normal');
-      this.cart_top = '6rem';
+      if (window.matchMedia('(max-width:768px)').matches) {
+        this.cart_top = '5rem';
+      } else {
+        this.cart_top = '6rem';
+      }
     }
   }
 
@@ -63,13 +98,44 @@ export class NavbarComponent implements OnInit {
   is_open = false;
   show_cart: boolean = false;
 
+  cart_quantity: number = 0;
+
   search_input: string = '';
   searched_products: Product[] = [];
 
-  constructor(private product_service: ProductService) {}
+  constructor(
+    private product_service: ProductService,
+    private cart_service: CartService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    let cart: Cart = await this.cart_service.getCart();
+    for (let item of cart.items) {
+      this.cart_quantity += item.quantity;
+    }
+    this.cart_service.cart_updated_event.subscribe((res) => {
+      if (res) {
+        this.cart_quantity += res.quantity;
+      }
+    });
 
+    // closes the cart on route change
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.show_cart) {
+          this.toggleCart();
+        }
+      }
+    });
+  }
+
+  /**
+   * angular material search function for seaching products in the database.
+   * uses debounce and distinctUntilChanged to reduce server calls
+   * @param text$ keyword to be searched
+   * @returns
+   */
   search: OperatorFunction<string, readonly string[]> = (
     text$: Observable<string>
   ) =>
@@ -86,10 +152,14 @@ export class NavbarComponent implements OnInit {
       })
     );
 
+  // returns search results as the product title only
   formatter = (result: Product) => result.title;
 
+  /**
+   * expands search bar
+   */
   toggleSearchBar() {
-    if (this.input.nativeElement.value) {
+    if (this.input_element.nativeElement.value) {
       // this.search();
     } else {
       let sidenav_icon_element = document.getElementById(
@@ -119,17 +189,21 @@ export class NavbarComponent implements OnInit {
       setTimeout(
         () =>
           this.is_open
-            ? this.input.nativeElement.focus()
-            : this.input.nativeElement.blur(),
+            ? this.input_element.nativeElement.focus()
+            : this.input_element.nativeElement.blur(),
         300
       );
     }
   }
 
+  /**
+   * clears the search bar if there is text.
+   * if search bar is empty then it collapeses instead
+   */
   clearSearchBar() {
-    if (this.input.nativeElement.value) {
-      this.input.nativeElement.value = '';
-      this.input.nativeElement.focus();
+    if (this.input_element.nativeElement.value) {
+      this.input_element.nativeElement.value = '';
+      this.input_element.nativeElement.focus();
     } else {
       this.toggleSearchBar();
     }
@@ -137,27 +211,25 @@ export class NavbarComponent implements OnInit {
     this.searched_products = [];
   }
 
+  /**
+   * opens nav side menu for mobile
+   */
   openNav() {
     this.openNavEvent.emit();
   }
 
+  /**
+   * expands shopping cart
+   */
   toggleCart() {
+    let cart_element = document.querySelector('.cart') as HTMLElement;
     if (this.show_cart) {
-      let cart_element = document.querySelector('.cart') as HTMLElement;
-      cart_element.style.transform = 'translateY(-100%)';
-      setTimeout(() => {
-        this.show_cart = !this.show_cart;
-      }, 400);
-      return;
+      cart_element.style.transform = 'translateY(-150%)';
+      cart_element.style.opacity = '0';
+    } else {
+      cart_element.style.transform = 'translateY(0px)';
+      cart_element.style.opacity = '1';
     }
     this.show_cart = !this.show_cart;
-  }
-
-  closeCart() {
-    let cart_element = document.querySelector('.cart') as HTMLElement;
-    cart_element.style.transform = 'translateY(-100%)';
-    setTimeout(() => {
-      this.show_cart = this.show_cart = false;
-    }, 400);
   }
 }

@@ -37,7 +37,9 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.loadingService.open(LoadingDialogComponent);
+    if (request.url.includes('products')) {
+      this.loadingService.open(LoadingDialogComponent);
+    }
     return next.handle(request).pipe(
       retryWhen((error) => {
         return error.pipe(
@@ -52,7 +54,11 @@ export class ServerErrorInterceptor implements HttpInterceptor {
           })
         );
       }),
-      finalize(() => this.loadingService.close()),
+      finalize(() => {
+        if (this.loadingService.isOpen()) {
+          this.loadingService.close();
+        }
+      }),
       catchError((error: HttpErrorResponse) => {
         this.handleError(error);
         return throwError(() => error);

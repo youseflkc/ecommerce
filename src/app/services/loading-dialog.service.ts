@@ -14,6 +14,9 @@ export class LoadingDialogService {
 
   constructor(private overlay: Overlay, private injector: Injector) {}
 
+  /**
+   * opens a dialog with the specified component using an overlay component
+   */
   open<T>(component: ComponentType<T>) {
     if (!this.opened) {
       this.opened = true;
@@ -46,8 +49,18 @@ export class LoadingDialogService {
     }
   }
 
+  /**
+   * closes the dialog reference
+   */
   close() {
     this.dialogRef.close();
     this.opened = false;
+  }
+
+  /**
+   * returns true if loading dialog is currently opened
+   */
+  isOpen(): boolean {
+    return this.opened;
   }
 }
