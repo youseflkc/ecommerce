@@ -70,7 +70,7 @@ export class CartService {
       let res = await firstValueFrom(
         this.http.delete(this.base_url + cart_id + '/items/' + id)
       );
-      this.cart_updated_event.emit();
+      this.cart_updated_event.emit(res);
       return res;
     } catch (error) {
       throw error;
@@ -85,7 +85,7 @@ export class CartService {
           quantity: quantity,
         })
       );
-      this.cart_updated_event.emit();
+      this.cart_updated_event.emit(res);
       return res;
     } catch (error) {
       throw error;

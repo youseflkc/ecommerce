@@ -72,8 +72,10 @@
 
 .cart__item__image {
   height: 6rem;
+  width: 9rem;
+  object-fit: contain;
   background-color: var(--color-font-primary);
-  margin-right: 1rem;
+  margin: 0 1rem;
 }
 
 .cart__item__quantity {

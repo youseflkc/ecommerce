@@ -22,7 +22,7 @@ export class ShoppingCartComponent implements OnInit {
   faPlus = faPlus;
   faMinus = faMinus;
 
-  cart: Cart = { id: '', items: [], total_price: 0 };
+  cart: Cart = { id: '', items: [], total_price: 0, total_quantity: 0 };
   quantity_input = new Object() as HTMLInputElement;
 
   constructor(private cart_service: CartService) {}

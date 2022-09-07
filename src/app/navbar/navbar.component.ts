@@ -112,12 +112,11 @@ export class NavbarComponent implements OnInit {
   async ngOnInit() {
     let cart: Cart = await this.cart_service.getCart();
     for (let item of cart.items) {
-      this.cart_quantity += item.quantity;
+      this.cart_quantity = cart.total_quantity;
     }
-    this.cart_service.cart_updated_event.subscribe((res) => {
-      if (res) {
-        this.cart_quantity += res.quantity;
-      }
+    this.cart_service.cart_updated_event.subscribe(async () => {
+      cart = await this.cart_service.getCart();
+      this.cart_quantity = cart.total_quantity;
     });
 
     // closes the cart on route change
