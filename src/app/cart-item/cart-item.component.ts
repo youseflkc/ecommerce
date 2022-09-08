@@ -28,38 +28,26 @@ export class CartItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async removeItem(item_id) {
+  async removeItem() {
     this.remove_item = true;
-    await this.cart_service.removeItem(item_id);
+    await this.cart_service.removeItem(this.item.id);
   }
 
   /**
    * increments quantity value when plus btn is clicked
    */
-  async addQuantity(item_id: number) {
-    let quantity_input = document.getElementById(
-      'quantity_input_' + item_id
-    ) as HTMLInputElement;
-
-    let new_quantity = Number(quantity_input.value) + 1;
-
-    quantity_input.value = new_quantity.toString();
-
-    await this.cart_service.updateItem(item_id, new_quantity);
+  async addQuantity() {
+    this.item.quantity += 1;
+    await this.cart_service.updateItem(this.item.id, this.item.quantity);
   }
 
   /**
    * decrements quantity value when minus btn is clicked
    */
-  async subtractQuantity(item_id: number) {
-    let quantity_input = document.getElementById(
-      'quantity_input_' + item_id
-    ) as HTMLInputElement;
-
-    let new_quantity = Number(quantity_input.value) - 1;
-    if (new_quantity >= 1) {
-      quantity_input.value = new_quantity.toString();
-      await this.cart_service.updateItem(item_id, new_quantity);
+  async subtractQuantity() {
+    if (this.item.quantity - 1 >= 1) {
+      this.item.quantity -= 1;
+      await this.cart_service.updateItem(this.item.id, this.item.quantity);
     }
   }
 
@@ -67,21 +55,10 @@ export class CartItemComponent implements OnInit {
    * resets quantity to 1 if value less than 1 is entered by user.
    * updates the quantity to the server with the new amount entered
    */
-  async resetQuantity(item_id) {
-    let quantity_input = document.getElementById(
-      'quantity_input_' + item_id
-    ) as HTMLInputElement;
-
-    let quantity = Number(quantity_input.value);
-
-    if (quantity === this.item.quantity) {
-      return;
+  async updateQuantity() {
+    if (this.item.quantity < 1) {
+      this.item.quantity = 1;
     }
-
-    if (quantity < 1) {
-      quantity_input.value = '1';
-    }
-
-    await this.cart_service.updateItem(item_id, quantity);
+    await this.cart_service.updateItem(this.item.id, this.item.quantity);
   }
 }

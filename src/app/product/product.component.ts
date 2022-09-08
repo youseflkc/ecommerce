@@ -1,15 +1,8 @@
 import { CartService } from './../services/cart.service';
 import { ProductService } from './../services/product.service';
 import { DEFAULT_PRODUCT, DEFAULT_IMAGE } from './../models/product';
-import {
-  Component,
-  HostListener,
-  Input,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import AOS from 'aos';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -37,7 +30,6 @@ export class ProductComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    AOS.init();
     try {
       this.param = this.route.snapshot.paramMap.get('id');
       this.product = await this.product_service.getProduct(Number(this.param));

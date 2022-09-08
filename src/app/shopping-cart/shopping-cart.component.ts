@@ -9,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent implements OnInit {
-  cart: Cart = { id: '', items: [], total_price: 0, total_quantity: 0 };
+  cart: Cart = {
+    id: '',
+    items: [],
+    total_price: 0,
+    total_price_with_tax: 0,
+    total_quantity: 0,
+  };
   quantity_input = new Object() as HTMLInputElement;
 
   constructor(private cart_service: CartService) {}

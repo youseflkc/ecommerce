@@ -111,16 +111,17 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit() {
     let cart: Cart = await this.cart_service.getCart();
-    for (let item of cart.items) {
-      this.cart_quantity = cart.total_quantity;
-    }
+    this.cart_quantity = cart.total_quantity;
+
+    //when cart detects a change, it refreshes
     this.cart_service.cart_updated_event.subscribe(async () => {
       cart = await this.cart_service.getCart();
       this.cart_quantity = cart.total_quantity;
-      if (!this.show_cart) {
+      if (!this.show_cart && this.router.url !== '/checkout') {
         this.toggleCart();
       }
 
+      // animate cart quantity on change
       let cart_quantity_element = document.querySelector(
         '.cart__quantity'
       ) as HTMLElement;

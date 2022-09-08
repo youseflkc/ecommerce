@@ -2,33 +2,84 @@
   <div class="order__form">
     <h4 class="order__form__header">Shipping Information</h4>
     <input
-      style="width: 35%"
+      maxlength="50"
+      id="order-first-name"
       class="order__form__input"
       type="text"
       placeholder="First Name"
     />
     <input
-      style="width: 35%"
+      maxlength="50"
+      id="order-last-name"
       class="order__form__input"
       type="text"
       placeholder="Last Name"
     />
-    <input class="order__form__input" type="text" placeholder="Phone Number" />
-    <input class="order__form__input" type="text" placeholder="Country" />
     <input
+      maxlength="15"
+      id="order-phone"
+      class="order__form__input"
+      type="text"
+      placeholder="Phone Number"
+    />
+    <input
+      maxlength="50"
+      id="order-country"
+      class="order__form__input"
+      type="text"
+      placeholder="Country"
+    />
+    <input
+      maxlength="50"
+      id="order-address"
       class="order__form__input"
       type="text"
       placeholder="Street Address"
     />
-    <input class="order__form__input" type="text" placeholder="City" />
-    <input class="order__form__input" type="text" placeholder="Province" />
-    <input class="order__form__input" type="text" placeholder="Postal Code" />
-    <button class="btn btn--primary order__btn">Place Order</button>
+    <input
+      maxlength="50"
+      id="order-city"
+      class="order__form__input"
+      type="text"
+      placeholder="City"
+    />
+    <input
+      maxlength="50"
+      id="order-province"
+      class="order__form__input"
+      type="text"
+      placeholder="Province"
+    />
+    <input
+      maxlength="6"
+      onkeyup="this.value = this.value.toUpperCase()"
+      required
+      id="order-postal-code"
+      class="order__form__input"
+      type="text"
+      placeholder="Postal Code"
+    />
+    <button (click)="placeOrder()" class="btn btn--primary order__btn">
+      Place Order
+    </button>
   </div>
   <div class="order__items">
     <div *ngFor="let item of cart.items" class="order__item">
       <app-cart-item [item]="item" [light]="false"></app-cart-item>
     </div>
+    <div class="order__items__total">
+      <div class="order__subtotal">
+        <p>Subtotal:</p>
+        <p>${{ cart.total_price }}</p>
+      </div>
+      <div class="order__subtotal">
+        <p>Tax:</p>
+        <p>${{ tax }}</p>
+      </div>
+      <div class="order__total">
+        <p>Total:</p>
+        <p>${{ cart.total_price_with_tax }}</p>
+      </div>
+    </div>
   </div>
-  
 </div>

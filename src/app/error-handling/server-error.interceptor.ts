@@ -1,3 +1,4 @@
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { LoadingDialogComponent } from './../loading-dialog/loading-dialog.component';
 import { LoadingDialogService } from './../services/loading-dialog.service';
 import { DialogMessageComponent } from './../dialog-message/dialog-message.component';
@@ -29,8 +30,8 @@ const delayMs = 3000; //number of ms to wait between retrying request attempts.
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
   constructor(
-    private dialogService: DialogMessageService,
-    private loadingService: LoadingDialogService
+    private dialog_service: DialogMessageService,
+    private loading_service: LoadingDialogService,
   ) {}
 
   intercept(
@@ -44,7 +45,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         request.url.includes('/carts') &&
         request.method === 'POST')
     ) {
-      this.loadingService.open(LoadingDialogComponent);
+      this.loading_service.open(LoadingDialogComponent);
     }
     return next.handle(request).pipe(
       retryWhen((error) => {
@@ -61,8 +62,8 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         );
       }),
       finalize(() => {
-        if (this.loadingService.isOpen()) {
-          this.loadingService.close();
+        if (this.loading_service.isOpen()) {
+          this.loading_service.close();
         }
       }),
       catchError((error: HttpErrorResponse) => {
@@ -74,13 +75,13 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
   handleError(error: HttpErrorResponse) {
     if (navigator.onLine) {
-      this.dialogService.open(DialogMessageComponent, {
+      this.dialog_service.open(DialogMessageComponent, {
         header: 'A server error has occured. Please try again later.',
         message: error.statusText || error.message || error.toString(),
         status: error.status,
       });
     } else {
-      this.dialogService.open(DialogMessageComponent, {
+      this.dialog_service.open(DialogMessageComponent, {
         header: 'A server error has occured. Please try again later.',
         message: 'No internet connection',
         status: error.status,

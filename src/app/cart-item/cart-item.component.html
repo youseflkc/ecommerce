@@ -25,27 +25,27 @@
     </p>
     <div class="cart__item__quantity">
       <fa-icon
-        (click)="subtractQuantity(item.id)"
+        (click)="subtractQuantity()"
         class="quantity-icon"
         [icon]="faMinus"
       ></fa-icon>
       <input
-        (focusout)="resetQuantity(item.id)"
+        (change)="updateQuantity()"
         id="quantity_input_{{ item.id }}"
         [ngClass]="light ? 'quantity--light' : 'quantity--dark'"
         class="quantity"
-        [value]="item.quantity"
+        [(ngModel)]="item.quantity"
         type="number"
         min="0"
       />
       <fa-icon
-        (click)="addQuantity(item.id)"
+        (click)="addQuantity()"
         [ngClass]="light ? 'quantity-icon--light' : 'quantity-icon--dark'"
         class="quantity-icon"
         [icon]="faPlus"
       ></fa-icon>
       <button
-        (click)="removeItem(item.id)"
+        (click)="removeItem()"
         [ngClass]="
           light ? 'cart__item__remove--light' : 'cart__item__remove--dark'
         "

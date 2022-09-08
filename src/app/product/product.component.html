@@ -54,8 +54,6 @@
 <div class="recommended-products">
   <ng-container *ngFor="let product of recommended_products; let i = index">
     <app-product-card
-      data-aos="fade-up"
-      [attr.data-aos-delay]="i * 150"
       *ngIf="i < 4"
       [product]="product"
     ></app-product-card>

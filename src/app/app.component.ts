@@ -1,14 +1,7 @@
 import { NavbarComponent } from './navbar/navbar.component';
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import { slideInAnimation } from './animations';
-import AOS from 'aos';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  ViewChild,
-} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -27,9 +20,7 @@ export class AppComponent {
 
   constructor() {}
 
-  ngOnInit() {
-    AOS.init();
-  }
+  ngOnInit() {}
 
   openNav() {
     this.nav_open = true;
