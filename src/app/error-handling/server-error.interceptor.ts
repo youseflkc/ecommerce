@@ -37,7 +37,13 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (request.url.includes('products')) {
+    //displays loading dialog only when products are loading or items are added to cart
+    if (
+      request.url.includes('products') ||
+      (request.url.includes('/items') &&
+        request.url.includes('/carts') &&
+        request.method === 'POST')
+    ) {
       this.loadingService.open(LoadingDialogComponent);
     }
     return next.handle(request).pipe(

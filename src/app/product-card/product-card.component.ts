@@ -1,4 +1,4 @@
-import { Product, default_product } from './../models/product';
+import { Product, DEFAULT_PRODUCT } from './../models/product';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product: Product = default_product;
+  @Input() product: Product = DEFAULT_PRODUCT;
   /**
    * bg color scheme: choose 'bg-1', 'bg-2', 'bg-3'
    */

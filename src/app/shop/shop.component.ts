@@ -1,4 +1,4 @@
-import { throwError } from 'rxjs';
+import AOS from 'aos';
 import { Collection } from './../models/collection';
 import { ProductService, ProductResponse } from './../services/product.service';
 import { CollectionService } from './../services/collection.service';
@@ -87,6 +87,10 @@ export class ShopComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    AOS.init({ startEvent: 'load' });
+
+    window.addEventListener('load', AOS.refresh);
+
     this.collections = await this.collection_service.getAll();
 
     //sets all the collection selected values to false initially
@@ -105,6 +109,10 @@ export class ShopComponent implements OnInit {
     this.min_price_input = document.getElementById(
       'min-price'
     ) as HTMLInputElement;
+  }
+
+  ngOnDestroy(){
+    AOS.refresh();
   }
 
   /**

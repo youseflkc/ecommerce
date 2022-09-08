@@ -228,12 +228,14 @@
 
 .cart__quantity {
   position: absolute;
-  transform: translate(20px, -35px);
+  transform: translate(20px, -33px);
   background: var(--color-primary);
   color: var(--color-font-primary);
-  padding: 0.3rem 0.3rem 0.1rem;
-  border-radius: 1rem;
+  padding: 0.3rem 0.5rem 0.1rem 0.6rem;
+  border-radius: 0.5rem;
   font-size: 0.8rem;
+  transition: all 0.2s;
+  cursor: default;
 }
 
 .shopping-cart {
@@ -242,8 +244,8 @@
   z-index: 10;
 }
 
-@media screen and (max-width: 768px) {
-  .shopping-cart {
-    z-index: 10000;
+@media screen and (max-width: 1024px) {
+  .cart__quantity {
+    padding: 0.3rem 0.2rem 0.2rem;
   }
 }

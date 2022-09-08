@@ -1,6 +1,6 @@
 import { CartService } from './../services/cart.service';
 import { ProductService } from './../services/product.service';
-import { default_product, default_image } from './../models/product';
+import { DEFAULT_PRODUCT, DEFAULT_IMAGE } from './../models/product';
 import {
   Component,
   HostListener,
@@ -18,8 +18,8 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
-  default_image = default_image;
-  @Input('product') product: any = default_product;
+  default_image = DEFAULT_IMAGE;
+  @Input('product') product: any = DEFAULT_PRODUCT;
 
   recommended_products: any = [];
 

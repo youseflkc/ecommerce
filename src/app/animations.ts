@@ -185,15 +185,3 @@ export let slideInAnimation = trigger('slideInAnimation', [
     animate('5s'),
   ]),
 ]);
-
-export let cart_animation = trigger('cart_animation', [
-  transition(':enter', [
-    style({
-      transform: 'translateY(-100%)',
-    }),
-    animate(
-      '0.4s 0s cubic-bezier(0,.69,.25,1.02)',
-      style({ transform: 'translateY(0)' })
-    ),
-  ]),
-]);

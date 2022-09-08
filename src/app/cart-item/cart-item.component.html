@@ -1,0 +1,58 @@
+<div *ngIf="!remove_item" class="cart__item">
+  <img
+    routerLink="/shop/product/{{ item.product.id }}"
+    class="cart__item__image"
+    [src]="
+      item.product.images.length > 0
+        ? item.product.images[0].image
+        : '/assets/images/default-placeholder-image.png'
+    "
+    alt=""
+  />
+  <div class="cart__item__details">
+    <h5
+      [ngClass]="light ? 'cart__item__title--light' : 'cart__item__title--dark'"
+      class="cart__item__title"
+      routerLink="/shop/product/{{ item.product.id }}"
+    >
+      {{ item.product.title }}
+    </h5>
+    <p
+      [ngClass]="light ? 'cart__item__price--light' : 'cart__item__price--dark'"
+      class="cart__item__price"
+    >
+      {{ item.product.unit_price }}
+    </p>
+    <div class="cart__item__quantity">
+      <fa-icon
+        (click)="subtractQuantity(item.id)"
+        class="quantity-icon"
+        [icon]="faMinus"
+      ></fa-icon>
+      <input
+        (focusout)="resetQuantity(item.id)"
+        id="quantity_input_{{ item.id }}"
+        [ngClass]="light ? 'quantity--light' : 'quantity--dark'"
+        class="quantity"
+        [value]="item.quantity"
+        type="number"
+        min="0"
+      />
+      <fa-icon
+        (click)="addQuantity(item.id)"
+        [ngClass]="light ? 'quantity-icon--light' : 'quantity-icon--dark'"
+        class="quantity-icon"
+        [icon]="faPlus"
+      ></fa-icon>
+      <button
+        (click)="removeItem(item.id)"
+        [ngClass]="
+          light ? 'cart__item__remove--light' : 'cart__item__remove--dark'
+        "
+        class="cart__item__remove"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</div>

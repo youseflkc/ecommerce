@@ -10,17 +10,17 @@ export interface Product {
   slug: string;
 }
 
-export const default_image = {
+export const DEFAULT_IMAGE = {
   id: 0,
   image: '/assets/images/default-placeholder-image.png',
 };
 
-export const default_product = {
+export const DEFAULT_PRODUCT = {
   id: 1,
   title: 'title',
   unit_price: 'unit_price',
   category: 'category',
-  images: [default_image, default_image],
+  images: [DEFAULT_IMAGE, DEFAULT_IMAGE],
   description: '',
   inventory: 0,
   price_with_tax: 0,

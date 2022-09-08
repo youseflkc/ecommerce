@@ -95,7 +95,7 @@ export class NavbarComponent implements OnInit {
   faBars = faBars;
   img_logo_url = '';
 
-  is_open = false;
+  search_open = false;
   show_cart: boolean = false;
 
   cart_quantity: number = 0;
@@ -117,6 +117,19 @@ export class NavbarComponent implements OnInit {
     this.cart_service.cart_updated_event.subscribe(async () => {
       cart = await this.cart_service.getCart();
       this.cart_quantity = cart.total_quantity;
+      if (!this.show_cart) {
+        this.toggleCart();
+      }
+
+      let cart_quantity_element = document.querySelector(
+        '.cart__quantity'
+      ) as HTMLElement;
+      cart_quantity_element.style.transform =
+        'scale(1.1) translate(20px, -33px)';
+      setTimeout(() => {
+        cart_quantity_element.style.transform =
+          'scale(1)translate(20px, -33px)';
+      }, 200);
     });
 
     // closes the cart on route change
@@ -124,6 +137,10 @@ export class NavbarComponent implements OnInit {
       if (event instanceof NavigationStart) {
         if (this.show_cart) {
           this.toggleCart();
+        }
+        if (this.search_open) {
+          this.toggleSearchBar();
+          console.log('closed');
         }
       }
     });
@@ -158,41 +175,35 @@ export class NavbarComponent implements OnInit {
    * expands search bar
    */
   toggleSearchBar() {
-    if (this.input_element.nativeElement.value) {
-      // this.search();
+    let sidenav_icon_element = document.getElementById(
+      'sidenav-icon'
+    ) as HTMLElement;
+    let navbar_middle_element = document.getElementById(
+      'navbar-middle'
+    ) as HTMLElement;
+    let navbar_element = document.getElementById('navbar') as HTMLElement;
+    let cart_icon_element = document.getElementById('cart-icon') as HTMLElement;
+    if (!this.search_open && window.matchMedia('(max-width: 768px)').matches) {
+      sidenav_icon_element.classList.add('sidenav-icon--hidden');
+      navbar_middle_element.classList.add('navbar__list--hidden');
+      cart_icon_element.classList.add('navbar__item--hidden');
+      navbar_element.style.gridTemplateColumns = '1fr';
     } else {
-      let sidenav_icon_element = document.getElementById(
-        'sidenav-icon'
-      ) as HTMLElement;
-      let navbar_middle_element = document.getElementById(
-        'navbar-middle'
-      ) as HTMLElement;
-      let navbar_element = document.getElementById('navbar') as HTMLElement;
-      let cart_icon_element = document.getElementById(
-        'cart-icon'
-      ) as HTMLElement;
-      if (!this.is_open && window.matchMedia('(max-width: 768px)').matches) {
-        sidenav_icon_element.classList.add('sidenav-icon--hidden');
-        navbar_middle_element.classList.add('navbar__list--hidden');
-        cart_icon_element.classList.add('navbar__item--hidden');
-        navbar_element.style.gridTemplateColumns = '1fr';
-      } else {
-        sidenav_icon_element.classList.remove('sidenav-icon--hidden');
-        navbar_middle_element.classList.remove('navbar__list--hidden');
-        cart_icon_element.classList.remove('navbar__item--hidden');
-        navbar_element.style.gridTemplateColumns = '1fr 1fr 1fr';
-      }
-      this.is_open = !this.is_open;
-
-      //focuses the search textbox when the search bar is expanded
-      setTimeout(
-        () =>
-          this.is_open
-            ? this.input_element.nativeElement.focus()
-            : this.input_element.nativeElement.blur(),
-        300
-      );
+      sidenav_icon_element.classList.remove('sidenav-icon--hidden');
+      navbar_middle_element.classList.remove('navbar__list--hidden');
+      cart_icon_element.classList.remove('navbar__item--hidden');
+      navbar_element.style.gridTemplateColumns = '1fr 1fr 1fr';
     }
+    this.search_open = !this.search_open;
+
+    //focuses the search textbox when the search bar is expanded
+    setTimeout(
+      () =>
+        this.search_open
+          ? this.input_element.nativeElement.focus()
+          : this.input_element.nativeElement.blur(),
+      300
+    );
   }
 
   /**

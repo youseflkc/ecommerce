@@ -20,7 +20,9 @@
 
 <section class="toolbar--mobile">
   <div>
-    <button class="filter__btn--mobile" (click)="toggleFilter()">Sort/Filter</button>
+    <button class="filter__btn--mobile" (click)="toggleFilter()">
+      Sort/Filter
+    </button>
   </div>
   <div
     [ngClass]="filter_expanded ? 'expandable--expanded' : ''"
@@ -286,7 +288,7 @@
 <section>
   <div class="products" *ngIf="products.length > 0">
     <div class="products__container">
-      <ng-container *ngFor="let product of products">
+      <ng-container *ngFor="let product of products; let i = index">
         <app-product-card [product]="product"></app-product-card>
       </ng-container>
     </div>

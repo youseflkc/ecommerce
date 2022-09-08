@@ -361,7 +361,13 @@
   justify-content: center;
   position: fixed;
   top: 5rem;
-  z-index: 1000;
+  z-index: 9;
+}
+
+@media screen and (max-width: 768px) {
+  .page-down-container {
+    top: 5.5rem;
+  }
 }
 
 .page-down-icon {

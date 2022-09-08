@@ -1,6 +1,7 @@
 import { NavbarComponent } from './navbar/navbar.component';
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons';
 import { slideInAnimation } from './animations';
+import AOS from 'aos';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -25,6 +26,10 @@ export class AppComponent {
   title = 'online-shop';
 
   constructor() {}
+
+  ngOnInit() {
+    AOS.init();
+  }
 
   openNav() {
     this.nav_open = true;

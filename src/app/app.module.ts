@@ -36,6 +36,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { OrderComponent } from './order/order.component';
+import { LoginComponent } from './login/login.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,9 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     ContactComponent,
     AboutComponent,
     ShoppingCartComponent,
+    OrderComponent,
+    LoginComponent,
+    CartItemComponent,
   ],
   imports: [
     BrowserModule,
