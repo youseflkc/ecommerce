@@ -58,9 +58,28 @@ export class OrderComponent implements OnInit {
     // ) as HTMLInputElement;
 
     let input_fields = document.getElementsByClassName('order__form__input');
+    let error_occured = false;
 
     for (let i = 0; i < input_fields.length; i++) {
-      console.log(input_fields.item(i));
+      let element = input_fields.item(i) as HTMLInputElement;
+      if (element.value === '') {
+        error_occured = true;
+        element.classList.add('animate__shakeX');
+        element.classList.add('order__form__input--danger');
+        setTimeout(() => {
+          element.classList.remove('animate__shakeX');
+        }, 1000);
+      }
     }
+
+    (
+      document.querySelector('.order__form__subheader') as HTMLElement
+    ).style.color = 'var(--color-danger)';
+  }
+
+  clearDanger(event: Event) {
+    (event.target as HTMLInputElement).classList.remove(
+      'order__form__input--danger'
+    );
   }
 }

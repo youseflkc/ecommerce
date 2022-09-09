@@ -1,61 +1,70 @@
 <div class="order">
   <div class="order__form">
     <h4 class="order__form__header">Shipping Information</h4>
+    <p class="order__form__subheader" >All fields are required.</p>
     <input
+      (change)="clearDanger($event)"
       maxlength="50"
       id="order-first-name"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="First Name"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="50"
       id="order-last-name"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="Last Name"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="15"
       id="order-phone"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="Phone Number"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="50"
       id="order-country"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="Country"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="50"
       id="order-address"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="Street Address"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="50"
       id="order-city"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="City"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="50"
       id="order-province"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="Province"
     />
     <input
+      (change)="clearDanger($event)"
       maxlength="6"
       onkeyup="this.value = this.value.toUpperCase()"
       required
       id="order-postal-code"
-      class="order__form__input"
+      class="order__form__input animate__animated"
       type="text"
       placeholder="Postal Code"
     />

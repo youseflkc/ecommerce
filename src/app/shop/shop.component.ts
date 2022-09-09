@@ -87,10 +87,6 @@ export class ShopComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    AOS.init({ startEvent: 'load' });
-
-    window.addEventListener('load', AOS.refresh);
-
     this.collections = await this.collection_service.getAll();
 
     //sets all the collection selected values to false initially
@@ -111,9 +107,7 @@ export class ShopComponent implements OnInit {
     ) as HTMLInputElement;
   }
 
-  ngOnDestroy(){
-    AOS.refresh();
-  }
+  ngOnDestroy() {}
 
   /**
    * retrieves the products from the server
@@ -296,10 +290,18 @@ export class ShopComponent implements OnInit {
     this.input.nativeElement.focus();
   }
 
+  /**
+   * scrolls page to top
+   * @param element element to be scrolled to
+   */
   scrollPage(element: HTMLElement) {
     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
+  /**
+   * runs shake animation on the min and max filter text boxes and then displays error message
+   * @param message error message to display
+   */
   showInvalidDataAlert(message: string) {
     document.getElementById('max-price')?.classList.toggle('animate__shakeX');
     document.getElementById('min-price')?.classList.toggle('animate__shakeX');

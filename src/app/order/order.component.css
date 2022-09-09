@@ -13,8 +13,12 @@
 
 .order__form__header {
   color: var(--color-secondary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   width: 100%;
+}
+
+.order__form__subheader {
+  font-size: 0.8rem;
 }
 
 .order__form__input {
@@ -27,6 +31,10 @@
   outline: none;
   transition: all 0.2s;
   flex-grow: 1;
+}
+
+.order__form__input--danger {
+  box-shadow: -1px 1px 18px 3px var(--color-danger);
 }
 
 .order__btn {
