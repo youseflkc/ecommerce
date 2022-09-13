@@ -39,6 +39,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderComponent } from './order/order.component';
 import { LoginComponent } from './login/login.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { CartItemComponent } from './cart-item/cart-item.component';
     OrderComponent,
     LoginComponent,
     CartItemComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

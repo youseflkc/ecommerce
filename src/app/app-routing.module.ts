@@ -1,3 +1,6 @@
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGaurdService } from './services/auth-gaurd.service';
 import { OrderComponent } from './order/order.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
@@ -14,7 +17,13 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'checkout', component: OrderComponent },
+  { path: 'login/forgot-password', component: ForgotPasswordComponent },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'checkout',
+    component: OrderComponent,
+    canActivate: [AuthGaurdService],
+  },
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
@@ -22,6 +31,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
+      onSameUrlNavigation: 'reload',
       scrollPositionRestoration: 'enabled',
     }),
   ],

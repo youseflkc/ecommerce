@@ -16,6 +16,7 @@
   <button
     routerLink="/checkout"
     [class]="cart.items.length < 1 ? 'btn--disabled' : ''"
+    [disabled]="cart.items.length < 1"
     class="btn btn--secondary"
   >
     Checkout

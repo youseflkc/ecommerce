@@ -72,9 +72,13 @@ export class OrderComponent implements OnInit {
       }
     }
 
-    (
-      document.querySelector('.order__form__subheader') as HTMLElement
-    ).style.color = 'var(--color-danger)';
+    let subheader = document.querySelector(
+      '.order__form__subheader'
+    ) as HTMLElement;
+    subheader.classList.add('order__form__subheader--danger');
+    setTimeout(() => {
+      subheader.classList.remove('order__form__subheader--danger');
+    }, 1000);
   }
 
   clearDanger(event: Event) {

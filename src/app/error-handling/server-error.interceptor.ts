@@ -23,15 +23,19 @@ import {
   of,
   delay,
 } from 'rxjs';
+import { AuthenticationService } from '../services/authentication.service';
 
 const maxAttempts = 2; //maximum number of times to retry request when there is a server error
 const delayMs = 3000; //number of ms to wait between retrying request attempts.
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
+  is_refreshing_token: boolean = false;
+
   constructor(
     private dialog_service: DialogMessageService,
     private loading_service: LoadingDialogService,
+    private auth_service: AuthenticationService
   ) {}
 
   intercept(
@@ -43,7 +47,8 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       request.url.includes('products') ||
       (request.url.includes('/items') &&
         request.url.includes('/carts') &&
-        request.method === 'POST')
+        request.method === 'POST') ||
+      request.url.includes('auth')
     ) {
       this.loading_service.open(LoadingDialogComponent);
     }
@@ -73,8 +78,13 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  handleError(error: HttpErrorResponse) {
-    if (navigator.onLine) {
+  async handleError(error: HttpErrorResponse) {
+    if (error.status === HttpStatusCode.Unauthorized) {
+      if (!this.is_refreshing_token) {
+      }
+    } else if (error.status === HttpStatusCode.BadRequest) {
+      //handle in component
+    } else if (navigator.onLine) {
       this.dialog_service.open(DialogMessageComponent, {
         header: 'A server error has occured. Please try again later.',
         message: error.statusText || error.message || error.toString(),
@@ -87,5 +97,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         status: error.status,
       });
     }
+    return false;
   }
 }

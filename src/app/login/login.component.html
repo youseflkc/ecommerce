@@ -1,1 +1,91 @@
-<p>login works!</p>
+<div class="login">
+  <div *ngIf="show_login" class="login-form">
+    <h4 class="login__header">Login to start placing orders.</h4>
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="username"
+      [(ngModel)]="user.username"
+      type="text"
+      placeholder="Username"
+    />
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="password"
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Password"
+    />
+    <p class="error-message" *ngIf="empty_error">
+      Please enter your username and password!
+    </p>
+    <p class="error-message" *ngIf="invalid_error">
+      Invalid email and/or password. Please try again.
+    </p>
+    <button routerLink="/login/forgot-password" class="login__forgot-btn">
+      Forgot Password
+    </button>
+    <button class="btn btn--primary login__btn" (click)="login()">Login</button>
+    <button (click)="toggleRegister()" class="register__btn">Register</button>
+  </div>
+  <div *ngIf="show_register" class="login-form">
+    <h4 class="login__header">Register Now!</h4>
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="username"
+      [(ngModel)]="user.username"
+      type="text"
+      placeholder="Username"
+    />
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="password"
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Password"
+    />
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="email"
+      [(ngModel)]="user.email"
+      type="email"
+      placeholder="Email"
+    />
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="first-name"
+      [(ngModel)]="user.first_name"
+      type="text"
+      placeholder="First Name"
+    />
+    <input
+      (change)="clearDanger($event)"
+      class="login__input animate__animated"
+      id="last-name"
+      [(ngModel)]="user.last_name"
+      type="text"
+      placeholder="Last Name"
+    />
+    <p class="error-message" *ngIf="empty_error">All fields are required!</p>
+    <ng-container *ngIf="invalid_error">
+      <p *ngFor="let error_message of error_messages" class="error-message">
+        {{ error_message }}
+      </p>
+    </ng-container>
+
+    <button class="btn btn--primary login__btn" (click)="register()">
+      Register
+    </button>
+
+    <button (click)="toggleLogin()" class="register__btn">Login</button>
+  </div>
+  <div *ngIf="register_success" class="login-form">
+    <h4 class="login__header">Successfully Registered!</h4>
+    <button (click)="toggleLogin()" class="register__btn">Back to Login</button>
+  </div>
+</div>

@@ -1,6 +1,4 @@
-import { firstValueFrom } from 'rxjs';
-import { Cart } from './../models/cart';
-import { Product } from './../models/product';
+import { firstValueFrom, throwError } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Output, EventEmitter } from '@angular/core';
@@ -15,8 +13,10 @@ export class CartService {
 
   constructor(private http: HttpClient) {}
 
-  private create() {
-    return this.http.post(this.base_url, {});
+  private async create() {
+    return await firstValueFrom(this.http.post(this.base_url, {})).catch(
+      (error) => throwError(() => error)
+    );
   }
 
   async getCart() {
@@ -24,82 +24,64 @@ export class CartService {
   }
 
   private async getOrCreateCart() {
-    try {
-      let cart_id = localStorage.getItem('cart_id');
-      if (cart_id) {
-        return await firstValueFrom(this.http.get(this.base_url + cart_id));
-      }
-      let cart: any = await firstValueFrom(this.create());
-      localStorage.setItem('cart_id', cart.id);
-      return cart;
-    } catch (error) {
-      throw error;
+    let cart_id = localStorage.getItem('cart_id');
+    if (cart_id) {
+      return await firstValueFrom(this.http.get(this.base_url + cart_id)).catch(
+        (error) => throwError(() => error)
+      );
     }
+    let cart: any = await this.create();
+    if (cart) {
+      localStorage.setItem('cart_id', cart.id);
+    }
+    return cart;
   }
 
   async getItem(id: number) {
-    try {
-      let cart_id = localStorage.getItem('cart_id');
-      return await firstValueFrom(
-        this.http.get(this.base_url + cart_id + '/items/' + id)
-      );
-    } catch (error) {
-      throw error;
-    }
+    let cart_id = localStorage.getItem('cart_id');
+    return await firstValueFrom(
+      this.http.get(this.base_url + cart_id + '/items/' + id)
+    ).catch((error) => throwError(() => error));
   }
 
   async addItem(product_id: number, quantity: number) {
-    try {
-      let cart_id = localStorage.getItem('cart_id');
-      let res = await firstValueFrom(
-        this.http.post(this.base_url + cart_id + '/items/', {
-          product_id: product_id,
-          quantity: quantity,
-        })
-      );
-      this.cart_updated_event.emit(res);
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    let cart_id = localStorage.getItem('cart_id');
+    let res = await firstValueFrom(
+      this.http.post(this.base_url + cart_id + '/items/', {
+        product_id: product_id,
+        quantity: quantity,
+      })
+    ).catch((error) => throwError(() => error));
+    this.cart_updated_event.emit(res);
+    return res;
   }
 
   async removeItem(id: number) {
-    try {
-      let cart_id = localStorage.getItem('cart_id');
-      let res = await firstValueFrom(
-        this.http.delete(this.base_url + cart_id + '/items/' + id)
-      );
-      this.cart_updated_event.emit(res);
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    let cart_id = localStorage.getItem('cart_id');
+    let res = await firstValueFrom(
+      this.http.delete(this.base_url + cart_id + '/items/' + id)
+    ).catch((error) => throwError(() => error));
+    this.cart_updated_event.emit(res);
+    return res;
   }
 
   async updateItem(id: number, quantity: number) {
-    try {
-      let cart_id = localStorage.getItem('cart_id');
-      let res = await firstValueFrom(
-        this.http.patch(this.base_url + cart_id + '/items/' + id, {
-          quantity: quantity,
-        })
-      );
-      this.cart_updated_event.emit(res);
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    let cart_id = localStorage.getItem('cart_id');
+    let res = await firstValueFrom(
+      this.http.patch(this.base_url + cart_id + '/items/' + id, {
+        quantity: quantity,
+      })
+    ).catch((error) => throwError(() => error));
+    this.cart_updated_event.emit(res);
+    return res;
   }
 
   async deleteCart() {
-    try {
-      let cart_id = localStorage.getItem('cart_id');
-      let res = await firstValueFrom(this.http.delete(this.base_url + cart_id));
-      localStorage.removeItem('cart_id');
-      return res;
-    } catch (error) {
-      throw error;
-    }
+    let cart_id = localStorage.getItem('cart_id');
+    let res = await firstValueFrom(
+      this.http.delete(this.base_url + cart_id)
+    ).catch((error) => throwError(() => error));
+    localStorage.removeItem('cart_id');
+    return res;
   }
 }

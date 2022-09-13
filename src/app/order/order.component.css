@@ -19,6 +19,12 @@
 
 .order__form__subheader {
   font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.order__form__subheader--danger {
+  font-weight: 900;
+  color: var(--color-danger);
 }
 
 .order__form__input {
