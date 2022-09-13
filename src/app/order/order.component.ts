@@ -1,3 +1,7 @@
+import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { OrderService } from './../services/order.service';
+import { Order } from './../models/order';
 import { CartService } from './../services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { Cart } from '../models/cart';
@@ -16,9 +20,21 @@ export class OrderComponent implements OnInit {
     total_quantity: 0,
   };
 
+  order: Order = {
+    id: 0,
+    customer: 0,
+    placed_at: '',
+    payment_status: '',
+    items: [],
+  };
+
   tax = 0;
 
-  constructor(private cart_service: CartService) {}
+  constructor(
+    private cart_service: CartService,
+    private order_service: OrderService,
+    private router: Router
+  ) {}
 
   async ngOnInit() {
     await this.initCart();
@@ -36,34 +52,21 @@ export class OrderComponent implements OnInit {
   }
 
   placeOrder() {
-    this.validateOrderFields();
+    if (this.validateOrderFields()) {
+      this.order_service
+        .createOrder()
+        .then(() => this.router.navigate(['/checkout/order-success']))
+        .catch((error) => throwError(() => error));
+    }
   }
 
   validateOrderFields() {
-    // let first_name = document.getElementById(
-    //   'order-first-name'
-    // ) as HTMLInputElement;
-    // let last_name = document.getElementById(
-    //   'order-last-name'
-    // ) as HTMLInputElement;
-    // let address = document.getElementById('order-phone') as HTMLInputElement;
-    // let phone = document.getElementById('order-address') as HTMLInputElement;
-    // let country = document.getElementById('order-country') as HTMLInputElement;
-    // let city = document.getElementById('order-city') as HTMLInputElement;
-    // let province = document.getElementById(
-    //   'order-province'
-    // ) as HTMLInputElement;
-    // let postal_code = document.getElementById(
-    //   'order-postal-code'
-    // ) as HTMLInputElement;
-
     let input_fields = document.getElementsByClassName('order__form__input');
-    let error_occured = false;
-
+    let empty_error = false;
     for (let i = 0; i < input_fields.length; i++) {
       let element = input_fields.item(i) as HTMLInputElement;
       if (element.value === '') {
-        error_occured = true;
+        empty_error = true;
         element.classList.add('animate__shakeX');
         element.classList.add('order__form__input--danger');
         setTimeout(() => {
@@ -79,6 +82,11 @@ export class OrderComponent implements OnInit {
     setTimeout(() => {
       subheader.classList.remove('order__form__subheader--danger');
     }, 1000);
+
+    if (empty_error) {
+      return false;
+    }
+    return true;
   }
 
   clearDanger(event: Event) {

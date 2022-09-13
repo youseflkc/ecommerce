@@ -1,3 +1,5 @@
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGaurdService } from './services/auth-gaurd.service';
@@ -20,8 +22,18 @@ const routes: Routes = [
   { path: 'login/forgot-password', component: ForgotPasswordComponent },
   { path: 'login', component: LoginComponent },
   {
+    path: 'checkout/order-success',
+    component: OrderSuccessComponent,
+    canActivate: [AuthGaurdService],
+  },
+  {
     path: 'checkout',
     component: OrderComponent,
+    canActivate: [AuthGaurdService],
+  },
+  {
+    path: 'my-orders',
+    component: MyOrdersComponent,
     canActivate: [AuthGaurdService],
   },
   { path: 'not-found', component: PageNotFoundComponent },

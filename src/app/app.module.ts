@@ -40,6 +40,8 @@ import { OrderComponent } from './order/order.component';
 import { LoginComponent } from './login/login.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     LoginComponent,
     CartItemComponent,
     ForgotPasswordComponent,
+    OrderSuccessComponent,
+    MyOrdersComponent,
   ],
   imports: [
     BrowserModule,

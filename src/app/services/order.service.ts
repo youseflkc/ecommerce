@@ -19,7 +19,10 @@ export class OrderService {
     private authService: AuthenticationService
   ) {}
 
-  //helper method
+  /**
+   * getOrders helper method
+   * @returns reponse from server containing list of orders
+   */
   private async _getOrders() {
     let access_token = localStorage.getItem('access');
     let res = await firstValueFrom(
@@ -32,6 +35,11 @@ export class OrderService {
     return res;
   }
 
+  /**
+   * calls helper method to get list of orders,
+   * catches errors incase user is not logged in or token is expired
+   * @returns list of orders
+   */
   async getOrders() {
     try {
       return await this._getOrders();
@@ -49,6 +57,11 @@ export class OrderService {
     }
   }
 
+  /**
+   * helper method retrieves an order by id number from server
+   * @param id id of order to retrieve
+   * @returns returns specified order
+   */
   private async _getOrder(id: number) {
     let access_token = localStorage.getItem('access');
     let res = await firstValueFrom(
@@ -61,6 +74,12 @@ export class OrderService {
     return res;
   }
 
+  /**
+   * calls helper method to retrieve specified order,
+   * catches errors if user is not logged in or token is expired
+   * @param id id of order to be retrieved
+   * @returns specified order
+   */
   async getOrder(id: number) {
     try {
       return await this._getOrder(id);
@@ -80,7 +99,11 @@ export class OrderService {
     }
   }
 
-  //helper method
+  /**
+   * helper method creates an order using the cart saved in local storage.
+   * if there is not cart or the cart is empty, then it will throw an error
+   * @returns order object that was created
+   */
   private async _createOrder() {
     let cart_id = localStorage.getItem('cart_id');
     let access_token = localStorage.getItem('access');
@@ -107,6 +130,10 @@ export class OrderService {
     throw new Error('No cart found.');
   }
 
+  /**
+   *  calls helper method to create an order
+   * @returns order created
+   */
   async createOrder() {
     try {
       return await this._createOrder();
