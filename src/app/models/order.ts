@@ -5,4 +5,7 @@ export interface Order {
   customer: number;
   payment_status: string;
   items: OrderItem[];
+  total_price: number;
+  total_price_with_tax: number;
+  total_quantity: number;
 }

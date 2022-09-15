@@ -20,13 +20,7 @@ export class OrderComponent implements OnInit {
     total_quantity: 0,
   };
 
-  order: Order = {
-    id: 0,
-    customer: 0,
-    placed_at: '',
-    payment_status: '',
-    items: [],
-  };
+  order = {} as Order;
 
   tax = 0;
 

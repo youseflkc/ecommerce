@@ -1,15 +1,32 @@
 <div class="my-orders">
-  <table class="my-orders__list">
-    <tr>
-      <th>Order ID</th>
-      <th>Payment Status</th>
-      <th>Date Placed</th>
+  <h3 class="my-orders__header">My Orders</h3>
+  <table class="my-orders__table">
+    <tr class="my-orders__row">
+      <th class="my-orders__table__header">Order ID</th>
+      <th class="my-orders__table__header">Payment Status</th>
+      <th class="my-orders__table__header">Date Placed</th>
+      <th class="my-orders__table__header"></th>
     </tr>
-    <tr *ngFor="let order of orders" class="my-orders__item">
-      <td class="my-orders__info">{{ order.id }}</td>
-      <td class="my-orders__info">{{ order.payment_status }}</td>
-      <td class="my-orders__info">{{ order.placed_at.substring(0,10) }}</td>
-      <td><button class="my-orders__view-btn">View Order</button></td>
+    <tr *ngFor="let order of orders" class="my-orders__row">
+      <td class="my-orders__data">{{ order.id }}</td>
+      <td class="my-orders__data">
+        {{
+          order.payment_status === "P"
+            ? "Pending"
+            : order.payment_status === "F"
+            ? "Failed"
+            : "Complete"
+        }}
+      </td>
+      <td class="my-orders__data">{{ order.placed_at.substring(0, 10) }}</td>
+      <td>
+        <button
+          routerLink="/my-orders/{{ order.id }}"
+          class="my-orders__view-btn"
+        >
+          View Order
+        </button>
+      </td>
     </tr>
   </table>
 </div>

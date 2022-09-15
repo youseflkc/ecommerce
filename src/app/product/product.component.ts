@@ -77,6 +77,10 @@ export class ProductComponent implements OnInit {
     );
   }
 
+  buyNow(){
+    
+  }
+
   addQuantity() {
     this.quantity_input.value = (
       Number(this.quantity_input.value) + 1

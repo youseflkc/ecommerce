@@ -48,7 +48,8 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       (request.url.includes('/items') &&
         request.url.includes('/carts') &&
         request.method === 'POST') ||
-      request.url.includes('auth')
+      request.url.includes('auth') ||
+      request.url.includes('orders')
     ) {
       this.loading_service.open(LoadingDialogComponent);
     }

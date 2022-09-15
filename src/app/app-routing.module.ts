@@ -1,3 +1,4 @@
+import { ViewOrderComponent } from './view-order/view-order.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'checkout',
     component: OrderComponent,
+    canActivate: [AuthGaurdService],
+  },
+  {
+    path: 'my-orders/:id',
+    component: ViewOrderComponent,
     canActivate: [AuthGaurdService],
   },
   {

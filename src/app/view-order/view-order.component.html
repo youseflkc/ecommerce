@@ -1,0 +1,66 @@
+<div class="container">
+    <a
+      routerLink="/my-orders"
+      class="link-arrow link-arrow--before link-arrow--return"
+      >Return</a
+    >
+    <div class="view-order">
+      <h3 class="view-order__header">Order</h3>
+      <div class="view-order__details">
+        <h5>Order ID:</h5>
+        <p class="view-order__info">{{ order.id }}</p>
+        <h5>Payment Status:</h5>
+        <p class="view-order__info">
+          {{
+            order.payment_status === "P"
+              ? "Pending"
+              : order.payment_status === "F"
+              ? "Failed"
+              : "Complete"
+          }}
+        </p>
+        <h5>Date Placed:</h5>
+        <p class="view-order__info">
+          {{ order.placed_at.substring(0, 10) }}
+        </p>
+      </div>
+      <h4 class="view-order__items-header">Items</h4>
+      <div *ngFor="let item of order.items" class="view-order__item">
+        <div class="view-order__item__details">
+          <p class="quantity">{{ item.quantity }}</p>
+          <img
+            class="view-order__item__image"
+            [src]="
+              item.product.images.length > 0
+                ? item.product.images[0].image
+                : '/assets/images/default-placeholder-image.png'
+            "
+            alt=""
+          />
+          <h5 class="view-order__item__title">
+            {{ item.product.title }}
+          </h5>
+        </div>
+        <p class="view-order__item__price">
+          {{ item.unit_price }} X {{ item.quantity }}
+        </p>
+        <p>${{ item.unit_price * item.quantity }}</p>
+      </div>
+      <div class="view-order__footer">
+        <div class="view-order__total">
+          <div class="view-order__subtotal">
+            <p>Subtotal:</p>
+            <p>${{ order.total_price }}</p>
+          </div>
+          <div class="view-order__subtotal">
+            <p>Tax:</p>
+            <p>${{ tax }}</p>
+          </div>
+          <div class="view-order__total-with-tax">
+            <p>Total:</p>
+            <p>${{ order.total_price_with_tax }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

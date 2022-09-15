@@ -17,6 +17,7 @@ export class CartItemComponent implements OnInit {
   };
 
   @Input() light: boolean = true;
+  
 
   //allows the item to be removed optimistically
   remove_item = false;
