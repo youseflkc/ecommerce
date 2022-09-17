@@ -70,12 +70,22 @@
         class="navbar__icon"
         [icon]="faCart"
       ></fa-icon>
-      <p class="cart__quantity">{{ cart_quantity }}</p>
+      <p [style.opacity]="cart_quantity > 0 ? '1' : '0'" class="cart__quantity">
+        {{ cart_quantity }}
+      </p>
+    </li>
+    <li id="user-icon" style="padding: 0 0.5rem" class="navbar__item">
+      <fa-icon
+        (click)="toggleUser()"
+        class="navbar__icon"
+        [icon]="faUser"
+      ></fa-icon>
     </li>
   </ul>
 </nav>
 <app-shopping-cart
-  [style.top]="cart_top"
-  class="shopping-cart"
+  [style.top]="dropdown_top"
+  class="navbar__cart"
   id="app-shopping-cart"
 ></app-shopping-cart>
+<app-user [style.top]="dropdown_top" class="navbar__user"></app-user>

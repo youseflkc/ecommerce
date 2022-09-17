@@ -1,0 +1,39 @@
+.logged-out {
+  min-height: 50vh;
+  margin: 8rem 30% 4rem;
+  display: flex;
+  color: var(--color-secondary);
+  align-items: center;
+  justify-content: center;
+  border-radius: 7%;
+  gap: 2rem;
+  flex-direction: column;
+  background-color: var(--color-font-primary);
+}
+
+.logged-out__return-btn {
+  background: none;
+  border: none;
+  color: var(--color-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 1rem 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .logged-out {
+    margin: 8rem 15% 4rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logged-out {
+    margin: 0;
+    padding: 4rem 1rem 3rem;
+    border-radius: 0;
+  }
+
+  .logged-out__btn {
+    width: 60%;
+  }
+}

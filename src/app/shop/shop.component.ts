@@ -23,7 +23,8 @@ import { Ordering } from '../models/ordering';
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
-  @ViewChild('focus', { static: false }) input: ElementRef = new ElementRef('');
+  @ViewChild('focus_filter', { static: false }) input: ElementRef =
+    new ElementRef('');
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     let element = document.querySelector('.page-down-container') as HTMLElement;
@@ -31,6 +32,17 @@ export class ShopComponent implements OnInit {
       element.style.display = 'flex';
     } else {
       element.style.display = 'none';
+    }
+  }
+
+  /**
+   * checks if window is resized to display mobile sort/filter menu
+   * @param event
+   */
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (window.matchMedia('(max-width:768px)').matches) {
+      this.mobile_filter = true;
     }
   }
 
@@ -81,12 +93,18 @@ export class ShopComponent implements OnInit {
 
   products_count = 0;
 
+  mobile_filter: boolean = false;
+
   constructor(
     private collection_service: CollectionService,
     private product_service: ProductService
   ) {}
 
   async ngOnInit() {
+    if (window.matchMedia('(max-width:768px)').matches) {
+      this.mobile_filter = true;
+    }
+
     this.collections = await this.collection_service.getAll();
 
     //sets all the collection selected values to false initially
@@ -174,19 +192,26 @@ export class ShopComponent implements OnInit {
    * @param unit_price_min minimum product price to filter
    * @param unit_price_max maximum product price to filter
    */
-  async filterProducts(unit_price_min: string, unit_price_max: string) {
-    if (Number(unit_price_min) < 0 || Number(unit_price_max) < 0) {
+  async filterProducts() {
+    console.log('filter');
+    let unit_price_min = document.getElementById(
+      'min-price'
+    ) as HTMLInputElement;
+    let unit_price_max = document.getElementById(
+      'max-price'
+    ) as HTMLInputElement;
+    if (Number(unit_price_min.value) < 0 || Number(unit_price_max.value) < 0) {
       this.showInvalidDataAlert('Values cannot be negative!');
       return;
     }
 
     //if min and max fields are empty, do not run filter query
-    if (unit_price_min === '' && unit_price_max === '') {
+    if (unit_price_min.value === '' && unit_price_max.value === '') {
       this.showInvalidDataAlert('Both fields cannot be empty!');
       return;
     }
 
-    if (Number(unit_price_min) >= Number(unit_price_max)) {
+    if (Number(unit_price_min.value) >= Number(unit_price_max.value)) {
       this.showInvalidDataAlert('Max-price must be greater than min-price!');
       return;
     }
@@ -196,12 +221,15 @@ export class ShopComponent implements OnInit {
         this.selected_collection_id === 0
           ? ''
           : this.selected_collection_id.toString(),
-      unit_price__gt: unit_price_min,
-      unit_price__lt: unit_price_max,
+      unit_price__gt: unit_price_min.value,
+      unit_price__lt: unit_price_max.value,
       ordering: this.product_ordering,
     });
 
-    this.product_filtering = { unit_price_max, unit_price_min };
+    this.product_filtering = {
+      unit_price_max: unit_price_max.value,
+      unit_price_min: unit_price_min.value,
+    };
     this.products_are_filtered = true;
     this.products = res.results;
     this.products_count = res.count;

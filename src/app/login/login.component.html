@@ -2,12 +2,14 @@
   <div *ngIf="show_login" class="login-form">
     <h4 class="login__header">Login to start placing orders.</h4>
     <input
+      #focused
       (change)="clearDanger($event)"
       class="login__input animate__animated"
       id="username"
       [(ngModel)]="user.username"
       type="text"
       placeholder="Username"
+      (keyup.enter)="login()"
     />
     <input
       (change)="clearDanger($event)"
@@ -16,6 +18,7 @@
       [(ngModel)]="password"
       type="password"
       placeholder="Password"
+      (keyup.enter)="login()"
     />
     <p class="error-message" *ngIf="empty_error">
       Please enter your username and password!

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { User } from '../models/user';
 import { firstValueFrom, throwError } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { firstValueFrom, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  @Output() user_logged_in_event = new EventEmitter();
   private base_url = environment.auth_url;
 
   constructor(private http: HttpClient) {}
@@ -33,7 +34,17 @@ export class AuthenticationService {
       localStorage.setItem('access', token.access);
       localStorage.setItem('refresh', token.refresh);
     }
+    this.user_logged_in_event.emit(true);
     return token;
+  }
+
+  /**
+   * logs the user out by removing access tokens
+   */
+  logout() {
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    this.user_logged_in_event.emit(false);
   }
 
   async tokenRefresh() {
@@ -68,11 +79,12 @@ export class AuthenticationService {
           Authorization: 'JWT ' + access_token,
         },
       })
-    ).catch(async (error) => {
+    ).catch(async () => {
       return await this.tokenRefresh();
     });
+
     if (user) {
-      return true;
+      return user;
     }
     return false;
   }

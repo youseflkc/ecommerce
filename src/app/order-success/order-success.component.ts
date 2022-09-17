@@ -10,9 +10,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 export class OrderSuccessComponent implements OnInit {
   faCheck = faCheckCircle;
 
-  constructor(private cart_service: CartService) {}
+  constructor() {}
 
-  async ngOnInit() {
-    await this.cart_service.getCart();
-  }
+  async ngOnInit() {}
 }

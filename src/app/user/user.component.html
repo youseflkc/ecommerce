@@ -1,0 +1,23 @@
+<div class="user">
+  <div *ngIf="!logged_in" class="user--container user--logged-out">
+    <h4>My Account</h4>
+    <button routerLink="/login" class="btn btn--secondary user__login-btn">
+      Login
+    </button>
+    <button
+      routerLink="/login"
+      [queryParams]="{ register: true }"
+      class="user__register-btn"
+    >
+      Register
+    </button>
+  </div>
+  <div *ngIf="logged_in" class="user--container user--logged-in">
+    <h4>My Account</h4>
+    <p>Welcome, {{ user.first_name }}</p>
+    <button routerLink="/my-orders" class="btn btn--secondary user__login-btn">
+      My Orders
+    </button>
+    <button (click)="logout()" class="user__register-btn">Logout</button>
+  </div>
+</div>

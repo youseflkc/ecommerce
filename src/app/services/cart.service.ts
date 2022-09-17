@@ -26,9 +26,9 @@ export class CartService {
   private async getOrCreateCart() {
     let cart_id = localStorage.getItem('cart_id');
     if (cart_id) {
-      return await firstValueFrom(this.http.get(this.base_url + cart_id)).catch(
-        (error) => throwError(() => error)
-      );
+      return await firstValueFrom(
+        this.http.get(this.base_url + cart_id + '/')
+      ).catch((error) => throwError(() => error));
     }
     let cart: any = await this.create();
     if (cart) {
@@ -79,7 +79,7 @@ export class CartService {
   async deleteCart() {
     let cart_id = localStorage.getItem('cart_id');
     let res = await firstValueFrom(
-      this.http.delete(this.base_url + cart_id)
+      this.http.delete(this.base_url + cart_id + '/')
     ).catch((error) => throwError(() => error));
     localStorage.removeItem('cart_id');
     return res;

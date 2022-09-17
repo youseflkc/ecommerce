@@ -1,3 +1,4 @@
+import { CartService } from './cart.service';
 import { first, firstValueFrom, timeout } from 'rxjs';
 import {
   HttpClient,
@@ -16,7 +17,8 @@ export class OrderService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private cart_service: CartService
   ) {}
 
   /**
@@ -65,7 +67,7 @@ export class OrderService {
   private async _getOrder(id: number) {
     let access_token = localStorage.getItem('access');
     let res = await firstValueFrom(
-      this.http.get(this.base_url + id, {
+      this.http.get(this.base_url + id + '/', {
         headers: {
           Authorization: 'JWT ' + access_token,
         },
@@ -124,6 +126,7 @@ export class OrderService {
       );
       //cart gets deleted after order is created
       localStorage.removeItem('cart_id');
+      this.cart_service.cart_updated_event.emit();
       return res;
     }
     // no cart found, must create cart first

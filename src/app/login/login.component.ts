@@ -1,6 +1,12 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  asNativeElements,
+} from '@angular/core';
 import { User } from '../models/user';
 
 @Component({
@@ -9,6 +15,14 @@ import { User } from '../models/user';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  username_input_element!: ElementRef<HTMLInputElement>;
+
+  @ViewChild('focused') set inputElRef(elRef: ElementRef<HTMLInputElement>) {
+    if (elRef) {
+      this.username_input_element = elRef;
+      this.username_input_element.nativeElement.focus({ preventScroll: true });
+    }
+  }
   params;
   password = '';
   user: User = {
@@ -40,6 +54,11 @@ export class LoginComponent implements OnInit {
 
     this.route.queryParams.subscribe((params) => {
       this.params = params;
+      if (params['register'] && !this.show_register) {
+        this.toggleRegister();
+      } else if (!params['register'] && !this.show_login) {
+        this.toggleLogin();
+      }
     });
   }
 
@@ -124,12 +143,17 @@ export class LoginComponent implements OnInit {
     this.show_login = !this.show_login;
     this.show_register = false;
     this.register_success = false;
+    this.router.navigate([]);
   }
 
   toggleRegister() {
     this.show_register = !this.show_register;
     this.show_login = false;
     this.register_success = false;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { register: true },
+    });
   }
 
   showRegisterSuccess() {

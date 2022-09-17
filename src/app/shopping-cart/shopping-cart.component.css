@@ -22,7 +22,7 @@
 
 @media screen and (max-width: 768px) {
   .cart {
-    padding: 0;
+    padding: 1rem 0 0.5rem;
     width: 100%;
   }
 }
@@ -59,11 +59,13 @@
   margin-right: 0.5rem;
 }
 
-.cart__subtotal {
+@media screen and (max-width: 768px) {
+  .cart__btn {
+    width: 70%;
+  }
 }
 
 .cart__subtotal::before {
   content: "$";
   font-size: 0.8rem;
 }
-

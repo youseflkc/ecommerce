@@ -13,7 +13,7 @@ export let open_close_input = trigger('open_close_input', [
   state(
     'open',
     style({
-      transform: 'translateX(0)',
+      transform: 'translateX(5px)',
       opacity: 1,
     })
   ),

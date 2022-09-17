@@ -1,7 +1,6 @@
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationStart, Router, ActivatedRoute } from '@angular/router';
 import { Cart } from './../models/cart';
 import { CartService } from './../services/cart.service';
-import { ShoppingCartComponent } from './../shopping-cart/shopping-cart.component';
 import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
 import { open_close_icon, open_close_input } from './../animations';
@@ -18,6 +17,7 @@ import {
   faBars,
   faCartShopping,
   faSearch,
+  faUser,
   faX,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -29,6 +29,7 @@ import {
   Observable,
 } from 'rxjs';
 import { EventEmitter } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -41,8 +42,13 @@ export class NavbarComponent implements OnInit {
     new ElementRef(asNativeElements);
   @Output() openNavEvent = new EventEmitter();
 
-  clicked: boolean = false;
+  //sets initial top height of cart and user drop down depending on screen width
+  dropdown_top = window.matchMedia('(max-width: 768px)').matches
+    ? '5rem'
+    : '6rem';
 
+  show_cart: boolean = false;
+  show_user: boolean = false;
   /**
    * if the user clicks outside the cart while it is open, then the cart will close.
    * @param event element that was clicked
@@ -51,6 +57,7 @@ export class NavbarComponent implements OnInit {
   onClick(event) {
     //ignores clicks in the cart or in the navbar
     let cart_element = document.querySelector('.cart') as HTMLElement;
+    let user_element = document.querySelector('.user') as HTMLElement;
     let nav_element = document.querySelector('.navbar') as HTMLElement;
     if (
       !event.target.classList.contains('cart__item__remove') &&
@@ -59,10 +66,14 @@ export class NavbarComponent implements OnInit {
       !nav_element.contains(event.target)
     ) {
       this.toggleCart();
+    } else if (
+      this.show_user &&
+      !user_element.contains(event.target) &&
+      !nav_element.contains(event.target)
+    ) {
+      this.toggleUser();
     }
   }
-
-  cart_top = window.matchMedia('(max-width: 768px)').matches ? '5rem' : '6rem';
 
   /**
    * reduces navbar size when you scroll down and makes navbar clear
@@ -74,17 +85,17 @@ export class NavbarComponent implements OnInit {
       nav_element.classList.add('navbar--clear');
       nav_element.classList.remove('navbar--normal');
       if (window.matchMedia('(max-width:768px)').matches) {
-        this.cart_top = '4rem';
+        this.dropdown_top = '4rem';
       } else {
-        this.cart_top = '3rem';
+        this.dropdown_top = '3rem';
       }
     } else {
       nav_element.classList.remove('navbar--clear');
       nav_element.classList.add('navbar--normal');
       if (window.matchMedia('(max-width:768px)').matches) {
-        this.cart_top = '5rem';
+        this.dropdown_top = '5rem';
       } else {
-        this.cart_top = '6rem';
+        this.dropdown_top = '6rem';
       }
     }
   }
@@ -93,10 +104,11 @@ export class NavbarComponent implements OnInit {
   faSearch = faSearch;
   faX = faX;
   faBars = faBars;
+  faUser = faUser;
+
   img_logo_url = '';
 
   search_open = false;
-  show_cart: boolean = false;
 
   cart_quantity: number = 0;
 
@@ -106,7 +118,9 @@ export class NavbarComponent implements OnInit {
   constructor(
     private product_service: ProductService,
     private cart_service: CartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private auth_service: AuthenticationService
   ) {}
 
   async ngOnInit() {
@@ -117,7 +131,11 @@ export class NavbarComponent implements OnInit {
     this.cart_service.cart_updated_event.subscribe(async () => {
       cart = await this.cart_service.getCart();
       this.cart_quantity = cart.total_quantity;
-      if (!this.show_cart && this.router.url !== '/checkout') {
+      if (
+        !this.show_cart &&
+        this.router.url !== '/checkout' &&
+        this.cart_quantity > 0
+      ) {
         this.toggleCart();
       }
 
@@ -133,7 +151,7 @@ export class NavbarComponent implements OnInit {
       }, 200);
     });
 
-    // closes the cart on route change
+    // closes the cart, user, and/or searchbox on route change if they are open
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         if (this.show_cart) {
@@ -141,8 +159,18 @@ export class NavbarComponent implements OnInit {
         }
         if (this.search_open) {
           this.toggleSearchBar();
-          console.log('closed');
         }
+        if (this.show_user) {
+          this.toggleUser();
+        }
+      }
+    });
+
+    this.auth_service.user_logged_in_event.subscribe((logged_in) => {
+      if (logged_in && !this.router.url.includes('checkout')) {
+        setTimeout(() => {
+          this.toggleUser();
+        }, 1000);
       }
     });
   }
@@ -184,15 +212,18 @@ export class NavbarComponent implements OnInit {
     ) as HTMLElement;
     let navbar_element = document.getElementById('navbar') as HTMLElement;
     let cart_icon_element = document.getElementById('cart-icon') as HTMLElement;
+    let user_icon_element = document.getElementById('user-icon') as HTMLElement;
     if (!this.search_open && window.matchMedia('(max-width: 768px)').matches) {
       sidenav_icon_element.classList.add('sidenav-icon--hidden');
       navbar_middle_element.classList.add('navbar__list--hidden');
       cart_icon_element.classList.add('navbar__item--hidden');
+      user_icon_element.classList.add('navbar__item--hidden');
       navbar_element.style.gridTemplateColumns = '1fr';
     } else {
       sidenav_icon_element.classList.remove('sidenav-icon--hidden');
       navbar_middle_element.classList.remove('navbar__list--hidden');
       cart_icon_element.classList.remove('navbar__item--hidden');
+      user_icon_element.classList.remove('navbar__item--hidden');
       navbar_element.style.gridTemplateColumns = '1fr 1fr 1fr';
     }
     this.search_open = !this.search_open;
@@ -233,6 +264,10 @@ export class NavbarComponent implements OnInit {
    * expands shopping cart
    */
   toggleCart() {
+    if (this.show_user) {
+      this.toggleUser();
+    }
+
     let cart_element = document.querySelector('.cart') as HTMLElement;
     if (this.show_cart) {
       cart_element.style.transform = 'translateY(-150%)';
@@ -242,5 +277,21 @@ export class NavbarComponent implements OnInit {
       cart_element.style.opacity = '1';
     }
     this.show_cart = !this.show_cart;
+  }
+
+  toggleUser() {
+    if (this.show_cart) {
+      this.toggleCart();
+    }
+
+    let user_element = document.querySelector('.user') as HTMLElement;
+    if (this.show_user) {
+      user_element.style.transform = 'translateY(-150%)';
+      user_element.style.opacity = '0';
+    } else {
+      user_element.style.transform = 'translateY(0px)';
+      user_element.style.opacity = '1';
+    }
+    this.show_user = !this.show_user;
   }
 }

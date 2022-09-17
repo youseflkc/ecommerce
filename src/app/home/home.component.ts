@@ -29,9 +29,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private product_service: ProductService,
     private collection_service: CollectionService,
-    private cart_service: CartService,
-    private authService: AuthenticationService,
-    private orderService: OrderService
   ) {}
 
   async ngOnInit() {

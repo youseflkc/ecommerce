@@ -1,4 +1,9 @@
 .error-header {
-  margin: 20rem 2rem;
+  color: var(--color-font-secondary);
+}
+
+.error-container {
+  margin: 20rem auto;
   text-align: center;
+  width: 50%;
 }

@@ -34,8 +34,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
   constructor(
     private dialog_service: DialogMessageService,
-    private loading_service: LoadingDialogService,
-    private auth_service: AuthenticationService
+    private loading_service: LoadingDialogService
   ) {}
 
   intercept(
@@ -51,7 +50,9 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       request.url.includes('auth') ||
       request.url.includes('orders')
     ) {
-      this.loading_service.open(LoadingDialogComponent);
+      if (!this.loading_service.isOpen()) {
+        this.loading_service.open(LoadingDialogComponent);
+      }
     }
     return next.handle(request).pipe(
       retryWhen((error) => {

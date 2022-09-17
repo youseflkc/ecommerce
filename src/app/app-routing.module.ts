@@ -1,3 +1,4 @@
+import { LoggedOutComponent } from './logged-out/logged-out.component';
 import { ViewOrderComponent } from './view-order/view-order.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'login/forgot-password', component: ForgotPasswordComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoggedOutComponent },
   {
     path: 'checkout/order-success',
     component: OrderSuccessComponent,

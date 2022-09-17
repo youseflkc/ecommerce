@@ -1,4 +1,4 @@
-<div class="carousel">
+<div [style.background-color]="color" class="carousel">
   <ng-container *ngFor="let slide of slides; let i = index">
     <img
       *ngIf="i === current_slide"

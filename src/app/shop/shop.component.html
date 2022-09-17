@@ -18,7 +18,7 @@
   </ul>
 </header>
 
-<section class="toolbar--mobile">
+<section *ngIf="mobile_filter" class="toolbar--mobile">
   <div>
     <button class="filter__btn--mobile" (click)="toggleFilter()">
       Sort/Filter
@@ -36,24 +36,18 @@
       <label class="filter__label" for="min-price"
         >Min-Price
         <input
-          #unit_price_min
           class="filter__input animate__animated"
           id="min-price"
-          #focus
           type="number"
       /></label>
       <label class="filter__label" for="max-price"
         >Max-Price
         <input
-          #unit_price_max
           class="filter__input animate__animated"
           id="max-price"
           type="number"
       /></label>
-      <button
-        (click)="filterProducts(unit_price_min.value, unit_price_max.value)"
-        class="btn btn--primary filter__btn"
-      >
+      <button (click)="filterProducts()" class="btn btn--primary filter__btn">
         Filter
       </button>
       <button
@@ -166,27 +160,22 @@
   <div
     class="filter expandable"
     [ngClass]="filter_expanded ? 'expandable--expanded' : ''"
-    (keyup.enter)="filterProducts(unit_price_min.value, unit_price_max.value)"
+    (keyup.enter)="filterProducts()"
   >
     <label class="filter__label" for="min-price">Min-Price</label
     ><input
-      #unit_price_min
+      #focus_filter
       class="filter__input animate__animated"
       id="min-price"
-      #focus
       type="number"
     />
     <label class="filter__label" for="max-price">Max-Price</label
     ><input
-      #unit_price_max
       class="filter__input animate__animated"
       id="max-price"
       type="number"
     />
-    <button
-      (click)="filterProducts(unit_price_min.value, unit_price_max.value)"
-      class="btn btn--primary filter__btn"
-    >
+    <button (click)="filterProducts()" class="btn btn--primary filter__btn">
       Filter
     </button>
     <button

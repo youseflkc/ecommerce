@@ -43,6 +43,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { OrderSuccessComponent } from './order-success/order-success.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { ViewOrderComponent } from './view-order/view-order.component';
+import { UserComponent } from './user/user.component';
+import { LoggedOutComponent } from './logged-out/logged-out.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { ViewOrderComponent } from './view-order/view-order.component';
     OrderSuccessComponent,
     MyOrdersComponent,
     ViewOrderComponent,
+    UserComponent,
+    LoggedOutComponent,
   ],
   imports: [
     BrowserModule,

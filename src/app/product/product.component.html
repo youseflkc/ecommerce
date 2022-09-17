@@ -44,18 +44,12 @@
         [icon]="faPlus"
       ></fa-icon>
     </div>
-    <button (click)="buyNow()" class="btn btn--primary">Buy Now</button>
-    <button (click)="addToCart()" class="btn btn--secondary">
-      Add to Cart
-    </button>
+    <button (click)="addToCart()" class="btn btn--primary">Add to Cart</button>
   </div>
 </div>
 <h4 class="recommended-products-header">Products You Might Like</h4>
 <div class="recommended-products">
   <ng-container *ngFor="let product of recommended_products; let i = index">
-    <app-product-card
-      *ngIf="i < 4"
-      [product]="product"
-    ></app-product-card>
+    <app-product-card *ngIf="i < 4" [product]="product"></app-product-card>
   </ng-container>
 </div>
