@@ -39,12 +39,20 @@
   color: var(--color-primary);
 }
 
+.image-container {
+  margin: 0 2rem;
+  width: 8.5rem;
+  height: 5.5rem;
+  padding: 0.5rem;
+  background: var(--color-font-primary);
+}
+
 .cart__item__image {
-  height: 6rem;
-  width: 9rem;
+  height: 100%;
+  width: 100%;
   object-fit: contain;
   background-color: var(--color-font-primary);
-  margin: 0 1rem;
+  margin: auto;
   cursor: pointer;
 }
 

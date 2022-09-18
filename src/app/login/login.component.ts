@@ -143,7 +143,9 @@ export class LoginComponent implements OnInit {
     this.show_login = !this.show_login;
     this.show_register = false;
     this.register_success = false;
-    this.router.navigate([]);
+    this.router.navigate([], {
+      queryParams: { returnUrl: this.params['returnUrl'] },
+    });
   }
 
   toggleRegister() {
@@ -152,7 +154,10 @@ export class LoginComponent implements OnInit {
     this.register_success = false;
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { register: true },
+      queryParams: {
+        register: true,
+        returnUrl: this.params['returnUrl'],
+      },
     });
   }
 

@@ -1,6 +1,7 @@
 .product {
   display: grid;
-  margin: 4rem 4rem 3rem;
+  margin: 4rem auto 3rem;
+  max-width: 1366px;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
 }
@@ -8,6 +9,8 @@
 .product__image {
   height: 30vw;
   object-fit: contain;
+  margin: 0 1rem;
+  max-width: 85%;
 }
 
 .product__image-container {

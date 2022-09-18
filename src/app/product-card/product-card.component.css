@@ -27,9 +27,14 @@
   height: 13vw;
   object-fit: contain;
 }
+
 @media screen and (max-width: 768px) {
+  .product-card__image-container {
+    padding: 1rem;
+  }
+
   .product-card__image {
-    height: 10vh;
+    height: 13vh;
   }
 }
 

@@ -31,6 +31,12 @@
   gap: 1rem;
 }
 
+@media screen and (max-width: 1024px) {
+  .user--container {
+    margin-top: 1rem;
+  }
+}
+
 .user__login-btn {
   margin: 0;
 }

@@ -52,8 +52,10 @@
   opacity: 1;
 }
 
-.collections-list__item > a:hover {
-  color: var(--color-primary);
+@media screen and (min-width: 1366px) {
+  .collections-list__item > a:hover {
+    color: var(--color-primary);
+  }
 }
 
 @media screen and (max-width: 768px) {

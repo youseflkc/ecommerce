@@ -70,9 +70,11 @@
         class="navbar__icon"
         [icon]="faCart"
       ></fa-icon>
-      <p [style.opacity]="cart_quantity > 0 ? '1' : '0'" class="cart__quantity">
-        {{ cart_quantity }}
-      </p>
+      <p
+        [style.opacity]="cart_quantity > 0 ? '1' : '0'"
+        class="cart__quantity"
+        [textContent]="cart_quantity > 99 ? '...' : cart_quantity"
+      ></p>
     </li>
     <li id="user-icon" style="padding: 0 0.5rem" class="navbar__item">
       <fa-icon

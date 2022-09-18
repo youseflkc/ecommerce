@@ -12,7 +12,7 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProductComponent implements OnInit {
   default_image = DEFAULT_IMAGE;
-  @Input('product') product: any = DEFAULT_PRODUCT;
+  product: any = DEFAULT_PRODUCT;
 
   recommended_products: any = [];
 
@@ -44,8 +44,10 @@ export class ProductComponent implements OnInit {
     }
 
     this.quantity_input = document.getElementById(
-      'quantity'
+      'quantity-' + this.product.id
     ) as HTMLInputElement;
+
+    this.quantity_input.value = '1';
 
     this.route.params.subscribe(async (params) => {
       try {
@@ -61,8 +63,9 @@ export class ProductComponent implements OnInit {
         this.recommended_products = res.results;
 
         this.quantity_input = document.getElementById(
-          'quantity'
+          'quantity-' + this.product.id
         ) as HTMLInputElement;
+        this.quantity_input.value = '1';
       } catch (error) {
         this.router.navigate(['**']);
       }

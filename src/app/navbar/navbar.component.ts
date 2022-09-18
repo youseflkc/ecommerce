@@ -190,7 +190,9 @@ export class NavbarComponent implements OnInit {
       switchMap((term: string) => {
         if (term.length > 1) {
           this.product_service.searchProduct(term).then((res) => {
-            this.searched_products = res.results;
+            if (res.results) {
+              this.searched_products = res.results;
+            }
           });
         }
         return [];

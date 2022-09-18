@@ -63,8 +63,9 @@
 }
 
 .view-order__item__image {
-  height: 6rem;
-  width: 9rem;
+  height: 5.5rem;
+  width: 8.5rem;
+  padding: 0.5rem;
   object-fit: contain;
   background-color: var(--color-font-primary);
   margin: 0 1rem;
@@ -86,6 +87,16 @@
 
 .view-order__item__price::before {
   content: "$";
+}
+
+@media screen and (max-width: 1024px) {
+  .view-order__item {
+    grid-template-columns: 9fr 2fr 1fr;
+  }
+
+  .view-order__item__title {
+    width: 50%;
+  }
 }
 
 @media screen and (max-width: 768px) {

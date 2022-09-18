@@ -93,7 +93,7 @@ body {
   transition: all 0.3s;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1366px) {
   .btn:hover::before {
     transform-origin: right center;
     width: 0%;
@@ -108,7 +108,7 @@ body {
   background-color: var(--color-secondary);
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1366px) {
   .btn--primary:hover {
     color: var(--color-secondary);
     background-color: transparent;
@@ -125,7 +125,7 @@ body {
   background-color: white;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1366px) {
   .btn--secondary:hover {
     color: var(--color-font-primary);
     background-color: var(--color-secondary);
@@ -178,7 +178,7 @@ body {
   transition: all 0.2s;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1366px) {
   .link-arrow--after:hover::after {
     left: 10px;
   }

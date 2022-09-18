@@ -235,8 +235,13 @@
   transform: translate(17px, -33px);
   background: var(--color-primary);
   color: var(--color-font-primary);
-  padding: 0.3rem 0.5rem 0.1rem 0.6rem;
-  border-radius: 0.5rem;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 28px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 50%;
   font-size: 0.8rem;
   transition: all 0.2s;
   cursor: default;
@@ -246,13 +251,6 @@
   position: absolute;
   transition: all 0.5s;
   z-index: 10;
-}
-
-@media screen and (max-width: 1024px) {
-  .cart__quantity {
-    padding: 0.4rem 0.3rem 0.2rem;
-    border-radius: 100%;
-  }
 }
 
 .navbar__user {

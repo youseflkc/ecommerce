@@ -1,14 +1,16 @@
 <div *ngIf="!remove_item" class="cart__item">
-  <img
-    routerLink="/shop/product/{{ item.product.id }}"
-    class="cart__item__image"
-    [src]="
-      item.product.images.length > 0
-        ? item.product.images[0].image
-        : '/assets/images/default-placeholder-image.png'
-    "
-    alt=""
-  />
+  <div class="image-container">
+    <img
+      routerLink="/shop/product/{{ item.product.id }}"
+      class="cart__item__image"
+      [src]="
+        item.product.images.length > 0
+          ? item.product.images[0].image
+          : '/assets/images/default-placeholder-image.png'
+      "
+      alt=""
+    />
+  </div>
   <div class="cart__item__details">
     <h5
       [ngClass]="light ? 'cart__item__title--light' : 'cart__item__title--dark'"

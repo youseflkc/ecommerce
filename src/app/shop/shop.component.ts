@@ -193,7 +193,6 @@ export class ShopComponent implements OnInit {
    * @param unit_price_max maximum product price to filter
    */
   async filterProducts() {
-    console.log('filter');
     let unit_price_min = document.getElementById(
       'min-price'
     ) as HTMLInputElement;

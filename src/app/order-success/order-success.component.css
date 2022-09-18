@@ -1,6 +1,7 @@
 .order-success {
   margin: 8rem 4rem 4rem;
   padding-top: 2rem;
+  border-radius: 7%;
   display: flex;
   flex-direction: column;
   background-color: var(--color-font-primary);
@@ -11,15 +12,28 @@
   min-height: 50vh;
 }
 
+@media screen and (max-width: 1024px) {
+  .order-success {
+    margin: 8rem 15% 4rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .order-success {
     margin: 2rem 0 0;
     padding: 3rem 1rem 1rem;
+    border-radius: 0;
   }
 }
 
 .order-success__btn {
   width: 20%;
+}
+
+@media screen and (max-width: 1024px) {
+  .order-success__btn {
+    width: 40%;
+  }
 }
 
 @media screen and (max-width: 768px) {

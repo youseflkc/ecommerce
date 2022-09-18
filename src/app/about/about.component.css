@@ -1,5 +1,6 @@
 .about {
-  margin: 8rem 4rem;
+  margin: 8rem auto;
+  max-width: 1366px;
   display: flex;
   gap: 2rem;
   flex-direction: column;
