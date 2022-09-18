@@ -19,7 +19,7 @@ import { Component, Input, OnInit } from '@angular/core';
   ],
 })
 export class CarouselComponent implements OnInit {
-  @Input() slides;
+  @Input() products;
 
   current_slide = 0;
   SLIDE_INTERVAL = 150000;
@@ -43,13 +43,13 @@ export class CarouselComponent implements OnInit {
 
   previousSlide() {
     let previous = this.current_slide - 1;
-    this.current_slide = previous < 0 ? this.slides.length - 1 : previous;
+    this.current_slide = previous < 0 ? this.products.length - 1 : previous;
     this.color = this.randomBackgroundColor();
   }
 
   nextSlide() {
     let next = this.current_slide + 1;
-    this.current_slide = next === this.slides.length ? 0 : next;
+    this.current_slide = next === this.products.length ? 0 : next;
     this.progress_bar_value = 100;
     this.color = this.randomBackgroundColor();
   }

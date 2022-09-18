@@ -28,8 +28,8 @@ export class ProductService {
    *
    * @returns promise of object containing:
    * 'count': number of total products in database,
-   * 'next': url to retrieve the next 10 items,
-   * 'previous': url to retrieve previous 10 items,
+   * 'next': url to retrieve the next 12 items,
+   * 'previous': url to retrieve previous 12 items,
    * 'results': array of products
    */
   async getAll(): Promise<ProductResponse> {
@@ -82,6 +82,11 @@ export class ProductService {
     return res;
   }
 
+  /**
+   * searches the database for the products matching the given search key
+   * @param search_key key to search for in products list
+   * @returns array of products that match the search_key
+   */
   async searchProduct(search_key: string) {
     let res: any = await firstValueFrom(
       this.http.get(this.base_url + '?search=' + search_key)
@@ -108,7 +113,7 @@ export class ProductService {
    * @returns promise of the product with specified id
    */
   async getProduct(id: number) {
-    return await firstValueFrom(this.http.get(this.base_url + id)).catch(
+    return await firstValueFrom(this.http.get(this.base_url + id + '/')).catch(
       (error) => throwError(() => error)
     );
   }

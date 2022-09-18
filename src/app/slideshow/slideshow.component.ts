@@ -1,3 +1,5 @@
+import { Product } from './../models/product';
+import { ProductService, ProductResponse } from './../services/product.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,28 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./slideshow.component.css'],
 })
 export class SlideshowComponent implements OnInit {
-  slides = [
-    {
-      src: 'assets/images/smartphone1.png',
-      header: 'On Sale Now!',
-      price: '1399',
-      info: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt velit quam consequatur atque sapiente placeat officia id, laboriosam autem odio culpa aspernatur est maxime debitis et! Dolor iure molestias similique?',
-    },
-    {
-      src: 'assets/images/headphones1.png',
-      header: 'On Sale Now!',
-      price: '249',
-      info: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt velit quam consequatur atque sapiente placeat officia id, laboriosam autem odio culpa aspernatur est maxime debitis et! Dolor iure molestias similique?',
-    },
-    {
-      src: 'assets/images/smartphone1.png',
-      header: 'New!',
-      price: '399',
-      info: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt velit quam consequatur atque sapiente placeat officia id, laboriosam autem odio culpa aspernatur est maxime debitis et! Dolor iure molestias similique?',
-    },
-  ];
+  products: Product[] = [];
 
-  constructor() {}
+  constructor(private product_service: ProductService) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    try {
+      let res: ProductResponse = await this.product_service.getAll();
+      this.products = res.results.slice(0, 3);
+      //total products in database.
+    } catch (error) {
+      this.products = [];
+    }
+  }
 }

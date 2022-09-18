@@ -1,23 +1,28 @@
 <div [style.background-color]="color" class="carousel">
-  <ng-container *ngFor="let slide of slides; let i = index">
+  <ng-container *ngFor="let product of products; let i = index">
     <img
       *ngIf="i === current_slide"
-      [src]="slide.src"
+      [src]="product.images[1].image"
       class="carousel__slide"
       [@slide_animation]
       alt=""
     />
   </ng-container>
-  <ng-container *ngFor="let slide of slides; let i = index">
+  <ng-container *ngFor="let product of products; let i = index">
     <div [@info_animation] *ngIf="i === current_slide" class="slideshow__info">
       <header [@info_scroll_animation] class="slideshow__header">
-        <h3>{{ slide.header }}</h3>
-        <h2>{{ slide.price }}</h2>
+        <h3>{{ product.title }}</h3>
+        <h2>{{ product.unit_price }}</h2>
         <p>
-          {{ slide.info }}
+          {{ product.description.substring(0, 255) }}
         </p>
         <div class="slideshow__btn-container">
-          <button routerLink="/shop" class="btn btn--primary">Shop Now</button>
+          <button
+            routerLink="/shop/product/{{ product.id }}"
+            class="btn btn--primary"
+          >
+            Shop Now
+          </button>
         </div>
       </header>
     </div>
@@ -28,7 +33,7 @@
       mode="determinate"
       color="secondary"
       [value]="i === current_slide ? progress_bar_value : ''"
-      *ngFor="let slide of slides; let i = index"
+      *ngFor="let product of products; let i = index"
       class="carousel__btn"
       (click)="goToSlide(i)"
       [ngClass]="i === current_slide ? 'carousel__btn--selected' : ''"

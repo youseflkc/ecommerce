@@ -4,7 +4,6 @@
 >
   <div
     [id]="product.id"
-    routerLink="/shop/product/{{ product.id }}"
     (mouseover)="mouseOver()"
     (mouseout)="mouseOut()"
     class="product-card__image-container"
@@ -13,6 +12,7 @@
     <img
       [id]="product.id + '_image'"
       class="product-card__image"
+      routerLink="/shop/product/{{ product.id }}"
       [ngClass]="featured ? 'product-card__image--featured' : ''"
       [src]="
         product.images.length > 0
