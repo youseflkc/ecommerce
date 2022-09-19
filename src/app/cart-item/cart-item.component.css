@@ -14,6 +14,13 @@
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.2s;
+  width: 17vw;
+}
+
+@media screen and (max-width: 768px) {
+  .cart__item__title {
+    width: 100%;
+  }
 }
 
 .cart__item__title:hover {
