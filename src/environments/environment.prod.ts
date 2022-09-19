@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  base_url: 'http://storebackendapp-prod.herokuapp.com/store',
-  auth_url: 'http://storebackendapp-prod.herokuapp.com/auth',
+  base_url: 'https://storebackendapp-prod.herokuapp.com/store',
+  auth_url: 'https://storebackendapp-prod.herokuapp.com/auth',
 };
