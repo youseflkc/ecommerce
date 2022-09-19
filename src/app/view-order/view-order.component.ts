@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-order.component.css'],
 })
 export class ViewOrderComponent implements OnInit {
+  //order to be displayed
   order: Order = {
     customer: 0,
     id: 0,
@@ -20,6 +21,7 @@ export class ViewOrderComponent implements OnInit {
     total_quantity: 0,
   };
 
+  //the tax on the order total
   tax = 0;
 
   constructor(

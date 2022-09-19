@@ -1,11 +1,7 @@
 import { Product } from './../models/product';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpStatusCode,
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, throwError } from 'rxjs';
 
 export interface ProductResponse {

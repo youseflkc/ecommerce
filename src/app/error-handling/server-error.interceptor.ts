@@ -1,4 +1,3 @@
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { LoadingDialogComponent } from './../loading-dialog/loading-dialog.component';
 import { LoadingDialogService } from './../services/loading-dialog.service';
 import { DialogMessageComponent } from './../dialog-message/dialog-message.component';
@@ -15,7 +14,6 @@ import {
 import {
   catchError,
   Observable,
-  retry,
   finalize,
   throwError,
   retryWhen,
@@ -23,20 +21,23 @@ import {
   of,
   delay,
 } from 'rxjs';
-import { AuthenticationService } from '../services/authentication.service';
 
 const maxAttempts = 2; //maximum number of times to retry request when there is a server error
 const delayMs = 3000; //number of ms to wait between retrying request attempts.
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
-  is_refreshing_token: boolean = false;
-
   constructor(
     private dialog_service: DialogMessageService,
     private loading_service: LoadingDialogService
   ) {}
 
+  /**
+   * intercepts all incoming and outgoing http requests for displaying loading dialog and for error handling
+   * @param request
+   * @param next
+   * @returns
+   */
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -82,8 +83,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
   async handleError(error: HttpErrorResponse) {
     if (error.status === HttpStatusCode.Unauthorized) {
-      if (!this.is_refreshing_token) {
-      }
     } else if (error.status === HttpStatusCode.BadRequest) {
       //handle in component
     } else if (navigator.onLine) {

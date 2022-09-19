@@ -14,6 +14,7 @@ export class SlideshowComponent implements OnInit {
 
   async ngOnInit() {
     try {
+      //gets the first 3 products from the database to be displayed in the slideshow
       let res: ProductResponse = await this.product_service.getAll();
       this.products = res.results.slice(0, 3);
       //total products in database.

@@ -10,7 +10,7 @@
   </ng-container>
   <ng-container *ngFor="let product of products; let i = index">
     <div [@info_animation] *ngIf="i === current_slide" class="slideshow__info">
-      <header [@info_scroll_animation] class="slideshow__header">
+      <header class="slideshow__header">
         <h3>{{ product.title }}</h3>
         <h2>{{ product.unit_price }}</h2>
         <p>

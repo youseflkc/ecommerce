@@ -5,9 +5,7 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +16,12 @@ export class AuthGaurdService implements CanActivate {
     private router: Router
   ) {}
 
+  /**
+   * checks if user is authenticated and if not, redirects user to login page
+   * @param route 
+   * @param state 
+   * @returns 
+   */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.auth_service.getCurrentUser().then((user) => {
       if (user) {

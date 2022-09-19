@@ -10,12 +10,15 @@ import { CartItem } from '../models/cart-item';
   styleUrls: ['./cart-item.component.css'],
 })
 export class CartItemComponent implements OnInit {
+
+  //cart item to be displayed
   @Input() item: CartItem = {
     id: 0,
     product: DEFAULT_SIMPLE_PRODUCT,
     quantity: 0,
   };
 
+  // sets the theme of the component: light if true, dark if false.
   @Input() light: boolean = true;
   
 
@@ -29,6 +32,9 @@ export class CartItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * calls the server to remove this item from the cart
+   */
   async removeItem() {
     this.remove_item = true;
     await this.cart_service.removeItem(this.item.id);

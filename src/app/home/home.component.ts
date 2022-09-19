@@ -1,12 +1,7 @@
-import { OrderService } from './../services/order.service';
-import { Cart } from './../models/cart';
-import { CartService } from './../services/cart.service';
-import { Collection } from './../models/collection';
 import { CollectionService } from './../services/collection.service';
 import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
+import { Component, OnInit } from '@angular/core';
 import { faArrowAltCircleDown as fasArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons';
 import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
 
@@ -17,18 +12,18 @@ import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
   animations: [],
 })
 export class HomeComponent implements OnInit {
-  products: Product[] = [];
-  next_url: string = '';
+  // array of collections
   collections: any = [];
+
+  //array of products to be passed to featured products component
   featured_products: Product[] = [];
-  products_count = 0;
 
   faArrowSolid = fasArrowAltCircleDown;
   faArrow = faArrowAltCircleDown;
 
   constructor(
     private product_service: ProductService,
-    private collection_service: CollectionService,
+    private collection_service: CollectionService
   ) {}
 
   async ngOnInit() {
@@ -45,6 +40,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * scrolls page to featured products section when scroll down btn is clicked
+   * @param element 
+   */
   scrollPage(element: HTMLElement) {
     if (window.matchMedia('(max-width: 768px)').matches) {
       element.scrollIntoView({ behavior: 'smooth' });

@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./announcement-bar.component.css'],
 })
 export class AnnouncementBarComponent implements OnInit {
+  //text to be displayed in announcment bar
   @Input() text: string = '';
 
   constructor() {}

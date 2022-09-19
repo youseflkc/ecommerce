@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./featured-products.component.css'],
 })
 export class FeaturedProductsComponent implements OnInit {
+  //products to be displayed
   @Input() products: Product[] = [];
 
   constructor() {}

@@ -10,10 +10,12 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./dialog-message.component.css'],
   animations: [dialog_animation],
 })
+/**
+ * This dialog box is used to display error messages that are not handled
+ */
 export class DialogMessageComponent implements OnInit {
   faX = faX;
   dialog = document.querySelector('dialog-box') as HTMLElement;
-  startAnimation = false;
   constructor(
     @Inject(DIALOG_CONFIG)
     public data: { header: string; message: string; status: number },
@@ -22,15 +24,10 @@ export class DialogMessageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // openAlertDialog(error: { header: string; message: string; status: number }) {
-  //   // this.error = error;
-  //   this.dialog.classList.add('dialog-box--show dialog-box--alert');
-  // }
 
-  // closeAlertDialog() {
-  //   this.dialog.classList.remove('dialog-box--show dialog-box--alert');
-  // }
-
+  /**
+   * closes the dialog box
+   */
   close() {
     setTimeout(() => this.dialogRef.close(), 10);
   }

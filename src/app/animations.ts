@@ -9,6 +9,9 @@ import {
   stagger,
 } from '@angular/animations';
 
+/**
+ * open/close animation for the search bar
+ */
 export let open_close_input = trigger('open_close_input', [
   state(
     'open',
@@ -27,6 +30,9 @@ export let open_close_input = trigger('open_close_input', [
   transition('open <=> closed', [animate('0.2s')]),
 ]);
 
+/**
+ * animates the search bar icon when search bar is opened or closed
+ */
 export let open_close_icon = trigger('open_close_icon', [
   state(
     'open',
@@ -45,6 +51,9 @@ export let open_close_icon = trigger('open_close_icon', [
   transition('open <=> closed', [animate('0.2s')]),
 ]);
 
+/**
+ * enter and exit animations for image in carousel
+ */
 export let slide_animation = trigger('slide_animation', [
   transition(':enter', [
     style({
@@ -64,16 +73,9 @@ export let slide_animation = trigger('slide_animation', [
   transition(':leave', [animate('0.2s 0.3s', style({ opacity: 0 }))]),
 ]);
 
-export let btn_animation = trigger('btn_animation', [
-  state(
-    'empty_bar',
-    style({
-      transform: 'translateX(-100%)',
-    })
-  ),
-  transition('* => empty_bar', [style({ width: '100%' }), animate('15s')]),
-]);
-
+/**
+ * slide up animation for carousel info section
+ */
 export let info_animation = trigger('info_animation', [
   transition(':enter', [
     style({
@@ -93,16 +95,9 @@ export let info_animation = trigger('info_animation', [
   ]),
 ]);
 
-export let info_scroll_animation = trigger('info_scroll_animation', [
-  transition(':enter', [
-    style({
-      transform: 'translateY(100%)',
-      opacity: 0,
-    }),
-    animate('1.5s 2s cubic-bezier(.13,.92,.25,.77)'),
-  ]),
-]);
-
+/**
+ * testimonial section slide in and out animation
+ */
 export let testimonial_animation = trigger('testimonial_animation', [
   transition(':enter', [
     query('h4', [style({ opacity: 0, transform: 'translateX(100vw)' })]),
@@ -165,6 +160,9 @@ export let testimonial_animation = trigger('testimonial_animation', [
   ]),
 ]);
 
+/**
+ * slide in and out animation for error dialog box
+ */
 export let dialog_animation = trigger('dialog_animation', [
   transition(':enter', [
     style({
@@ -174,14 +172,5 @@ export let dialog_animation = trigger('dialog_animation', [
       '0.4s 1s cubic-bezier(0,.69,.25,1.02)',
       style({ transform: 'translateX(0)' })
     ),
-  ]),
-]);
-
-export let slideInAnimation = trigger('slideInAnimation', [
-  transition(':enter', [
-    style({
-      display: 'none',
-    }),
-    animate('5s'),
   ]),
 ]);

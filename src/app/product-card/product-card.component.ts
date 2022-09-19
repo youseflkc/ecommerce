@@ -7,15 +7,18 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./product-card.component.css'],
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product: Product = DEFAULT_PRODUCT;
-  /**
-   * bg color scheme: choose 'bg-1', 'bg-2', 'bg-3'
-   */
 
+  //product to be displayed
+  @Input() product: Product = DEFAULT_PRODUCT;
+
+  // background color
   color: string = '';
   default_color = 'var(--color-product-bg-2)';
 
+  // determines whether to add highlight detail to product card
   @Input() highlight: boolean = false;
+
+  //determines whether to apply featured style to product card
   @Input() featured: boolean = false;
 
   constructor() {}
@@ -45,6 +48,9 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  /**
+   * displays alternate image and background when hovering over product card
+   */
   mouseOver() {
     let image = document.getElementById(
       this.product.id + '_image'
@@ -63,6 +69,9 @@ export class ProductCardComponent implements OnInit {
     }
   }
 
+  /**
+   * reverts to original image and background when mouse leaves product card
+   */
   mouseOut() {
     let image = document.getElementById(
       this.product.id + '_image'

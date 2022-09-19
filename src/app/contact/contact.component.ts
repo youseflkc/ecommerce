@@ -20,6 +20,9 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * mock method to send message. has not yet been implemented
+   */
   sendMessage() {
     let name_el = document.getElementById('name') as HTMLInputElement;
     let email_el = document.getElementById('email') as HTMLInputElement;

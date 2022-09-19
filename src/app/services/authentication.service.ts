@@ -13,6 +13,12 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * creates new user in database
+   * @param user user object to be submitted
+   * @param password password for user
+   * @returns user object if successfully registerd
+   */
   async registerUser(user: User, password: string) {
     return await firstValueFrom(
       this.http.post(this.base_url + '/users/', {
@@ -22,6 +28,12 @@ export class AuthenticationService {
     );
   }
 
+  /**
+   * retrieves authentication tokens using the given username and password
+   * @param username username of user being authenticated
+   * @param password users password
+   * @returns authentication token object
+   */
   async login(username: string, password: string) {
     let token: any = localStorage.getItem('access');
     if (!token) {
@@ -47,6 +59,10 @@ export class AuthenticationService {
     this.user_logged_in_event.emit(false);
   }
 
+  /**
+   * uses refresh token to retrieve new access token after it expires
+   * @returns true if token is successfully retrieved, false otherwise
+   */
   async tokenRefresh() {
     let refresh_token = localStorage.getItem('refresh');
     if (!refresh_token) {
@@ -68,6 +84,10 @@ export class AuthenticationService {
     return false;
   }
 
+  /**
+   * checks server to see if access token is valid and returns the user object
+   * @returns user object if token is valid, false otherwise
+   */
   async getCurrentUser() {
     let access_token = localStorage.getItem('access');
     if (!access_token) {
@@ -89,6 +109,12 @@ export class AuthenticationService {
     return false;
   }
 
+
+  /**
+   * requests password reset email for given account
+   * @param email email of account to reset the password
+   * @returns email of account if successful
+   */
   async resetPassword(email: string) {
     return await firstValueFrom(
       this.http.post(this.base_url + '/users/reset_password/', {

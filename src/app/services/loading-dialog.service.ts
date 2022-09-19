@@ -1,7 +1,6 @@
 import { LoadingDialogComponent } from './../loading-dialog/loading-dialog.component';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { DialogRef } from './../dialog-ref';
-import { IDialogConfig } from './../dialog-config';
 import { Overlay, ComponentType } from '@angular/cdk/overlay';
 import { Injectable, Injector } from '@angular/core';
 

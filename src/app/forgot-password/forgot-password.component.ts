@@ -9,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
   email: string = '';
+
+  //if there is an error, this will be set to true and an error message will be displayed
   error: boolean = false;
+
+  //shows the 'password reset successfully' page if true
   password_reset_success = false;
 
   constructor(
@@ -23,6 +27,9 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
+  /**
+   * calls the server to reset the password. catches error if invalid email to passed
+   */
   resetPassword() {
     if (this.validateEmail()) {
       this.auth_service
@@ -32,6 +39,10 @@ export class ForgotPasswordComponent implements OnInit {
     }
   }
 
+  /**
+   * validates whether the email field is empty or not
+   * @returns true if not empty, false if empty
+   */
   validateEmail() {
     if (this.email === '') {
       this.inputError();
@@ -40,6 +51,9 @@ export class ForgotPasswordComponent implements OnInit {
     return true;
   }
 
+  /**
+   * highlights textbox if error is caught and applies animation
+   */
   inputError() {
     let element = document.getElementById('email') as HTMLInputElement;
 
@@ -52,6 +66,10 @@ export class ForgotPasswordComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * removes error message from screen after error is corrected
+   * @param event 
+   */
   clearDanger(event: Event) {
     (event.target as HTMLInputElement).classList.remove('email__input--danger');
     this.error = false;

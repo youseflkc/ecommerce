@@ -15,6 +15,10 @@ export class TestimonialsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * sets the current element body to be displayed
+   * @param selected_body name of body to be displayed
+   */
   setSelected_body(selected_body: string) {
     this.selected_body = selected_body;
   }

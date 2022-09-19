@@ -1,5 +1,5 @@
 import { CartService } from './cart.service';
-import { first, firstValueFrom, timeout } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import {
   HttpClient,
   HttpErrorResponse,

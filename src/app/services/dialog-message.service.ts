@@ -14,6 +14,12 @@ import { ComponentPortal } from '@angular/cdk/portal';
 export class DialogMessageService {
   constructor(private overlay: Overlay, private injector: Injector) {}
 
+  /**
+   * opens a new dialog with the specified component
+   * @param component component to be displayed in dialog
+   * @param config configuration of dialog
+   * @returns 
+   */
   open<T>(component: ComponentType<T>, config: IDialogConfig): DialogRef {
     const positionStrategy = this.overlay
       .position()

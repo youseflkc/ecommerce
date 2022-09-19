@@ -1,8 +1,6 @@
 import {
-  btn_animation,
   info_animation,
   slide_animation,
-  info_scroll_animation,
 } from './../animations';
 
 import { Component, Input, OnInit } from '@angular/core';
@@ -13,18 +11,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./carousel.component.css'],
   animations: [
     slide_animation,
-    btn_animation,
     info_animation,
-    info_scroll_animation,
   ],
 })
 export class CarouselComponent implements OnInit {
+  //products to be displayed in carousel
   @Input() products;
 
   current_slide = 0;
+
+  //time between each slide
   SLIDE_INTERVAL = 150000;
+
+  //progress bar that is displayed at the bottom of the carousel
   progress_bar_value = 100;
 
+  //background color of carousel
   color = '';
 
   constructor() {}
@@ -41,12 +43,18 @@ export class CarouselComponent implements OnInit {
     }, 150);
   }
 
+  /**
+   * changes to the previous slide
+   */
   previousSlide() {
     let previous = this.current_slide - 1;
     this.current_slide = previous < 0 ? this.products.length - 1 : previous;
     this.color = this.randomBackgroundColor();
   }
 
+  /**
+   * changes to the next slide
+   */
   nextSlide() {
     let next = this.current_slide + 1;
     this.current_slide = next === this.products.length ? 0 : next;
@@ -54,6 +62,10 @@ export class CarouselComponent implements OnInit {
     this.color = this.randomBackgroundColor();
   }
 
+  /**
+   * goes to the specified slide
+   * @param slide_number slide number to move forward to
+   */
   goToSlide(slide_number: number) {
     this.current_slide = slide_number;
     this.progress_bar_value = 100;

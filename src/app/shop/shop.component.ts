@@ -1,4 +1,3 @@
-import AOS from 'aos';
 import { Collection } from './../models/collection';
 import { ProductService, ProductResponse } from './../services/product.service';
 import { CollectionService } from './../services/collection.service';
@@ -23,8 +22,11 @@ import { Ordering } from '../models/ordering';
   styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
+  // gets filter input text field to focus when the filter toolbar is opened
   @ViewChild('focus_filter', { static: false }) input: ElementRef =
     new ElementRef('');
+
+  // scrolls the page to the top when page-up btn is clicked
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     let element = document.querySelector('.page-down-container') as HTMLElement;

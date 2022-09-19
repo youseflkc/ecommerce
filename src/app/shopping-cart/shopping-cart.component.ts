@@ -1,6 +1,5 @@
 import { Cart } from './../models/cart';
 import { CartService } from './../services/cart.service';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent implements OnInit {
+
+  // users shopping cart to be displayed
   cart: Cart = {
     id: '',
     items: [],
@@ -16,8 +17,6 @@ export class ShoppingCartComponent implements OnInit {
     total_price_with_tax: 0,
     total_quantity: 0,
   };
-  quantity_input = new Object() as HTMLInputElement;
-
   constructor(private cart_service: CartService) {}
 
   async ngOnInit() {

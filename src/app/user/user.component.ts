@@ -9,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
+  //if user is logged in, it will display the users account page, otherwise will display login btn
   logged_in: boolean = false;
+
+  //user to be displayed
   user: User = { email: '', first_name: '', last_name: '', username: '' };
 
   constructor(
@@ -26,6 +29,7 @@ export class UserComponent implements OnInit {
       this.logged_in = false;
     }
 
+    //checks if user was logged out or logged in to update the view
     this.auth_service.user_logged_in_event.subscribe(async (logged_in) => {
       this.logged_in = logged_in;
       if (logged_in) {
@@ -35,6 +39,9 @@ export class UserComponent implements OnInit {
     });
   }
 
+  /**
+   * logs the user out
+   */
   logout() {
     this.auth_service.logout();
     this.router.navigate(['logout']);

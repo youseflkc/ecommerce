@@ -1,12 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from './../services/authentication.service';
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  asNativeElements,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { User } from '../models/user';
 
 @Component({
@@ -15,15 +9,18 @@ import { User } from '../models/user';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  //gets the username input field from the dom to be focused when the page loads
   username_input_element!: ElementRef<HTMLInputElement>;
-
   @ViewChild('focused') set inputElRef(elRef: ElementRef<HTMLInputElement>) {
     if (elRef) {
       this.username_input_element = elRef;
       this.username_input_element.nativeElement.focus({ preventScroll: true });
     }
   }
+
+  // url paramaters
   params;
+
   password = '';
   user: User = {
     username: '',
@@ -32,13 +29,22 @@ export class LoginComponent implements OnInit {
     last_name: '',
   };
 
+  // shows the login form if set to true
   show_login = true;
+
+  //shows register form if set to true
   show_register = false;
+
+  //shows register success page if set to true
   register_success = false;
 
+  // true if invalid data is submitted
   invalid_error = false;
+
+  //true if form is submitted with empty fields
   empty_error = false;
 
+  // error messages retrieved from server
   error_messages: string[] = [];
 
   constructor(
@@ -62,6 +68,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * validates fields and calls server to login user
+   */
   login() {
     if (this.validateLoginFields()) {
       this.auth_service
@@ -75,6 +84,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * validates fields and calls server to register user
+   */
   register() {
     if (this.validateRegisterFields()) {
       this.auth_service
@@ -90,6 +102,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * checks if login fields are empty or not and if there are it calls method to display error message
+   * @returns true if no errors, false if errors
+   */
   validateLoginFields() {
     if (this.user.username === '' || this.password === '') {
       this.inputError();
@@ -100,6 +116,10 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
+  /**
+   * checks if register fields are empty or not and if there are it calls method to display error message
+   * @returns true if no errors, false if errors
+   */
   validateRegisterFields() {
     if (
       this.user.username === '' ||
@@ -116,6 +136,9 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
+  /**
+   * highlights fields that are empty and displays error message
+   */
   inputError() {
     let elements = document.getElementsByClassName('login__input');
     for (let i = 0; i < elements.length; i++) {
@@ -131,6 +154,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * navigates to return url specidied in the query parameters, or navigates home if no
+   * return url is specified
+   */
   navigateToReturnUrl() {
     if (this.params['returnUrl']) {
       this.router.navigate([this.params['returnUrl']]);
@@ -139,6 +166,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * displays the login form and removes other forms from view
+   */
   toggleLogin() {
     this.show_login = !this.show_login;
     this.show_register = false;
@@ -148,6 +178,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * displays the register form and removes other forms from view
+   */
   toggleRegister() {
     this.show_register = !this.show_register;
     this.show_login = false;
@@ -161,6 +194,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * displays the register success page and removes other forms from view
+   */
   showRegisterSuccess() {
     this.register_success = true;
     this.show_register = false;
@@ -168,6 +204,10 @@ export class LoginComponent implements OnInit {
     this.password = '';
   }
 
+  /**
+   * removes error message
+   * @param event 
+   */
   clearDanger(event: Event) {
     (event.target as HTMLInputElement).classList.remove('login__input--danger');
     this.empty_error = false;

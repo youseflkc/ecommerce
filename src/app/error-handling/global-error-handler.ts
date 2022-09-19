@@ -8,6 +8,11 @@ import { from } from 'rxjs';
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private dialogService: DialogMessageService) {}
 
+  /**
+   * global error handler catches any errors that are not handled by the server-interceptor 
+   * and displays them in a message dialog
+   * @param error the error that was caught
+   */
   handleError(error: any): void {
     if (!(error instanceof HttpErrorResponse)) {
       this.dialogService.open(DialogMessageComponent, {
