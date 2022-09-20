@@ -57,7 +57,7 @@ export class CartService {
   async getItem(id: number) {
     let cart_id = localStorage.getItem('cart_id');
     return await firstValueFrom(
-      this.http.get(this.base_url + cart_id + '/items/' + id)
+      this.http.get(this.base_url + cart_id + '/items/' + id + '/')
     ).catch((error) => throwError(() => error));
   }
 
@@ -87,7 +87,7 @@ export class CartService {
   async removeItem(id: number) {
     let cart_id = localStorage.getItem('cart_id');
     let res = await firstValueFrom(
-      this.http.delete(this.base_url + cart_id + '/items/' + id)
+      this.http.delete(this.base_url + cart_id + '/items/' + id + '/')
     ).catch((error) => throwError(() => error));
     this.cart_updated_event.emit(res);
     return res;
@@ -102,7 +102,7 @@ export class CartService {
   async updateItem(id: number, quantity: number) {
     let cart_id = localStorage.getItem('cart_id');
     let res = await firstValueFrom(
-      this.http.patch(this.base_url + cart_id + '/items/' + id, {
+      this.http.patch(this.base_url + cart_id + '/items/' + id + '/', {
         quantity: quantity,
       })
     ).catch((error) => throwError(() => error));
