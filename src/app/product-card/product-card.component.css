@@ -15,6 +15,12 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 1366px) {
+  .product-card__image-container {
+    padding: 1rem 2rem;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .product-card__image-container {
     margin: 1rem 1.4rem;

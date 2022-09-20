@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.6.
 
-This is the front-end for the ecommerce website developed using angular. This is a sample ecommerce app that implements a modern, user-friendly UI and secure user authenticaion using OAuth2.0 protocol. The web app is mobile, tablet and desktop compatible. 
+This is the front-end for the ecommerce website developed using angular. This is a sample ecommerce app that implements a modern, user-friendly UI and secure user authenticaion using OAuth2.0 protocol. The web app is mobile, tablet and desktop compatible. Supports Chrome and Firefox.
 
 website link: https://ecommercefrontendapp.herokuapp.com/
 

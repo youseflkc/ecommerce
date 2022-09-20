@@ -39,7 +39,7 @@
   border: none;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1366px) {
   .navbar--clear {
     background-color: white;
     height: 4rem;
