@@ -104,10 +104,12 @@
   color: var(--color-secondary);
 }
 
-.navbar__item > a:hover,
-.navbar__icon:hover {
-  color: #69615b;
-  transition: color 0.2s;
+@media screen and (min-width: 1366px) {
+  .navbar__item > a:hover,
+  .navbar__icon:hover {
+    color: #69615b;
+    transition: color 0.2s;
+  }
 }
 
 .navbar__icon {
