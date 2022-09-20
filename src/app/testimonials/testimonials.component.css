@@ -10,6 +10,12 @@
   }
 }
 
+@media screen and (max-width: 350px) {
+  .testimonial {
+    grid-template-rows: 1fr 2fr;
+  }
+}
+
 .testimonial__nav {
   display: flex;
   flex-direction: row;

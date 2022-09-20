@@ -93,7 +93,7 @@
 
 @media screen and (max-width: 768px) {
   .contact__message__info {
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
   }
 }
 
@@ -118,5 +118,9 @@
 
   .contact__message > .btn {
     width: 80%;
+  }
+
+  .contact__message__input {
+    width: 60%;
   }
 }

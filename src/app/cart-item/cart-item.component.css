@@ -60,6 +60,13 @@
   background: var(--color-font-primary);
 }
 
+@media screen and (max-width: 350px) {
+  .image-container {
+    width: 30vw;
+    height: 8vh;
+  }
+}
+
 .cart__item__image {
   height: 100%;
   width: 100%;

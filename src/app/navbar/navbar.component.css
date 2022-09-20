@@ -160,6 +160,12 @@
   }
 }
 
+@media screen and (max-width: 350px) {
+  .navbar__input {
+    width: 73vw;
+  }
+}
+
 .navbar__list--hidden {
   transform: translateX(-200%);
   position: absolute;
