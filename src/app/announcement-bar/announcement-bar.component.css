@@ -12,3 +12,13 @@
 .announcement-bar p {
   text-transform: uppercase;
 }
+
+@media screen and (max-width: 768px) {
+  .announcement-bar {
+    height: 1.5rem;
+  }
+
+  .announcement-bar p {
+    font-size: 0.8rem;
+  }
+}
