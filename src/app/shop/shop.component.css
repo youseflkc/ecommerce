@@ -282,7 +282,8 @@
 
 .sort-filter {
   padding: 2rem 1rem;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .filter--mobile {

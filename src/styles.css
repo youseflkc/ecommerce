@@ -191,7 +191,7 @@ body {
 @supports (-webkit-touch-callout: none) {
   .link-arrow--before::before {
     left: -3px;
-    top: 3px;
+    top: 4px;
   }
 }
 

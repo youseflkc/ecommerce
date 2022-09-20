@@ -27,6 +27,12 @@
   top: 2rem;
 }
 
+@media screen and (max-width: 7688px) {
+  .navbar--normal {
+    top: 1.5rem;
+  }
+}
+
 .navbar--clear {
   background-color: #00000017;
   height: 3rem;
@@ -246,7 +252,7 @@
   padding: 0;
   width: 1.5rem;
   height: 1.5rem;
-  line-height: 28px;
+  line-height: 27px;
   text-align: center;
   overflow: hidden;
   border-radius: 50%;
