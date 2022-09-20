@@ -188,6 +188,13 @@ body {
   }
 }
 
+@supports (-webkit-touch-callout: none) {
+  .link-arrow--before::before {
+    left: -3px;
+    top: 2px;
+  }
+}
+
 .link-arrow--return {
   display: block;
   margin-top: 4rem;
