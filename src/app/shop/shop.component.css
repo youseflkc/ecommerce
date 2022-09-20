@@ -316,6 +316,13 @@
   transition: all 0.3s;
 }
 
+@media screen and (max-width: 1024px) {
+  .sort__btn {
+    font-size: 0.8rem;
+    margin: 1rem 0.3rem;
+  }
+}
+
 .sort__btn:hover {
   color: var(--color-secondary);
 }
