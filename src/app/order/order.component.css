@@ -28,6 +28,18 @@
   }
 }
 
+@media screen and (max-width: 350px) {
+  .order {
+    justify-content: center;
+    overflow-x: hidden;
+  }
+
+  .order__form {
+    padding: 5rem 1rem 4rem;
+    width: 90%;
+  }
+}
+
 .order__form__header {
   color: var(--color-secondary);
   margin-bottom: 0.5rem;
